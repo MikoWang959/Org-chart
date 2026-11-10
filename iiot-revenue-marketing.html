@@ -190,6 +190,7 @@
     .eyebrow { color: #1559d6; }
     .eyebrow::before { display: none; }
     h1 { color: #202938; }
+    h1 { white-space: nowrap; font-size: clamp(30px, 5.1vw, 62px); }
     .subtitle { color: #687386; }
     .team-count {
       color: #4d596b;
@@ -498,6 +499,7 @@
       .leader-section { max-width: none; }
     }
     @media (max-width: 560px) {
+      h1 { white-space: normal; font-size: clamp(24px, 7.2vw, 36px); }
       .shell { padding: 25px 16px 36px; }
       .topbar { margin-bottom: 24px; }
       .header-meta { flex-wrap: wrap; justify-content: flex-start; gap: 12px 18px; }
@@ -558,7 +560,7 @@
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Back
         </a>
-        <h1>IIoT Revenue<br>Marketing</h1>
+        <h1>IIoT Revenue Marketing</h1>
         <p class="subtitle">A clear view of the people, teams, and responsibilities behind Revenue Marketing. Select anyone to see what they do and where to go with a question.</p>
       </div>
       <div class="header-meta">
@@ -574,7 +576,7 @@
       <label class="search-wrap">
         <span class="sr-only">Search people and responsibilities</span>
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <input id="search" type="search" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility">
+        <input id="search" type="text" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility">
         <button class="clear-search" type="button" aria-label="Clear search" title="Clear search">×</button>
       </label>
       <p class="sr-only" id="searchStatus" aria-live="polite">Select a person to open their profile</p>
@@ -779,6 +781,19 @@
       if (manager) openProfile(manager.dataset.openManager, manager);
     });
     search.addEventListener("input", filterPeople);
+    const pageParams = new URLSearchParams(window.location.search);
+    const initialQuery = pageParams.has("person") ? "" : pageParams.get("q");
+    if (initialQuery) { search.value = initialQuery; filterPeople(); }
+    const requestedPerson = new URLSearchParams(window.location.search).get("person");
+    if (requestedPerson) {
+      const normalizeName = value => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLocaleLowerCase();
+      const targetName = normalizeName(requestedPerson);
+      const targetButton = buttons.find(button => normalizeName(people[button.dataset.person]?.name || "") === targetName);
+      if (targetButton) {
+        targetButton.scrollIntoView({ block: "center" });
+        openProfile(targetButton.dataset.person, targetButton);
+      }
+    }
     document.querySelector(".clear-search").addEventListener("click", () => { search.value = ""; filterPeople(); search.focus(); });
     document.getElementById("resetView").addEventListener("click", () => {
       search.value = "";

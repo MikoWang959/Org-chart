@@ -580,7 +580,7 @@
       <label class="search-wrap">
         <span class="sr-only">Search people and responsibilities</span>
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <input id="search" type="search" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility">
+        <input id="search" type="text" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility">
         <button class="clear-search" type="button" aria-label="Clear search" title="Clear search">×</button>
       </label>
       <p class="sr-only" id="searchStatus" aria-live="polite">Select a person to open their profile</p>
@@ -783,6 +783,19 @@
       if (manager) openProfile(manager.dataset.openManager, manager);
     });
     search.addEventListener("input", filterPeople);
+    const pageParams = new URLSearchParams(window.location.search);
+    const initialQuery = pageParams.has("person") ? "" : pageParams.get("q");
+    if (initialQuery) { search.value = initialQuery; filterPeople(); }
+    const requestedPerson = new URLSearchParams(window.location.search).get("person");
+    if (requestedPerson) {
+      const normalizeName = value => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLocaleLowerCase();
+      const targetName = normalizeName(requestedPerson);
+      const targetButton = buttons.find(button => normalizeName(people[button.dataset.person]?.name || "") === targetName);
+      if (targetButton) {
+        targetButton.scrollIntoView({ block: "center" });
+        openProfile(targetButton.dataset.person, targetButton);
+      }
+    }
     document.querySelector(".clear-search").addEventListener("click", () => { search.value = ""; filterPeople(); search.focus(); });
     document.getElementById("resetView").addEventListener("click", () => {
       search.value = "";

@@ -37,10 +37,34 @@
     .explore-hint { display: flex; align-items: center; gap: 9px; margin: 0 0 12px 4px; color: var(--muted); font-size: 12pt; line-height: 1.35; }
     .hint-dot { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: var(--blue); }
     .explore-hint strong { color: #4d596b; font-weight: 650; }
+    .city-toolbar { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; padding: 12px; border: 1px solid rgba(255,255,255,.96); border-radius: 15px; background: #f2efe9; box-shadow: 7px 7px 18px #ddd9d2, -7px -7px 18px #fffdfa; }
+    .city-search-wrap { position: relative; flex: 1; }
+    .city-search-icon { position: absolute; top: 50%; left: 13px; width: 16px; height: 16px; transform: translateY(-50%); color: #546174; pointer-events: none; }
+    #citySearch { width: 100%; min-height: 42px; padding: 0 40px; color: var(--ink); border: 1px solid rgba(255,255,255,.96); border-radius: 10px; outline: 0; background: #f8f6f2; box-shadow: inset 2px 2px 5px rgba(188,184,177,.2), inset -2px -2px 5px #fff; font-size: 12pt; }
+    #citySearch::placeholder { color: #8b929d; }
+    #citySearch:focus { border-color: rgba(21,89,214,.48); background: #fff; }
+
+    .city-toolbar { position: relative; z-index: 10; }
+    .city-search-results { position: absolute; top: calc(100% + 8px); left: 12px; z-index: 20; width: calc(100% - 122px); max-height: min(420px, 60vh); overflow: auto; padding: 7px; border: 1px solid rgba(255,255,255,.98); border-radius: 14px; background: #f8f6f2; box-shadow: 8px 12px 28px rgba(47,55,68,.18), -4px -4px 12px #fff; }
+    .city-search-results[hidden] { display: none; }
+    .city-search-option { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 12px; width: 100%; padding: 10px 12px; border: 0; border-radius: 9px; color: var(--ink); background: transparent; text-align: left; text-decoration: none; cursor: pointer; }
+    .city-search-option:hover, .city-search-option.is-active, .city-search-option:focus-visible { outline: none; background: #eaf0fa; }
+    .city-search-option strong { overflow: hidden; font-size: 11pt; font-weight: 680; text-overflow: ellipsis; white-space: nowrap; }
+    .city-search-option small { grid-column: 1 / -1; overflow: hidden; color: var(--muted); font-size: 9.5pt; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+    .city-search-option .result-area { grid-column: 2; grid-row: 1; align-self: center; color: var(--blue); font-size: 9pt; text-align: right; }
+    .city-search-empty { padding: 13px 12px; color: var(--muted); font-size: 10.5pt; }
+    @media (max-width: 760px) { .city-search-results { top: calc(100% + 8px); left: 12px; width: calc(100% - 24px); } }
+
+    .city-search-clear, .city-search-reset { min-height: 40px; padding: 0 12px; border: 1px solid #dedbd5; border-radius: 10px; color: #435066; background: #f6f3ee; box-shadow: 3px 3px 8px rgba(203,199,192,.35), -3px -3px 8px #fffdfa; cursor: pointer; font-size: 11pt; font-weight: 620; }
+    .city-search-clear { display: none; position: absolute; top: 50%; right: 7px; width: 28px; height: 28px; min-height: 0; padding: 0; transform: translateY(-50%); border: 0; background: transparent; box-shadow: none; }
+    .city-search-wrap.has-value .city-search-clear { display: block; }
+    .city-search-clear:hover, .city-search-reset:hover { color: var(--blue); border-color: #c8d6f0; }
+    .city-empty-state { display: none; margin: 16px 0 0; padding: 24px; color: var(--muted); text-align: center; border: 1px dashed #c9c6c0; border-radius: 14px; }
+    .district-card.search-hidden { display: none; }
     .city-shell { padding: clamp(12px, 1.5vw, 22px); border: 1px solid rgba(255,255,255,.96); border-radius: 26px; background: rgba(246,243,238,.78); box-shadow: 8px 8px 20px rgba(204,200,193,.55), -7px -7px 20px rgba(255,255,255,.92); }
-    .city-map { position: relative; min-height: 850px; height: min(1100px, 82vw); overflow: hidden; border: 1px solid rgba(255,255,255,.88); border-radius: 19px; isolation: isolate; background: linear-gradient(180deg, #f7ece1 0%, #f9f0e8 52%, #faf0e7 100%); }
+    .city-map { position: relative; min-height: 850px; height: min(1100px, 82vw); overflow: hidden; border: 1px solid rgba(255,255,255,.88); border-radius: 19px; isolation: isolate; background: #f3ecef; }
     .city-art { position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
-    .city-map::before { position: absolute; z-index: 1; inset: 0; background: transparent; pointer-events: none; content: ""; }
+    .city-map::before { display: none; }
     .city-map::after { position: absolute; z-index: 4; inset: 0; border: 1px solid rgba(255,255,255,.62); border-radius: inherit; pointer-events: none; content: ""; }
     .district-card { --sign-accent: #a9b8cb; position: absolute; z-index: 2; top: var(--top); left: var(--left); display: flex; width: clamp(140px, 15%, 190px); min-height: 50px; align-items: center; justify-content: center; padding: 8px 10px; transform: translate(-50%, -50%); text-align: center; border: 1px solid rgba(255,255,255,.96); border-top: 2px solid var(--sign-accent); border-radius: 13px; color: var(--ink); background: rgba(250,248,245,.88); box-shadow: 5px 6px 13px rgba(53,67,91,.12), -3px -3px 8px rgba(255,255,255,.72); backdrop-filter: blur(6px); text-decoration: none; transition: transform .24s cubic-bezier(.2,.75,.25,1), box-shadow .24s ease, border-color .24s ease, background .24s ease; }
     .district-card.is-ready { --sign-accent: var(--blue); cursor: pointer; }
@@ -55,8 +79,8 @@
     .district-card[data-area="04"] { --left: 12%; --top: 57%; }
     .district-card[data-area="05"] { --left: 57%; --top: 58%; width: clamp(250px, 26%, 330px); }
     .district-card[data-area="06"] { --left: 88%; --top: 59%; }
-    .district-card[data-area="07"] { --left: 19%; --top: 81%; width: clamp(250px, 25%, 320px); }
-    .district-card[data-area="08"] { --left: 79%; --top: 83%; width: clamp(270px, 27%, 330px); }
+    .district-card[data-area="07"] { --left: 19%; --top: 83%; width: clamp(250px, 25%, 320px); }
+    .district-card[data-area="08"] { --left: 79%; --top: 88%; width: clamp(270px, 27%, 330px); }
     .district-card.is-active { --sign-accent: var(--blue); }
     @media (max-width: 1000px) {
       .page { width: min(100% - 36px, 1800px); }
@@ -69,7 +93,9 @@
     }
     @media (max-width: 760px) {
       .masthead { flex-direction: column; gap: 16px; }
-      .city-map { display: grid; height: auto; min-height: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow: visible; padding: 10px; background: linear-gradient(180deg, #f7ece1 0%, #f9f0e8 52%, #faf0e7 100%); }
+      .city-toolbar { flex-wrap: wrap; }
+      .city-search-wrap { flex-basis: 100%; }
+      .city-map { display: grid; height: auto; min-height: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow: visible; padding: 10px; background: #f3ecef; }
       .city-art { position: relative; z-index: 0; grid-column: 1 / -1; width: calc(100% + 20px); height: auto; margin: -10px -10px 4px; object-fit: contain; border-radius: 12px; }
       .district-card { position: relative; top: auto !important; left: auto !important; width: auto; min-height: 60px; padding: 8px 10px; transform: none; }
       .district-card[data-area="05"], .district-card[data-area="07"] { width: auto; }
@@ -107,33 +133,153 @@
       <div class="map-summary">8 focus areas</div>
     </header>
 
+    <div class="city-toolbar" role="search" aria-label="Search people and focus areas">
+      <label class="city-search-wrap">
+        <svg class="city-search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <input id="citySearch" type="text" placeholder="Search a person, team, or responsibility" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="citySearchResults" aria-expanded="false" aria-label="Search a person, team, or responsibility">
+        <button class="city-search-clear" type="button" aria-label="Clear search">×</button>
+      </label>
+      <div class="city-search-results" id="citySearchResults" role="listbox" aria-label="People matches" hidden></div>
+      <button class="city-search-reset" type="button">Reset view</button>
+    </div>
+
     <p class="explore-hint"><span class="hint-dot" aria-hidden="true"></span><strong>Explore the city</strong><span>Hover over a sign to locate its district; select an available area to open its page.</span></p>
     <section class="city-shell" aria-label="Marketing organization city map">
       <div class="city-map" id="cityMap">
         <img class="city-art" src="assets/marketing-city-ivory.png" alt="A warm ivory and cobalt isometric city map with eight districts linked by winding roads">
-        <a class="district-card is-ready" data-area="01" href="apjc-wtg-marketing.html"><strong class="district-name">APJC WTG Marketing</strong></a>
-        <a class="district-card is-ready" data-area="02" href="amer-gtm-field-global-events.html"><strong class="district-name">AMER GTM Field &amp; Global Events</strong></a>
-        <a class="district-card is-ready" data-area="03" href="emea-field-marketing.html"><strong class="district-name">EMEA Field Marketing</strong></a>
-        <a class="district-card is-ready" data-area="04" data-arrow="up" href="iiot-revenue-marketing.html"><strong class="district-name">IIoT Revenue Marketing</strong></a>
-        <a class="district-card is-ready" data-area="05" data-arrow="up" href="integrated-marketing-gtm-strategy.html"><strong class="district-name">Integrated Marketing &amp; GTM Strategy</strong></a>
-        <a class="district-card is-ready" data-area="06" data-arrow="up" href="web-digital-ops-team.html"><strong class="district-name">Web, Digital, &amp; Ops Team</strong></a>
-        <a class="district-card is-ready" data-area="07" data-arrow="up" href="product-marketing-networking.html"><strong class="district-name">Product Marketing<br>Networking</strong></a>
-        <a class="district-card is-ready" data-area="08" data-arrow="up" href="collaboration-networking-product-solutions-marketing.html"><strong class="district-name">Collaboration Networking +<br>Product &amp; Solutions Marketing</strong></a>
+        <a class="district-card is-ready" data-area="01" data-search="APJC WTG Marketing — Team Map Back to Marketing City APJC WTG Marketing Team FY27 Meet the APJC marketing team, explore its regional focus areas, and find the right person to connect with. FTE Contractor SOW × Reset view Saleema Syed VP, GTM &amp; Growth Marketing Collab · Networking · Infra · IIoT FTE Leadership support Kendys Carrizo Executive Assistant FTE Savannah Ober Chief of Staff FTE APJC WTG Marketing Chris Bowman Sr Director of Marketing APJC FTE Focus areas Regional Product &amp; Solutions Marketing ZL Zijin Lim (CO/EN) Regional Product &amp; Solutions Marketing Leader · APJC FTE RW Roslyn Wong (IWE) Intelligent Workplaces Marketing Manager · APJC FTE CY Cindy Yeo (CO) Collaboration Marketing Manager (Suite &amp; CX) · APJC Contractor SS Shelley Staub (EN) Networking Marketing Manager · APJC Contractor India Marketing &amp; Demand Centre SP Srisha Permude India Marketing and Demand Centre Manager · APJC FTE Demand generation &amp; operations SS Sumeet Singh APJC LDR Manager · Lead Development Team SOW YP Yamini Prashar Lead Development Rep · APJC CX / Calling / Suite SOW VK Vibha Khosla Lead Development Rep · APJC CX / Calling / Suite SOW SS Shristi Singh APJC Ops and lead acceleration SOW SK Sanjana Kumari Lead Development Rep · APJC CX / Calling / Suite SOW NS Nikita Singh CX / EN Events lead SOW MK Manish Kumar Lead Development Rep · APJC IW SOW Japan Marketing AY Aiko Yasuda Japan Marketing Manager FTE ANZ Marketing TB TBH ANZ Marketing Manager Open headcount Asia Field Marketing YM Yukako Muramatsu Asia Field Marketing Manager (GC / KR / ASEAN) Contractor No people match that search. Team map · Return to Marketing City" href="apjc-wtg-marketing.html"><strong class="district-name">APJC WTG Marketing</strong></a>
+        <a class="district-card is-ready" data-area="02" data-search="AMER GTM Field &amp; Global Events — Team Map Back to Marketing City AMER GTM Field &amp; Global Events Meet the field marketing and global events teams supporting regional programs and customer experiences. FTE Contractor Open headcount × Reset view Saleema Syed VP, GTM &amp; Growth Marketing Collab · Networking · Infra · IIoT FTE Leadership support Kendys Carrizo Executive Assistant FTE Savannah Ober Chief of Staff FTE AMER GTM Field &amp; Global Events JB Julie Berg Director, AMER GTM Field &amp; Global Events FTE Focus areas AMER Field Marketing Bailee Marcum Leader, AMER Field Marketing FTE Team Julia Hart Digital, ABX &amp; Partner Lead FTE Taylor Uptagrafft Strategic Program Lead FTE Ileana Flores Regional Execution Lead FTE AA Adesuwa Avere Operations Coordinator Contractor Field Marketing Samantha Johnson Lead, Field Marketing FTE Regional Field Marketing Hayley Miller Field Marketing Manager FTE Marketing Programs Russ LaFleur Marketing Manager FTE Marketing Programs Ashley Taylor Marketing Manager FTE AH Anne Heitman Marketing Manager Contractor EP Elizabeth Prince Marketing Manager Contractor Global Events Lisa Vogel Leader, Global Events Manager FTE Team OH Open Headcount Global Events Manager · Sponsorships &amp; Partner Conferences Open headcount Joanna Johnson Global Events Manager FTE Yvonne deFuria Global Events Manager FTE Marketing Programs JP Joe Panzarella Marketing Manager Contractor Global Events Brittany Lewis Global Events Manager FTE No people match that search. Team map · Return to Marketing City" href="amer-gtm-field-global-events.html"><strong class="district-name">AMER GTM Field &amp; Global Events</strong></a>
+        <a class="district-card is-ready" data-area="03" data-search="EMEA Field Marketing — Team Map Back EMEA Field Marketing Meet the people behind EMEA Field Marketing, explore the focus areas, and find the right person for a question. 18 people · 5 focus areas FTE Contractor Maternity Leave Search people and responsibilities × Select a person to open their profile Reset view Saleema Syed VP, GTM &amp; Growth Marketing Collab · Networking · Infra · IIoT Leadership support Kendys Carrizo Executive Assistant Savannah Ober Chief of Staff EMEA Field Marketing Blossom Furtado Director Marketing, WTG Focus areas Click a person to view responsibilities and reporting path Collab Field &amp; Partner Marketing Natasha Patel MEA WTG Marketing Lead FTE MM Magali Mitaux South WTG Marketing Lead FTE NJ Nicholo Jallores Collaboration Marketing Manager FTE TG Tash Gardner UK&amp;I WTG Marketing Lead FTE NL Natalia Lysenko Germany &amp; North WTG Marketing Lead FTE TM Tijana Marjanovic WTG Events Manager Contractor EN Product Events Team Amy Newton Devices, CX, MSFT &amp; Networking Marketing Lead Maternity Leave KS Katie Sneddon WTG Events Manager FTE GH Gillian Harris (Mat Cover) Senior Marketing Manager Contractor MM Marie Morkeh-Yamson Networking Events Manager Contractor JC Joanna Cappalonga Networking Events Manager Contractor IWE Field Marketing YS Yeshima Singh IWE Events Manager Contractor Demand Generation Rachel Parkins Collaboration Marketing Manager Maternity Leave PMO AP Alisha Pinto WTG Marketing Operations Manager FTE No matches. Try a person, team, or responsibility. People directory SS Person name Responsibilities Reporting path Who to contact Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask." href="emea-field-marketing.html"><strong class="district-name">EMEA Field Marketing</strong></a>
+        <a class="district-card is-ready" data-area="04" data-search="IIoT Revenue Marketing — Team Map Back IIoT Revenue Marketing A clear view of the people, teams, and responsibilities behind Revenue Marketing. Select anyone to see what they do and where to go with a question. 10 people · 4 focus areas FTE Contractor Search people and responsibilities × Select a person to open their profile Reset view Saleema Syed VP, GTM &amp; Growth Marketing Collab · Networking · Infra · IIoT Leadership support Kendys Carrizo Executive Assistant Savannah Ober Chief of Staff IIoT Revenue Marketing Olivia Vickers Revenue Marketing Leader, IIoT · Leads four focus areas FTE Focus areas Click a person to view responsibilities and reporting path Digital &amp; Physical Events CG Christina Gonzalez Event Marketing Contractor SEO / AEO JM Jennifer McHugh Customer Marketing FTE Social, Creative, Brand SS Savanna Simmank Brand Marketing FTE Email Campaigns, ABM, SalesConnect TE Tory Elliot Lifecycle Marketing FTE SN Sunilkumar Nejakar Digital Marketing Manager Contractor BW Bridget Wald Digital Marketing Manager Contractor No matches. Try a person, team, or responsibility. People directory SS Person name Responsibilities Reporting path Who to contact Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask." data-arrow="up" href="iiot-revenue-marketing.html"><strong class="district-name">IIoT Revenue Marketing</strong></a>
+        <a class="district-card is-ready" data-area="05" data-search="Integrated Marketing &amp; GTM Strategy — Team Map Back to Marketing City Integrated Marketing &amp; GTM Strategy Explore the teams shaping integrated campaigns, marketing strategy, global programs, and go-to-market execution. FTE Contractor × Reset view Saleema Syed VP, GTM &amp; Growth Marketing Collab · Networking · Infra · IIoT FTE Leadership support Kendys Carrizo Executive Assistant FTE Savannah Ober Chief of Staff FTE Integrated Marketing &amp; GTM Strategy Ian Michiels Sr. Director, WTG Marketing Strategy &amp; GTM Execution FTE Leadership support VG Vanessa Garcia Executive Assistant Contractor Focus areas Collaboration Global Integrated &amp; ABM RR Robyn Rawlings Sr. Director, Campaigns, Content &amp; Performance Marketing FTE Content &amp; Campaigns DS Derek Stevens Marketing Manager FTE CB Caitlin Barrett Marketing Manager FTE IT Iringa Triplett Webinar Program Contractor LY Lisa Young Copy Editor / Writer Contractor Performance Marketing CM Cristal Marquez Marketing Manager FTE KC Kristin Cowhey Adoption Programs, User Group &amp; Experts FTE Global ABX &amp; SDRs JC Joyce Chuang Director, Marketing FTE TK Tina Kuan Leader, Marketing FTE MN Mark Neath Leader, Business Development FTE TC Tim Colegate-Smith Business Development Manager FTE JF John Ferreira Business Development Manager FTE DF Donnell Fields Business Development Manager Contractor TB TBH Business Development Manager Contractor BH Bruce Hayes Program Lead (CTO) Contractor DK Dominika Karpiuk Business Development Rep (CTO) Contractor PT Paul Trauberman Business Development Rep (CTO) Contractor WH Warrne Ham Business Development Rep (CTO) Contractor WTG Marketing Strategy &amp; PMO PMO NC Nidhima Chadha Project / Program Management FTE LN Laura Nelson Project / Program Management Contractor Strategy &amp; GTM Networking PMM &amp; Central Marketing Liaison AP Andrew Pearson Director, Marketing FTE Infra GTM Strategy No people match that search. Team map · Return to Marketing City" data-arrow="up" href="integrated-marketing-gtm-strategy.html"><strong class="district-name">Integrated Marketing &amp; GTM Strategy</strong></a>
+        <a class="district-card is-ready" data-area="06" data-search="Web, Digital &amp; Ops Team — Team Map Back to Marketing City Web, Digital &amp; Ops Team Explore the teams building digital experiences, marketing operations, analytics, and web strategy. FTE Contractor × Reset view Saleema Syed VP, GTM &amp; Growth Marketing Collab · Networking · Infra · IIoT FTE Leadership support Kendys Carrizo Executive Assistant FTE Savannah Ober Chief of Staff FTE Web, Digital &amp; Ops Team Pradeep Dasarathan Sr. Director – Web &amp; Digital Marketing, Collaboration FTE Leadership support SU Silva Umarova Project Manager Contractor Focus areas Platform &amp; Insights JP John Paccio Leader, Platform &amp; Insights · San Jose FTE Team GW Graham Williams Business Intelligence Manager FTE MD Meghana Dayananda Developer FTE Marketing Analytics MS Megan Smith Leader, Marketing Analytics · San Jose FTE Marketing Ops &amp; Web Execution VN Vijay Neelakandan Leader, Web &amp; Marketing Ops · San Jose FTE Team GC Gowreeswaran Chandrasekaran UI Engineer FTE AG Akshara Giridhara QA Engineer FTE RV Rahul Vilas Kulkarni Adobe Architect &amp; Software Engineer FTE RG Ranjithreddy Gutha Localization &amp; MarTech Developer FTE DC Dana Ciarlariello Marketing Ops Manager FTE PCS Punith C S Developer FTE BD Bhushan Bhim Divale Developer FTE Web Strategy &amp; SEO Marketing JW James Williams Leader, Web Strategy (Webex.com, CPaaS) Digital Marketing · UK FTE Team RJ Rhys Jones Digital Marketing &amp; Marketing Ops FTE IT Isobel Trimble Digital Marketing FTE AC Adam Cummings Developer FTE No people match that search. Team map · Return to Marketing City" data-arrow="up" href="web-digital-ops-team.html"><strong class="district-name">Web, Digital, &amp; Ops Team</strong></a>
+        <a class="district-card is-ready" data-area="07" data-search="Product Marketing Networking — Team Map Back to Marketing City Product Marketing Networking Explore the teams shaping Networking PINs, Platform, API, Assurance, and Industry product marketing. FTE Contractor × Reset view Bassam Khan VP, Product Marketing Networking FTE Leadership support VG Vanessa Garcia Executive Assistant Contractor JF Juliet Friedman Chief of Staff FTE Focus areas Networking PINs GS Grant Shirk (CA) Sr. Director · Product Marketing, Networking PINs FTE Wireless and IoT JT Josh van Tonder Director, Wireless FTE AN Amrit Nijjer Wireless FTE LA Lesly Anzo Wireless, Sensors FTE Switching TC Thomas Clavel Director, Switching FTE GG Gabriel Geller Switching · On leave FTE SF Summer Faruqi Switching FTE AC Albert Chiang Switching Contractor SH Sophia Hsieh Switching Contractor Routing KG Kiran Ghodgegaonkar Director, Routing FTE DC Devin Creer Routing, Security &amp; PQC FTE AS Abdi Saeedabadi Routing, AI Infra &amp; Unified Branch FTE IIoT PP Preethy Padmanabhan (CA) Director, Industrial FTE FM Fabien Maisl Product Marketing Leader FTE EK Emily Kasman Transportation &amp; Industrial Security FTE JF John Filitz Industrial Security FTE HT Henry Teichert Industrial Routing and Utilities FTE PC Patricia Costa Industrial Wireless, Oil &amp; Gas FTE EK Eric Kim PMM, Industrial AI FTE EH Erin Hatfield PMM, Enablement and Launch Ops Contractor Platform, API, Assurance Networking Platforms MK Miriam Kung Networking Platforms FTE MA Monisha Alfaro Licensing &amp; Workflows FTE API and Marketplace NN Ana Nennig Marketplace, Dev &amp; API FTE AK Alex Kim PMM, API Contractor Assurance DP David Puzas ThousandEyes &amp; Assurance FTE JZ Jonathan Zarkower Employee Digital Experience &amp; Competitive Intelligence FTE Industry AL Ana Leung Verticals, Industry, Competitive Marketing Contractor No people match that search. Team map · Return to Marketing City" data-arrow="up" href="product-marketing-networking.html"><strong class="district-name">Product Marketing<br>Networking</strong></a>
+        <a class="district-card is-ready" data-area="08" data-search="Collaboration Networking + Product &amp; Solutions Marketing — Team Map Back to Marketing City Collaboration Networking + Product &amp; Solutions Marketing Explore the teams supporting customer and employee experiences, training, collaboration, networking, and future-proof workplace solutions. FTE Contractor Open headcount × Reset view Craig Burnham VP · Product Marketing, Collaboration Solutions Marketing, FPW FTE Leadership support Kendys Carrizo Executive Assistant FTE AC Amanda Crain Chief of Staff FTE Focus areas Customer Experience MP Manu Parhar Director, Product Marketing FTE Team JS Jessica Smith Director, Product Marketing (CCaaS) FTE PG Paula Goldrich Leader, Marketing (CPaaS) FTE SW Sam Watson Product Marketing Manager FTE Employee Experience CL Caitlin Lacey Director, Product Marketing FTE Suite TT Tenev Takahashi Product Marketing Manager FTE MS Molita Sorishochamaki Product Marketing Manager FTE Devices AJ Andy Johnston Leader, Product Marketing FTE MS Marte Sannesmoen Product Marketing Manager FTE GG György Gyarmati Product Marketing Manager FTE MR Marisa Rutti Product Marketing Manager FTE Customer Training (Webex Academy) CW Caroline Wright Director, Learning &amp; Development FTE Webex Training LH Laura Hamill Leader, Webex Training FTE Team CD Clare Davis Webex Trainer FTE SP Susan Parrish Webex Trainer FTE VM Vanesa Melendez Webex Trainer Contractor Learning Content AM Arnold Murray Leader, Learning Content FTE Team CR Caroline Reilly Instructional Designer Contractor JB Jamie Bissonnette Instructional Designer FTE DG Dan Gallant Instructional Designer FTE JJ Joseph Jenkins Instructional Designer Contractor AP Aadila Patel Instructional Designer Contractor AS Alexandra Scarpello Instructional Designer Contractor Learning Experience JH Jeff Hubbard Leader, Learning Experience FTE Team DW Donna Wyvill Experience Admin Contractor EN Emanuel Nascimento Instructional Designer Contractor Solutions Marketing, Future Proof Workplace SE Scott Edwards Director, Solutions &amp; Customer Advocacy FTE Launches CT Christina Torok (WA) Director, Product Marketing FTE Team JP Jill Purse Product Marketing Manager (Networking) FTE SS Shilpi Sneha Product Marketing Manager (Networking) FTE LR Lindsey Rein Launches Marketing (Collab) Contractor TB TBH — Leader Solutions Marketing · Req 2015383 Open headcount Customer Advocacy CG Courtenay Godshall Director, Product Marketing FTE Team DW Dik Whitten Marketing Manager FTE ML Melody Leatherbury Marketing Manager FTE TB TBH — Customer Advocacy Customer Advocacy Marketing Manager · Req 2016128 Open headcount AgenticOps KR Kris Rangarajan AgenticOps &amp; Thought Leadership FTE Team GM George Mokdessi Product Marketing Manager FTE KH Karen Hobert Program Manager Contractor TB TBH — Senior Solutions Marketing AI for EN · Req 2015081 Open headcount TB TBH — Content Marketing Marketing Manager, AI for EN · Req 2015080 Open headcount No people match that search. Team map · Return to Marketing City" data-arrow="up" href="collaboration-networking-product-solutions-marketing.html"><strong class="district-name">Collaboration Networking +<br>Product &amp; Solutions Marketing</strong></a>
       </div>
     </section>
+    <p class="city-empty-state" role="status">No people or focus areas match that search.</p>
   </main>
+  <script src="assets/people-directory.js"></script>
   <script>
     const signs = [...document.querySelectorAll(".district-card[data-area]")];
+    const citySearch = document.querySelector("#citySearch");
+    const citySearchWrap = document.querySelector(".city-search-wrap");
+    const citySearchClear = document.querySelector(".city-search-clear");
+    const citySearchReset = document.querySelector(".city-search-reset");
+    const resultsMenu = document.querySelector("#citySearchResults");
+    const cityEmptyState = document.querySelector(".city-empty-state");
+    const people = window.PEOPLE_DIRECTORY || [];
+    let activeResult = -1;
+    let currentMatches = [];
 
-    function highlightArea(area) {
-      signs.forEach(sign => sign.classList.toggle("is-active", Boolean(area) && sign.dataset.area === area));
+    const normalize = value => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase().replace(/\s+/g, " ").trim();
+    const closeResults = () => {
+      resultsMenu.hidden = true;
+      citySearch.setAttribute("aria-expanded", "false");
+      citySearch.removeAttribute("aria-activedescendant");
+      activeResult = -1;
+    };
+    const setActiveResult = index => {
+      const options = [...resultsMenu.querySelectorAll("[role=option]")];
+      if (!options.length) return;
+      activeResult = (index + options.length) % options.length;
+      options.forEach((option, i) => {
+        const active = i === activeResult;
+        option.classList.toggle("is-active", active);
+        option.setAttribute("aria-selected", String(active));
+      });
+      citySearch.setAttribute("aria-activedescendant", options[activeResult].id);
+      options[activeResult].scrollIntoView({ block: "nearest" });
+    };
+    const openPerson = person => {
+      const target = new URL(person.href, window.location.href);
+      target.searchParams.set("q", person.name);
+      window.location.href = target.href;
+    };
+    const renderResults = (matches, query) => {
+      resultsMenu.replaceChildren();
+      activeResult = -1;
+      if (!query) { closeResults(); return; }
+      if (!matches.length) {
+        const empty = document.createElement("div");
+        empty.className = "city-search-empty";
+        empty.textContent = "No people match that search.";
+        resultsMenu.append(empty);
+      } else {
+        matches.forEach((person, index) => {
+          const option = document.createElement("a");
+          option.className = "city-search-option";
+          option.id = `citySearchOption${index}`;
+          option.setAttribute("role", "option");
+          option.setAttribute("aria-selected", "false");
+          const destination = new URL(person.href, window.location.href);
+          if (person.kind === "area") {
+            destination.searchParams.set("q", query);
+            destination.searchParams.delete("person");
+          } else {
+            destination.searchParams.delete("q");
+            destination.searchParams.set("person", person.name);
+          }
+          option.href = destination.href;
+          option.addEventListener("pointerenter", () => setActiveResult(index));
+          const name = document.createElement("strong");
+          name.textContent = person.name;
+          const area = document.createElement("span");
+          area.className = "result-area";
+          area.textContent = person.kind === "area" ? "Focus area" : person.areas.length > 1 ? `${person.areas.length} focus areas` : person.areas[0];
+          const detail = document.createElement("small");
+          detail.textContent = person.kind === "area" ? "Open this area" : person.title || person.areas.join(" · ");
+          option.append(name, area, detail);
+          resultsMenu.append(option);
+        });
+      }
+      resultsMenu.hidden = false;
+      citySearch.setAttribute("aria-expanded", "true");
+    };
+    function filterDistricts() {
+      const rawQuery = citySearch.value.trim();
+      const query = normalize(rawQuery);
+      citySearchWrap.classList.toggle("has-value", Boolean(rawQuery));
+      currentMatches = query ? people.filter(person => normalize(`${person.name} ${person.title} ${person.areas.join(" ")}`).includes(query)) : [];
+      const areaMatches = query ? signs
+        .filter(sign => normalize(sign.querySelector(".district-name")?.textContent || "").includes(query))
+        .map(sign => ({ name: sign.querySelector(".district-name")?.textContent.trim() || "Focus area", title: "", areas: [], href: sign.getAttribute("href"), kind: "area" })) : [];
+      currentMatches.sort((a, b) => {
+        const an = normalize(a.name), bn = normalize(b.name);
+        const ar = an === query ? 0 : an.startsWith(query) ? 1 : 2;
+        const br = bn === query ? 0 : bn.startsWith(query) ? 1 : 2;
+        return ar - br || an.localeCompare(bn);
+      });
+      const matchingPages = new Set([...currentMatches, ...areaMatches].map(person => person.href));
+      signs.forEach(sign => {
+        const areaMatch = query && normalize(sign.querySelector(".district-name")?.textContent || "").includes(query);
+        sign.classList.toggle("search-hidden", Boolean(query) && !matchingPages.has(sign.getAttribute("href")) && !areaMatch);
+      });
+      if (cityEmptyState) cityEmptyState.style.display = query && !currentMatches.length && !signs.some(sign => !sign.classList.contains("search-hidden")) ? "block" : "none";
+      renderResults([...areaMatches, ...currentMatches], rawQuery);
     }
+
+    citySearch.addEventListener("input", filterDistricts);
+    citySearch.addEventListener("focus", () => { if (citySearch.value.trim()) filterDistricts(); });
+    citySearch.addEventListener("keydown", event => {
+      const options = resultsMenu.querySelectorAll("[role=option]");
+      if (event.key === "ArrowDown" && !resultsMenu.hidden && options.length) { event.preventDefault(); setActiveResult(activeResult + 1); }
+      else if (event.key === "ArrowUp" && !resultsMenu.hidden && options.length) { event.preventDefault(); setActiveResult(activeResult < 0 ? options.length - 1 : activeResult - 1); }
+      else if (event.key === "Enter" && !resultsMenu.hidden && activeResult >= 0 && options[activeResult]) { event.preventDefault(); options[activeResult].click(); }
+      else if (event.key === "Escape") closeResults();
+    });
+    citySearchClear.addEventListener("click", () => { citySearch.value = ""; filterDistricts(); citySearch.focus(); });
+    citySearchReset.addEventListener("click", () => { citySearch.value = ""; filterDistricts(); citySearch.focus(); });
+    document.addEventListener("pointerdown", event => { if (!event.target.closest(".city-toolbar")) closeResults(); });
     signs.forEach(sign => {
       sign.addEventListener("pointerenter", () => highlightArea(sign.dataset.area));
       sign.addEventListener("pointerleave", () => highlightArea(null));
       sign.addEventListener("focus", () => highlightArea(sign.dataset.area));
       sign.addEventListener("blur", () => highlightArea(null));
     });
+    const initialQuery = new URLSearchParams(window.location.search).get("q");
+    if (initialQuery) citySearch.value = initialQuery;
+    filterDistricts();
   </script>
 </body>
 </html>
