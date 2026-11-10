@@ -229,4 +229,18 @@
   search.addEventListener('input', update);
   clear.addEventListener('click', () => { search.value = ''; search.focus(); update(); });
   reset.addEventListener('click', () => { search.value = ''; update(); search.focus(); });
+  const pageParams = new URLSearchParams(window.location.search);
+  const initialQuery = pageParams.has('person') ? '' : pageParams.get('q');
+  if (initialQuery) search.value = initialQuery;
+  update();
+  const requestedPerson = new URLSearchParams(window.location.search).get('person');
+  if (requestedPerson) {
+    const normalizeName = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLocaleLowerCase();
+    const targetName = normalizeName(requestedPerson);
+    const targetCard = cards.find(card => !card.classList.contains('hidden-by-search') && normalizeName(readCard(card).name) === targetName);
+    if (targetCard) {
+      targetCard.scrollIntoView({ block: 'center' });
+      openDirectory(targetCard);
+    }
+  }
 })();
