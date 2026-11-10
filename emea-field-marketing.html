@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07172d">
+  <title>EMEA Field Marketing — Team Map</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --canvas: #07172d;
+      --panel: #0b203b;
+      --panel-raised: #102846;
+      --line: #29425f;
+      --line-strong: #48627f;
+      --text: #f4f7fb;
+      --muted: #a2b0c2;
+      --muted-2: #71849d;
+      --cyan: #16c7e8;
+      --orange: #ff9b27;
+      --mint: #8ee5d0;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .35);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -28%, rgba(33, 83, 126, .35), transparent 53%),
+        var(--canvas);
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .shell { max-width: 1500px; margin: 0 auto; padding: 42px clamp(20px, 4vw, 64px) 58px; }
+    .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: 34px; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 12px; color: var(--mint); font-size: 11px; font-weight: 750; letter-spacing: .17em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--mint); }
+    h1 { margin: 0; font-size: clamp(34px, 5.1vw, 62px); line-height: .98; letter-spacing: -.055em; font-weight: 690; }
+    .subtitle { max-width: 580px; margin: 15px 0 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .header-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 15px; padding-top: 3px; }
+    .team-count { display: flex; align-items: center; gap: 9px; padding: 8px 12px; color: #c6d2df; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; white-space: nowrap; }
+    .team-count .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 12px rgba(142, 229, 208, .6); }
+    .legend { display: flex; gap: 14px; color: var(--muted); font-size: 12px; }
+    .legend-item { display: inline-flex; align-items: center; gap: 7px; }
+    .legend-mark { width: 3px; height: 14px; border-radius: 2px; background: var(--cyan); }
+    .legend-mark.contractor { background: var(--orange); }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 0 0 27px; padding: 13px; border: 1px solid rgba(123, 151, 184, .16); border-radius: 16px; background: rgba(10, 29, 52, .72); }
+    .search-wrap { position: relative; flex: 1; max-width: 480px; }
+    .search-icon { position: absolute; top: 50%; left: 13px; width: 16px; height: 16px; transform: translateY(-50%); color: #8195ac; pointer-events: none; }
+    #search { width: 100%; min-height: 42px; padding: 0 42px 0 40px; color: var(--text); outline: none; border: 1px solid transparent; border-radius: 10px; background: #071a31; transition: border .16s, background .16s; }
+    #search::placeholder { color: #7e92aa; }
+    #search:focus { border-color: rgba(22, 199, 232, .65); background: #0a2039; }
+    .clear-search { position: absolute; top: 50%; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 8px; color: #9aabc0; background: transparent; cursor: pointer; transform: translateY(-50%); }
+    .clear-search:hover { color: white; background: rgba(255, 255, 255, .08); }
+    .toolbar-note { margin: 0; color: var(--muted-2); font-size: 12px; }
+    .reset-button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: #bdcad8; cursor: pointer; font-size: 12px; font-weight: 650; white-space: nowrap; transition: .15s ease; }
+    .reset-button:hover { border-color: var(--line-strong); background: rgba(255,255,255,.04); color: white; }
+    .reset-button svg { width: 14px; height: 14px; }
+    .org-canvas { position: relative; overflow-x: auto; padding: 0 1px 12px; scrollbar-color: #34516f transparent; }
+    .org-inner { min-width: 960px; }
+    .vp-row { position: relative; display: grid; grid-template-columns: minmax(300px, 1fr) minmax(300px, .7fr); align-items: center; gap: 32px; max-width: 920px; margin: 0 auto; padding-bottom: 43px; }
+    .vp-row::after { position: absolute; bottom: 0; left: 50%; height: 43px; border-left: 1px solid var(--line-strong); content: ""; }
+    .support-group { display: flex; flex-direction: column; gap: 10px; padding-left: 24px; border-left: 1px solid var(--line); }
+    .support-label { margin: 0 0 1px; color: var(--muted-2); font-size: 10px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .person-node { position: relative; display: flex; width: 100%; min-height: 82px; align-items: center; gap: 14px; padding: 14px 16px; overflow: hidden; text-align: left; border: 1px solid rgba(131, 156, 184, .31); border-left: 3px solid var(--cyan); border-radius: 12px; background: linear-gradient(130deg, rgba(15, 41, 69, .98), rgba(9, 29, 53, .98)); cursor: pointer; box-shadow: 0 9px 24px rgba(0, 0, 0, .12); transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, opacity .16s ease; }
+    .person-node:hover, .person-node:focus-visible { z-index: 2; transform: translateY(-2px); border-color: rgba(22, 199, 232, .65); outline: none; box-shadow: 0 12px 30px rgba(0, 0, 0, .26), 0 0 0 2px rgba(22, 199, 232, .12); }
+    .person-node.contractor { border-left-color: var(--orange); }
+    .search-hidden { display: none !important; }
+    .person-node.is-dim { opacity: .22; }
+    .person-node.is-match { border-color: var(--mint); box-shadow: 0 0 0 2px rgba(142, 229, 208, .2); }
+    .person-node.primary { min-height: 112px; padding: 18px; }
+    .avatar { display: grid; width: 47px; height: 47px; flex: 0 0 auto; place-items: center; border: 1px solid rgba(143, 177, 208, .33); border-radius: 50%; color: #dffaff; background: linear-gradient(145deg, #1d6381, #17304f 72%); font-size: 13px; font-weight: 750; letter-spacing: .04em; }
+    .primary .avatar { width: 62px; height: 62px; font-size: 16px; }
+    .node-copy { display: block; min-width: 0; }
+    .node-name { display: block; overflow: hidden; color: var(--text); font-size: 16px; font-weight: 680; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
+    .primary .node-name { font-size: 20px; }
+    .node-title { display: block; margin-top: 4px; overflow: hidden; color: var(--muted); font-size: 12px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+    .primary .node-title { font-size: 13px; }
+    .node-chevron { width: 15px; height: 15px; flex: 0 0 auto; margin-left: auto; color: #7891aa; transition: color .16s, transform .16s; }
+    .person-node:hover .node-chevron { color: var(--cyan); transform: translateX(2px); }
+    .role-pill { position: absolute; top: 9px; right: 10px; padding: 4px 7px; border-radius: 99px; color: #74e5f5; background: rgba(22,199,232,.1); font-size: 9px; font-weight: 760; letter-spacing: .06em; text-transform: uppercase; }
+    .role-pill.contractor { color: #ffc474; background: rgba(255,155,39,.12); }
+    .vp-card { padding-right: 83px; }
+    .vp-card .node-chevron { position: absolute; right: 14px; }
+    .reporting-link { position: relative; display: flex; justify-content: center; margin: 0 auto; }
+    .reporting-link span { z-index: 1; padding: 5px 10px; border: 1px solid rgba(74, 102, 132, .45); border-radius: 999px; color: var(--muted-2); background: var(--canvas); font-size: 10px; letter-spacing: .03em; }
+    .leader-section { position: relative; max-width: 1150px; margin: 0 auto; }
+    .leader-section::before { position: absolute; top: 0; left: 50%; height: 16px; border-left: 1px solid var(--line-strong); content: ""; }
+    .leader-card { min-height: 76px; margin: 16px 0 0; }
+    .leader-card .node-title { white-space: normal; }
+    .teams-titlebar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 27px 0 12px; padding: 0 3px; }
+    .teams-titlebar h2 { margin: 0; color: #d8e2ed; font-size: 12px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+    .teams-titlebar span { color: var(--muted-2); font-size: 11px; }
+    .teams-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 14px; }
+    .teams-grid::before { position: absolute; top: -14px; left: 12.5%; right: 12.5%; border-top: 1px solid var(--line-strong); content: ""; }
+    .team-column { position: relative; display: flex; min-height: 200px; flex-direction: column; gap: 9px; padding-top: 0; }
+    .team-column::before { position: absolute; top: -14px; left: 50%; height: 14px; border-left: 1px solid var(--line-strong); content: ""; }
+    .team-heading { display: flex; min-height: 52px; align-items: center; gap: 9px; padding: 10px 12px; border: 1px solid rgba(119, 148, 180, .3); border-radius: 10px; color: #e9f1f8; background: rgba(18, 42, 68, .68); font-size: 12px; font-weight: 680; line-height: 1.3; }
+    .team-index { display: grid; width: 23px; height: 23px; flex: 0 0 auto; place-items: center; border: 1px solid rgba(142,229,208,.3); border-radius: 7px; color: var(--mint); background: rgba(142,229,208,.07); font-size: 10px; }
+    .team-column .person-node { min-height: 70px; padding: 11px 12px; }
+    .team-column .avatar { width: 39px; height: 39px; font-size: 11px; }
+    .team-column .node-name { font-size: 13px; }
+    .team-column .node-title { font-size: 11px; }
+    .team-column .role-pill { top: 6px; right: 7px; font-size: 8px; }
+    .team-column .node-copy { padding-right: 5px; }
+    .team-spacer { height: 0; }
+    .team-people { display: flex; flex-direction: column; gap: 8px; }
+    .contributor-note { display: flex; align-items: center; gap: 7px; margin: 4px 2px 0; color: var(--muted-2); font-size: 10px; line-height: 1.4; }
+    .contributor-note::before { content: ""; width: 13px; height: 1px; background: #526a84; }
+    .empty-state { display: none; max-width: 1150px; margin: 24px auto; padding: 45px; color: var(--muted); text-align: center; border: 1px dashed var(--line-strong); border-radius: 14px; }
+    .footer { display: flex; justify-content: space-between; gap: 18px; margin-top: 33px; padding-top: 17px; color: var(--muted-2); border-top: 1px solid rgba(123, 151, 184, .14); font-size: 11px; }
+    .footer strong { color: #bac8d7; font-weight: 650; }
+    .scrim { position: fixed; z-index: 9; inset: 0; visibility: hidden; background: rgba(2, 10, 21, .55); opacity: 0; transition: opacity .2s, visibility .2s; }
+    .scrim.open { visibility: visible; opacity: 1; }
+    .detail-panel { position: fixed; z-index: 10; top: 0; right: 0; display: flex; width: min(430px, 100%); height: 100dvh; flex-direction: column; padding: 28px; overflow-y: auto; border-left: 1px solid rgba(128, 158, 188, .2); background: linear-gradient(160deg, #0c213c, #07172d 64%); box-shadow: var(--shadow); transform: translateX(103%); transition: transform .24s cubic-bezier(.2,.8,.2,1); }
+    .detail-panel.open { transform: translateX(0); }
+    .panel-top { display: flex; justify-content: space-between; align-items: center; }
+    .panel-kicker { margin: 0; color: var(--mint); font-size: 10px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    .close-panel { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); border-radius: 10px; color: #bbcad9; background: rgba(255,255,255,.03); cursor: pointer; }
+    .close-panel:hover { color: white; border-color: var(--line-strong); background: rgba(255,255,255,.08); }
+    .close-panel svg { width: 16px; height: 16px; }
+    .profile-head { margin: 32px 0 25px; padding-bottom: 24px; border-bottom: 1px solid rgba(127, 153, 182, .2); }
+    .profile-avatar { overflow:hidden; display: grid; width: 68px; height: 68px; margin-bottom: 18px; place-items: center; border: 1px solid rgba(143,177,208,.4); border-radius: 50%; color: #dffaff; background: linear-gradient(145deg, #207391, #17304f 72%); font-size: 19px; font-weight: 750; }
+    .profile-name { margin: 0; font-size: 28px; letter-spacing: -.045em; line-height: 1.1; }
+    .profile-title { margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .profile-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+    .profile-badge { padding: 6px 9px; border: 1px solid rgba(22,199,232,.24); border-radius: 99px; color: #8ce6f2; background: rgba(22,199,232,.08); font-size: 10px; font-weight: 700; }
+    .profile-badge.contractor { color: #ffc474; border-color: rgba(255,155,39,.28); background: rgba(255,155,39,.08); }
+    .detail-section { margin-bottom: 24px; }
+    .detail-section h3 { margin: 0 0 10px; color: #8ea2b8; font-size: 10px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .responsibility { display: flex; gap: 10px; padding: 13px 14px; border: 1px solid rgba(126, 154, 184, .2); border-radius: 11px; color: #e2ebf3; background: rgba(255,255,255,.025); font-size: 13px; line-height: 1.5; }
+    .responsibility::before { content: ""; width: 6px; height: 6px; flex: 0 0 auto; margin-top: 6px; border-radius: 50%; background: var(--mint); }
+    .manager-link { display: flex; width: 100%; align-items: center; gap: 11px; padding: 11px; text-align: left; border: 1px solid rgba(126,154,184,.2); border-radius: 11px; background: rgba(255,255,255,.025); cursor: pointer; }
+    .manager-link:hover { border-color: rgba(22,199,232,.45); background: rgba(22,199,232,.05); }
+    .manager-avatar { overflow:hidden; display: grid; width: 35px; height: 35px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #dffaff; background: #1c4d6a; font-size: 10px; font-weight: 750; }
+    .manager-copy { min-width: 0; }
+    .manager-name { display: block; color: #e8f0f8; font-size: 12px; font-weight: 650; }
+    .manager-role { display: block; margin-top: 3px; color: var(--muted-2); font-size: 10px; }
+    .manager-arrow { width: 15px; height: 15px; margin-left: auto; color: #8095ac; }
+    .contact-box { margin-top: auto; padding: 15px; border: 1px solid rgba(22,199,232,.2); border-radius: 12px; background: rgba(22,199,232,.055); }
+    .contact-box strong { display: block; margin-bottom: 5px; color: #d7edf3; font-size: 12px; }
+    .contact-box p { margin: 0; color: #9cb0c4; font-size: 11px; line-height: 1.5; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 720px) {
+      .shell { padding-top: 28px; }
+      .topbar { flex-direction: column; gap: 18px; }
+      .header-meta { width: 100%; flex-direction: row; align-items: center; justify-content: space-between; }
+      .toolbar { align-items: stretch; flex-wrap: wrap; }
+      .search-wrap { max-width: none; flex-basis: 100%; }
+      .toolbar-note { align-self: center; }
+      .org-inner { min-width: 820px; }
+      .vp-row { max-width: 740px; grid-template-columns: minmax(300px, 1fr) minmax(265px, .8fr); gap: 20px; }
+      .leader-section { max-width: 820px; }
+      .teams-grid { grid-template-columns: repeat(4, 190px); }
+      .teams-grid::before { left: 95px; right: 95px; }
+      .team-column::before { left: 95px; }
+      .footer { flex-direction: column; }
+      .detail-panel { top: auto; bottom: 0; width: 100%; height: min(86dvh, 720px); padding: 22px; border-top: 1px solid rgba(128,158,188,.2); border-left: 0; border-radius: 20px 20px 0 0; transform: translateY(103%); }
+      .detail-panel.open { transform: translateY(0); }
+      .profile-head { margin-top: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+    /* Soft / System visual theme */
+    :root {
+      color-scheme: light;
+      --canvas: #f2efe9;
+      --panel: #f4f1eb;
+      --panel-raised: #fbfaf7;
+      --line: #e0ddd7;
+      --line-strong: #c9c6c0;
+      --text: #202938;
+      --muted: #687386;
+      --muted-2: #828b98;
+      --cyan: #1559d6;
+      --orange: #c86c18;
+      --mint: #1559d6;
+      --shadow: 0 24px 70px rgba(48, 49, 52, .18);
+    }
+    body {
+      color: var(--text);
+      background: radial-gradient(ellipse at 50% -25%, #fffdfa 0, transparent 60%), #f2efe9;
+    }
+    .shell { max-width: 1500px; }
+    .eyebrow { color: #1559d6; }
+    .eyebrow::before { display: none; }
+    h1 { color: #202938; }
+    .subtitle { color: #687386; }
+    .team-count {
+      color: #4d596b;
+      border: 1px solid rgba(255,255,255,.95);
+      background: #f6f3ee;
+      box-shadow: 5px 5px 12px #ddd9d2, -5px -5px 12px #fffdfa;
+    }
+    .team-count .dot { background: #1559d6; box-shadow: 0 0 10px rgba(21,89,214,.3); }
+    .legend { color: #687386; }
+    .legend-mark { background: #1559d6; }
+    .legend-mark.contractor { background: #c86c18; }
+    .toolbar {
+      border: 1px solid rgba(255,255,255,.95);
+      background: #f2efe9;
+      box-shadow: 7px 7px 18px #ddd9d2, -7px -7px 18px #fffdfa;
+    }
+    #search {
+      color: #202938;
+      border: 1px solid rgba(255,255,255,.95);
+      background: #f8f6f2;
+      box-shadow: inset 2px 2px 5px rgba(188,184,177,.27), inset -2px -2px 5px rgba(255,255,255,.95);
+    }
+    #search::placeholder { color: #8b929d; }
+    #search:focus { border-color: rgba(21,89,214,.48); background: #fff; }
+    .search-icon { color: #546174; }
+    .clear-search { color: #778293; }
+    .clear-search:hover { color: #1559d6; background: rgba(21,89,214,.08); }
+    .toolbar-note { color: #828b98; }
+    .reset-button {
+      color: #435066;
+      border-color: #dedbd5;
+      background: #f6f3ee;
+      box-shadow: 3px 3px 8px rgba(203,199,192,.48), -3px -3px 8px rgba(255,255,255,.9);
+    }
+    .reset-button:hover { color: #1559d6; border-color: #c8d6f0; background: #faf9f6; }
+    .org-canvas { scrollbar-color: #c3c5c8 transparent; }
+    .vp-row::after, .leader-section::before, .teams-grid::before, .team-column::before { border-color: #c9c6c0; }
+    .support-group { border-color: #d4d1cb; }
+    .support-label { color: #858d98; }
+    .person-node {
+      color: #202938;
+      border: 1px solid rgba(255,255,255,.98);
+      border-left: 3px solid #1559d6;
+      background: #f8f6f2;
+      box-shadow: 6px 6px 14px #dedad3, -6px -6px 14px #fffdfa;
+    }
+    .person-node:hover, .person-node:focus-visible {
+      border-color: rgba(21,89,214,.36);
+      border-left-color: #1559d6;
+      outline: none;
+      box-shadow: 8px 9px 18px rgba(186,181,172,.7), -5px -5px 14px #fffdfa, 0 0 0 2px rgba(21,89,214,.1);
+    }
+    .person-node.contractor { border-left-color: #c86c18; }
+    .person-node.contractor:hover, .person-node.contractor:focus-visible { border-left-color: #c86c18; }
+    .person-node.is-dim { opacity: .3; }
+    .person-node.is-match { border-color: #1559d6; box-shadow: 0 0 0 2px rgba(21,89,214,.16), 5px 5px 13px #dedad3; }
+    .avatar {
+      color: #fff;
+      border: 0;
+      background: linear-gradient(145deg, #68a9f6, #1559d6 75%);
+      box-shadow: 3px 4px 9px rgba(36,92,179,.24);
+    }
+    .primary .avatar { background: linear-gradient(145deg, #79b6fb, #165bd8); }
+    .node-name { color: #202938; }
+    .node-title { color: #717c8c; }
+    .node-chevron { color: #8a929d; }
+    .person-node:hover .node-chevron { color: #1559d6; }
+    .role-pill { color: #1559d6; background: #e5edfc; }
+    .role-pill.contractor { color: #a95e19; background: #f7eadb; }
+    .reporting-link span {
+      color: #687386;
+      border-color: #dedbd5;
+      background: #f2efe9;
+      box-shadow: 2px 2px 5px rgba(204,200,193,.45), -2px -2px 5px rgba(255,255,255,.95);
+    }
+    .teams-titlebar h2 { color: #4a5566; }
+    .teams-titlebar span { color: #858d98; }
+    .team-heading {
+      color: #303b4d;
+      border: 1px solid rgba(255,255,255,.98);
+      background: #f7f4ef;
+      box-shadow: 4px 4px 10px rgba(209,205,198,.56), -4px -4px 10px rgba(255,255,255,.96);
+    }
+    .team-index {
+      color: #1559d6;
+      border-color: #cddbf5;
+      background: #e9effb;
+    }
+    .contributor-note { color: #828b98; }
+    .contributor-note::before { background: #b8b8b5; }
+    .empty-state { color: #687386; border-color: #c9c6c0; }
+    .footer { color: #828b98; border-color: #dfdcd6; }
+    .footer strong { color: #4d596b; }
+    .scrim { background: rgba(30, 38, 50, .3); }
+    .detail-panel {
+      color: #202938;
+      border-left-color: rgba(178,174,166,.45);
+      background: linear-gradient(160deg, #fbfaf7, #f1eee8 90%);
+      box-shadow: -15px 0 42px rgba(45,47,50,.13);
+    }
+    .panel-kicker { color: #1559d6; }
+    .close-panel {
+      color: #586477;
+      border-color: rgba(255,255,255,.95);
+      background: #f6f3ee;
+      box-shadow: 3px 3px 8px rgba(204,200,193,.55), -3px -3px 8px rgba(255,255,255,.95);
+    }
+    .close-panel:hover { color: #1559d6; border-color: #d7e1f3; background: #fbfaf7; }
+    .profile-head { border-bottom-color: #dfdcd6; }
+    .profile-avatar {
+      color: white;
+      border: 0;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #78b4f8, #1559d6 75%);
+      box-shadow: 6px 6px 14px rgba(44,93,168,.22), -4px -4px 10px rgba(255,255,255,.9);
+    }
+    .profile-name { color: #202938; }
+    .profile-title { color: #687386; }
+    .profile-badge { color: #1559d6; border-color: #d5e0f5; background: #e9effb; }
+    .profile-badge.contractor { color: #a95e19; border-color: #efdbc4; background: #f8ebdc; }
+    .detail-section h3 { color: #828b98; }
+    .responsibility {
+      color: #3d495c;
+      border-color: rgba(255,255,255,.95);
+      background: #f7f5f0;
+      box-shadow: 4px 4px 10px rgba(208,204,197,.5), -4px -4px 10px rgba(255,255,255,.94);
+    }
+    .responsibility::before { background: #1559d6; }
+    .manager-link {
+      border-color: rgba(255,255,255,.95);
+      background: #f7f5f0;
+      box-shadow: 4px 4px 10px rgba(208,204,197,.5), -4px -4px 10px rgba(255,255,255,.94);
+    }
+    .manager-link:hover { border-color: #c8d8f2; background: #f9f8f4; }
+    .manager-avatar { overflow:hidden; color: #fff; background: linear-gradient(145deg, #6eaef7, #1559d6); }
+    .manager-name { color: #303b4d; }
+    .manager-role { color: #828b98; }
+    .manager-arrow { color: #828b98; }
+    .contact-box {
+      border-color: #d6e0f2;
+      background: #edf2fb;
+      box-shadow: 4px 4px 10px rgba(208,204,197,.4), -4px -4px 10px rgba(255,255,255,.88);
+    }
+    .contact-box strong { color: #34435b; }
+    .contact-box p { color: #687386; }
+    @media (max-width: 720px) {
+      .detail-panel { border-top-color: rgba(178,174,166,.45); border-left: 0; box-shadow: 0 -15px 42px rgba(45,47,50,.13); }
+    }
+    /* Readability and layout refinements */
+    .eyebrow::before { display: none; }
+    .eyebrow { gap: 0; }
+    .header-meta { gap: 20px; }
+    .team-count, .legend { font-size: 12pt; }
+    .team-count { padding: 10px 14px; }
+    .legend { gap: 18px; }
+    .toolbar-note { display: none; }
+    .search-wrap { max-width: none; }
+    .leader-section { max-width: none; width: 100%; }
+    .teams-titlebar span { display: none; }
+    .footer { display: none; }
+    .person-node { min-height: 96px; }
+    .support-group .person-node { min-height: 94px; }
+    .team-column .person-node { min-height: 122px; align-items: flex-start; }
+    .team-column .node-copy { padding-top: 1px; }
+    .node-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .role-pill {
+      position: static;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin-top: 5px;
+      padding: 4px 8px;
+      font-size: 12pt;
+      line-height: 1.1;
+      letter-spacing: .02em;
+    }
+    .team-column .role-pill { position: static; margin-top: 5px; font-size: 12pt; }
+    .node-name, .node-title { white-space: normal; overflow: visible; text-overflow: clip; }
+    .team-column .node-name, .team-column .node-title { font-size: 12pt; }
+    .teams-grid { gap: 18px; }
+    .team-column { gap: 12px; }
+    .vp-row { grid-template-columns: minmax(0, 1fr) minmax(0, .7fr); }
+    .vp-row::after { left: calc(50% - 200px); }
+    .leader-section::before { left: calc(50% - 200px); }
+    .reporting-link { width: 100%; justify-content: flex-start; padding-left: calc(50% - 212px); }
+    .reporting-link span { font-size: 12pt; }
+    .primary .node-title { font-size: 12pt; }
+    .primary .node-name { font-size: 17pt; }
+    .profile-name { font-size: 22pt; }
+    .profile-avatar { font-size: 16pt; }
+    .detail-panel, .person-node, .team-heading, .toolbar, .contact-box { border-radius: 16px; }
+    @media (min-width: 721px) {
+      .team-column .person-node { min-height: 128px; }
+      .teams-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .vp-row::after { left: calc(50% - 200px); }
+      .leader-section::before { left: calc(50% - 200px); }
+      .reporting-link { padding-left: calc(50% - 212px); }
+      .team-column .person-node { min-height: 128px; }
+      .team-column .role-pill { font-size: 12pt; }
+    }
+    /* Type scale: 12 pt labels and body, with larger names and headings. */
+    :root {
+      --type-small: 12pt;
+      --type-body: 12pt;
+      --type-card: 14pt;
+      --type-section: 13pt;
+      --type-primary: 17pt;
+      --type-profile: 22pt;
+      --type-display: clamp(30pt, 4.8vw, 42pt);
+    }
+    #app *:not(svg):not(path) { font-size: var(--type-body) !important; }
+    #detailPanel *:not(svg):not(path) { font-size: var(--type-body) !important; }
+    #app h1:not(svg):not(path) { font-size: var(--type-display) !important; }
+    #app .node-name:not(svg):not(path) { font-size: var(--type-card) !important; }
+    #app .primary .node-name:not(svg):not(path) { font-size: var(--type-primary) !important; }
+    #app .team-heading:not(svg):not(path), #app .teams-titlebar h2:not(svg):not(path) { font-size: var(--type-section) !important; }
+    #app .team-count:not(svg):not(path) { font-size: 13pt !important; }
+    #app .avatar:not(svg):not(path) { font-size: var(--type-small) !important; }
+    #detailPanel .profile-name:not(svg):not(path) { font-size: var(--type-profile) !important; }
+    #detailPanel .manager-name:not(svg):not(path) { font-size: 13pt !important; }
+    .vp-row::after { display: none; }
+    .vp-card { overflow: visible; }
+    .vp-card::after {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      height: 90px;
+      border-left: 1px solid #c9c6c0;
+      content: "";
+    }
+    .leader-section::before { height: 60px; }
+    .reporting-link { height: 44px; align-items: center; }
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      padding: 8px 11px;
+      color: #1559d6;
+      border: 1px solid #e0ddd7;
+      border-radius: 10px;
+      background: #f6f3ee;
+      box-shadow: 3px 3px 8px rgba(203,199,192,.4), -3px -3px 8px rgba(255,255,255,.88);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .back-button:hover { background: #fbfaf7; border-color: #c8d6f0; }
+    .back-button svg { width: 16px; height: 16px; flex: 0 0 auto; }
+    .vp-row { padding-bottom: 0; }
+    .vp-card::after, .leader-section::before, .teams-grid::before, .team-column::before { display: none; }
+    .support-group { padding-left: 0; border-left: 0; }
+    .reporting-link { height: auto; width: 100%; justify-content: stretch; padding: 0; margin: 20px auto 12px; }
+    .reporting-link span {
+      display: flex;
+      width: 100%;
+      min-height: 82px;
+      align-items: center;
+      padding: 12px 18px;
+      border: 1px solid rgba(255,255,255,.98);
+      border-radius: 16px;
+      color: #303b4d;
+      background: #f7f4ef;
+      box-shadow: 4px 4px 10px rgba(209,205,198,.56), -4px -4px 10px rgba(255,255,255,.96);
+      font-size: var(--type-section) !important;
+      font-weight: 680;
+      letter-spacing: 0;
+    }
+    .leader-card { margin: 0; }
+    .team-heading { justify-content: flex-start; }
+    .profile-head { border-bottom: 0; }
+    @media (max-width: 1100px) {
+      .teams-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+      .team-column { min-height: 0; }
+    }
+    @media (max-width: 900px) {
+      .reporting-link { margin: 18px auto 12px; }
+    }
+    @media (max-width: 560px) {
+      .reporting-link { margin: 14px auto 10px; }
+      .back-button { margin-bottom: 14px; }
+    }
+    #app .role-pill { padding: 3px 7px; font-size: 10pt !important; font-weight: 500; letter-spacing: .01em; }
+    #detailPanel .profile-badge { padding: 4px 8px; font-size: 10pt !important; font-weight: 500; }
+    .org-canvas { overflow: visible; }
+    .org-inner { min-width: 0; width: 100%; }
+    .person-node, .team-heading, .node-copy, .team-heading span { min-width: 0; }
+    .node-name, .node-title, .team-heading span:last-child { overflow-wrap: anywhere; }
+    .team-heading { height: 82px; min-height: 82px; align-items: center; }
+    @media (max-width: 900px) {
+      .shell { padding: 32px 24px 44px; }
+      .topbar { flex-direction: column; gap: 18px; }
+      .header-meta { width: 100%; flex-direction: row; align-items: center; justify-content: space-between; }
+      .vp-row { max-width: none; grid-template-columns: minmax(0, 1fr); gap: 18px; padding-bottom: 0; }
+      .vp-card::after, .leader-section::before { display: none; }
+      .support-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 0; border: 0; }
+      .support-label { grid-column: 1 / -1; }
+      .reporting-link { height: auto; justify-content: flex-start; padding: 0; margin: 2px 0 8px; }
+      .leader-card { margin: 0; }
+      .teams-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .teams-grid::before, .team-column::before { display: none; }
+      .team-column { min-height: 0; gap: 10px; }
+      .team-heading { height: 82px; min-height: 82px; }
+      .team-column .person-node { min-height: 128px; }
+      .leader-section { max-width: none; }
+    }
+    @media (max-width: 560px) {
+      .shell { padding: 25px 16px 36px; }
+      .topbar { margin-bottom: 24px; }
+      .header-meta { flex-wrap: wrap; justify-content: flex-start; gap: 12px 18px; }
+      .team-count { white-space: normal; }
+      .toolbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 10px; }
+      .search-wrap { grid-column: 1 / -1; min-width: 0; }
+      #search { min-width: 0; }
+      .reset-button { min-width: 0; }
+      .support-group { grid-template-columns: minmax(0, 1fr); }
+      .support-label { grid-column: 1; }
+      .teams-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+      .team-heading { height: 76px; min-height: 76px; }
+      .team-column .person-node { min-height: 116px; }
+      .teams-titlebar { margin: 22px 0 12px; }
+      .detail-panel { padding: 20px; }
+    }
+
+    /* Keep every person card balanced, with one shared avatar and text alignment. */
+    #app .person-node,
+    #app .team-column .person-node,
+    #app .support-group .person-node {
+      min-height: 0;
+      align-items: center;
+      padding: 16px 18px;
+    }
+    #app .person-node.primary { min-height: 0; padding: 16px 18px; }
+    #app .avatar,
+    #app .primary .avatar,
+    #app .team-column .avatar {
+      width: 50px;
+      height: 50px;
+      flex: 0 0 50px;
+    }
+    #app .node-copy,
+    #app .team-column .node-copy { gap: 2px; padding: 0; }
+    #app .node-name { line-height: 1.16; }
+    #app .node-title { margin-top: 0; line-height: 1.22; }
+    #app .role-pill,
+    #app .team-column .role-pill { margin-top: 2px; line-height: 1.15; }
+    #app .team-heading { line-height: 1.18; }
+    #app .support-group { gap: 10px; }
+    @media (max-width: 560px) {
+      #app .person-node,
+      #app .team-column .person-node,
+      #app .support-group .person-node { padding: 14px; }
+      #app .person-node.primary { padding: 14px; }
+    }
+    .team-column .person-node.indented { width: calc(100% - 24px); align-self: flex-end; }
+    .legend-mark.leave { background: #d63384; }
+    .person-node.leave { border-left-color: #d63384; }
+    .person-node.leave:hover, .person-node.leave:focus-visible { border-left-color: #d63384; }
+    .role-pill.leave { color: #ae2868; background: #fde7f1; }
+    .profile-badge.leave { color: #ae2868; border-color: #f4c4d9; background: #fde7f1; }
+    .back-button { text-decoration: none; }
+  </style>
+  <link rel="stylesheet" href="assets/layout-fixes.css">
+</head>
+<body>
+  <main class="shell" id="app">
+    <header class="topbar">
+      <div>
+        <a class="back-button" id="backButton" href="index.html" aria-label="Back to Marketing City home">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back
+        </a>
+        <h1>EMEA Field Marketing</h1>
+        <p class="subtitle">Meet the people behind EMEA Field Marketing, explore the focus areas, and find the right person for a question.</p>
+      </div>
+      <div class="header-meta">
+        <div class="team-count"><span class="dot"></span><span>18 people · 5 focus areas</span></div>
+        <div class="legend" aria-label="Employment type legend">
+          <span class="legend-item"><span class="legend-mark"></span>FTE</span>
+          <span class="legend-item"><span class="legend-mark contractor"></span>Contractor</span>
+          <span class="legend-item"><span class="legend-mark leave"></span>Maternity Leave</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Chart controls">
+      <label class="search-wrap">
+        <span class="sr-only">Search people and responsibilities</span>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input id="search" type="search" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility">
+        <button class="clear-search" type="button" aria-label="Clear search" title="Clear search">×</button>
+      </label>
+      <p class="sr-only" id="searchStatus" aria-live="polite">Select a person to open their profile</p>
+      <button class="reset-button" type="button" id="resetView" title="Clear search and selection">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7v5h5M5.2 12a7 7 0 1 0 2-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Reset view
+      </button>
+    </section>
+
+    <section class="org-canvas" aria-label="Interactive organization chart">
+      <div class="org-inner">
+        <div class="vp-row">
+          <button class="person-node primary vp-card" data-person="saleema" type="button" aria-label="Open Saleema Syed profile">
+            <span class="avatar"><img src="assets/headshots/saleema-syed.jpg" alt="" loading="lazy"></span>
+            <span class="node-copy"><span class="node-name">Saleema Syed</span><span class="node-title">VP, GTM &amp; Growth Marketing</span><span class="node-title">Collab · Networking · Infra · IIoT</span></span>
+            <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="support-group" aria-label="Leadership support">
+            <p class="support-label">Leadership support</p>
+            <button class="person-node" data-person="kendys" type="button" aria-label="Open Kendys Carrizo profile"><span class="avatar"><img src="assets/headshots/kendys-carrizo.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Kendys Carrizo</span><span class="node-title">Executive Assistant</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="person-node" data-person="savannah" type="button" aria-label="Open Savannah Ober profile"><span class="avatar"><img src="assets/headshots/savannah-ober.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Savannah Ober</span><span class="node-title">Chief of Staff</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+        <div class="leader-section">
+          <div class="reporting-link"><span>EMEA Field Marketing</span></div>
+          <button class="person-node primary leader-card" data-person="blossom" type="button" aria-label="Open Blossom Furtado profile">
+            <span class="avatar"><img src="assets/headshots/blossom-furtado.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Blossom Furtado</span><span class="node-title">Director Marketing, WTG</span></span>
+            <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="teams-titlebar"><h2>Focus areas</h2><span>Click a person to view responsibilities and reporting path</span></div>
+          <div class="teams-grid">
+            <section class="team-column" aria-label="Collab Field and Partner Marketing team">
+              <div class="team-heading"><span>Collab Field &amp; Partner Marketing</span></div>
+              <div class="team-people">
+                <button class="person-node" data-person="natasha" type="button" aria-label="Open Natasha Patel profile"><span class="avatar"><img src="assets/headshots/natasha-patel.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Natasha Patel</span><span class="node-title">MEA WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node" data-person="magali" type="button" aria-label="Open Magali Mitaux profile"><span class="avatar">MM</span><span class="node-copy"><span class="node-name">Magali Mitaux</span><span class="node-title">South WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node indented" data-person="nicholo" type="button" aria-label="Open Nicholo Jallores profile"><span class="avatar">NJ</span><span class="node-copy"><span class="node-name">Nicholo Jallores</span><span class="node-title">Collaboration Marketing Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node" data-person="tash" type="button" aria-label="Open Tash Gardner profile"><span class="avatar">TG</span><span class="node-copy"><span class="node-name">Tash Gardner</span><span class="node-title">UK&amp;I WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node" data-person="natalia" type="button" aria-label="Open Natalia Lysenko profile"><span class="avatar">NL</span><span class="node-copy"><span class="node-name">Natalia Lysenko</span><span class="node-title">Germany &amp; North WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented" data-person="tijana" type="button" aria-label="Open Tijana Marjanovic profile"><span class="avatar">TM</span><span class="node-copy"><span class="node-name">Tijana Marjanovic</span><span class="node-title">WTG Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </section>
+            <section class="team-column" aria-label="EN Product Events Team">
+              <div class="team-heading"><span>EN Product Events Team</span></div>
+              <div class="team-people">
+                <button class="person-node leave" data-person="amy" type="button" aria-label="Open Amy Newton profile"><span class="avatar"><img src="assets/headshots/amy-newton.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Amy Newton</span><span class="node-title">Devices, CX, MSFT &amp; Networking Marketing Lead</span><span class="role-pill leave">Maternity Leave</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node indented" data-person="katie" type="button" aria-label="Open Katie Sneddon profile"><span class="avatar">KS</span><span class="node-copy"><span class="node-name">Katie Sneddon</span><span class="node-title">WTG Events Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented" data-person="gillian" type="button" aria-label="Open Gillian Harris profile"><span class="avatar">GH</span><span class="node-copy"><span class="node-name">Gillian Harris</span><span class="node-title">(Mat Cover) Senior Marketing Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented" data-person="marie" type="button" aria-label="Open Marie Morkeh-Yamson profile"><span class="avatar">MM</span><span class="node-copy"><span class="node-name">Marie Morkeh-Yamson</span><span class="node-title">Networking Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented" data-person="joanna" type="button" aria-label="Open Joanna Cappalonga profile"><span class="avatar">JC</span><span class="node-copy"><span class="node-name">Joanna Cappalonga</span><span class="node-title">Networking Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </section>
+            <section class="team-column" aria-label="IWE Field Marketing team">
+              <div class="team-heading"><span>IWE Field Marketing</span></div>
+              <div class="team-people">
+                <button class="person-node contractor" data-person="yeshima" type="button" aria-label="Open Yeshima Singh profile"><span class="avatar">YS</span><span class="node-copy"><span class="node-name">Yeshima Singh</span><span class="node-title">IWE Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </section>
+            <section class="team-column" aria-label="Demand Generation team">
+              <div class="team-heading"><span>Demand Generation</span></div>
+              <div class="team-people">
+                <button class="person-node leave" data-person="rachel" type="button" aria-label="Open Rachel Parkins profile"><span class="avatar"><img src="assets/headshots/rachel-parkins.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Rachel Parkins</span><span class="node-title">Collaboration Marketing Manager</span><span class="role-pill leave">Maternity Leave</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </section>
+            <section class="team-column" aria-label="PMO team">
+              <div class="team-heading"><span>PMO</span></div>
+              <div class="team-people">
+                <button class="person-node" data-person="alisha" type="button" aria-label="Open Alisha Pinto profile"><span class="avatar">AP</span><span class="node-copy"><span class="node-name">Alisha Pinto</span><span class="node-title">WTG Marketing Operations Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="empty-state" id="emptyState">No matches. Try a person, team, or responsibility.</div>
+  </main>
+
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+  <aside class="detail-panel" id="detailPanel" role="dialog" aria-modal="true" aria-labelledby="profileName" aria-hidden="true">
+    <div class="panel-top"><p class="panel-kicker">People directory</p><button class="close-panel" id="closePanel" type="button" aria-label="Close person card"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="profile-head">
+      <div class="profile-avatar" id="profileAvatar">SS</div>
+      <h2 class="profile-name" id="profileName">Person name</h2>
+      <p class="profile-title" id="profileTitle"></p>
+      <div class="profile-badges" id="profileBadges"></div>
+    </div>
+    <section class="detail-section"><h3>Responsibilities</h3><div class="responsibility" id="profileResponsibility"></div></section>
+    <section class="detail-section"><h3>Reporting path</h3><div id="managerArea"></div></section>
+    <div class="contact-box"><strong>Who to contact</strong><p id="contactHint">Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask.</p></div>
+  </aside>
+
+  <script>
+    const people = {
+      saleema: { name: "Saleema Syed", initials: "SS", photo: "assets/headshots/saleema-syed.jpg", title: "VP, GTM & Growth Marketing", type: "FTE", team: "IIoT leadership", responsibility: "VP, GTM and Growth Marketing across collaboration, networking, infrastructure, and IIoT.", manager: null },
+      kendys: { name: "Kendys Carrizo", initials: "KC", photo: "assets/headshots/kendys-carrizo.jpg", title: "Executive Assistant", type: "FTE", team: "Leadership support", responsibility: "Executive assistance for the leadership team.", manager: "saleema" },
+      savannah: { name: "Savannah Ober", initials: "SO", photo: "assets/headshots/savannah-ober.jpg", title: "Chief of Staff", type: "FTE", team: "Leadership support", responsibility: "Chief of Staff support for the leadership team.", manager: "saleema" },
+      blossom: { name: "Blossom Furtado", initials: "BF", photo: "assets/headshots/blossom-furtado.jpg", title: "Director Marketing, WTG", type: "FTE", team: "EMEA Field Marketing", responsibility: "Leads EMEA Field Marketing for WTG.", manager: "saleema", contact: "For broad EMEA Field Marketing direction, start here." },
+      natasha: { name: "Natasha Patel", initials: "NP", photo: "assets/headshots/natasha-patel.jpg", title: "MEA WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "MEA field marketing for WTG.", manager: "blossom" },
+      magali: { name: "Magali Mitaux", initials: "MM", title: "South WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "South region field marketing for WTG.", manager: "blossom" },
+      nicholo: { name: "Nicholo Jallores", initials: "NJ", title: "Collaboration Marketing Manager", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "Collaboration marketing management.", manager: "magali" },
+      tash: { name: "Tash Gardner", initials: "TG", title: "UK&I WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "UK&I field marketing for WTG.", manager: "blossom" },
+      natalia: { name: "Natalia Lysenko", initials: "NL", title: "Germany & North WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "Germany and North region field marketing for WTG.", manager: "blossom" },
+      tijana: { name: "Tijana Marjanovic", initials: "TM", title: "WTG Events Manager", type: "Contractor", team: "Collab Field & Partner Marketing", responsibility: "WTG event management.", manager: "natalia" },
+      amy: { name: "Amy Newton", initials: "AN", photo: "assets/headshots/amy-newton.jpg", title: "Devices, CX, MSFT & Networking Marketing Lead", type: "Maternity Leave", team: "EN Product Events Team", responsibility: "Marketing leadership across Devices, CX, MSFT, and Networking.", manager: "blossom", contact: "Amy is marked as on maternity leave in the source chart. For current questions, contact Gillian Harris, the mat cover." },
+      katie: { name: "Katie Sneddon", initials: "KS", title: "WTG Events Manager", type: "FTE", team: "EN Product Events Team", responsibility: "WTG event management.", manager: "amy" },
+      gillian: { name: "Gillian Harris", initials: "GH", title: "(Mat Cover) Senior Marketing Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Senior marketing management cover.", manager: "amy" },
+      marie: { name: "Marie Morkeh-Yamson", initials: "MM", title: "Networking Events Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Networking event management.", manager: "amy" },
+      joanna: { name: "Joanna Cappalonga", initials: "JC", title: "Networking Events Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Networking event management.", manager: "amy" },
+      yeshima: { name: "Yeshima Singh", initials: "YS", title: "IWE Events Manager", type: "Contractor", team: "IWE Field Marketing", responsibility: "IWE event management.", manager: "blossom" },
+      rachel: { name: "Rachel Parkins", initials: "RP", photo: "assets/headshots/rachel-parkins.jpg", title: "Collaboration Marketing Manager", type: "Maternity Leave", team: "Demand Generation", responsibility: "Collaboration marketing management within Demand Generation.", manager: "blossom", contact: "Rachel is marked as on maternity leave in the source chart. For current questions, contact the team or Blossom Furtado." },
+      alisha: { name: "Alisha Pinto", initials: "AP", title: "WTG Marketing Operations Manager", type: "FTE", team: "PMO", responsibility: "WTG marketing operations.", manager: "blossom" }
+    };
+    const buttons = [...document.querySelectorAll("[data-person]")];
+    const search = document.getElementById("search");
+    const status = document.getElementById("searchStatus");
+    const panel = document.getElementById("detailPanel");
+    const scrim = document.getElementById("scrim");
+    const emptyState = document.getElementById("emptyState");
+    let activePerson = null;
+    let previousFocus = null;
+    const svgArrow = '<svg class="manager-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    function makeManagerLink(id) {
+      const p = people[id];
+      return `<button class="manager-link" type="button" data-open-manager="${id}" aria-label="Open ${p.name} profile"><span class="manager-avatar">${p.photo ? `<img src="${p.photo}" alt="">` : p.initials}</span><span class="manager-copy"><span class="manager-name">${p.name}</span><span class="manager-role">${p.title}</span></span>${svgArrow}</button>`;
+    }
+    function openProfile(id, sourceButton) {
+      const person = people[id];
+      if (!person) return;
+      activePerson = id;
+      previousFocus = sourceButton || document.activeElement;
+      const profileAvatar = document.getElementById("profileAvatar");
+      if (person.photo) profileAvatar.innerHTML = `<img src="${person.photo}" alt="">`;
+      else profileAvatar.textContent = person.initials;
+      document.getElementById("profileName").textContent = person.name;
+      document.getElementById("profileTitle").textContent = person.title;
+      document.getElementById("profileResponsibility").textContent = person.responsibility;
+      const statusClass = person.type === "Contractor" ? "contractor" : person.type === "Maternity Leave" ? "leave" : "";
+      const statusBadge = person.type ? `<span class="profile-badge ${statusClass}">${person.type}</span>` : "";
+      document.getElementById("profileBadges").innerHTML = `${statusBadge}<span class="profile-badge">${person.team}</span>`;
+      const managerArea = document.getElementById("managerArea");
+      if (person.manager) {
+        const manager = people[person.manager];
+        managerArea.innerHTML = `<p style="margin:0 0 8px;color:#71849d;font-size:10px">Team reporting path</p>${makeManagerLink(person.manager)}`;
+      } else {
+        managerArea.innerHTML = '<p style="margin:0;color:#a2b0c2;font-size:12px;line-height:1.5">Top-level role in this team chart.</p>';
+      }
+      document.getElementById("contactHint").textContent = person.contact || "Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask.";
+      panel.classList.add("open");
+      scrim.classList.add("open");
+      panel.setAttribute("aria-hidden", "false");
+      scrim.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      document.getElementById("closePanel").focus();
+    }
+    function closeProfile() {
+      panel.classList.remove("open");
+      scrim.classList.remove("open");
+      panel.setAttribute("aria-hidden", "true");
+      scrim.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      activePerson = null;
+      if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+    }
+    function filterPeople() {
+      const q = search.value.trim().toLocaleLowerCase();
+      let count = 0;
+      buttons.forEach(button => {
+        const p = people[button.dataset.person];
+        const section = button.closest(".team-column, .specialty, .domain");
+        const context = [
+          section?.getAttribute("aria-label"),
+          section?.querySelector(":scope > .team-heading, :scope > .group-title")?.textContent,
+          button.closest(".leader-section")?.querySelector(".reporting-link, .focus-banner")?.textContent
+        ].filter(Boolean);
+        const haystack = [p.name, p.title, p.team, p.responsibility, p.type, ...context].join(" ").toLocaleLowerCase();
+        const match = !q || haystack.includes(q);
+        button.classList.toggle("search-hidden", Boolean(q) && !match);
+        if (match) count++;
+      });
+
+      const wrappers = document.querySelectorAll(".support-group, .vp-row, .team-people, .team-column, .teams-grid, .leader-section, .reporting-branch, .group-content, .specialty, .specialty-grid, .domain, .domain-grid");
+      [...wrappers].sort((a, b) => b.querySelectorAll("[data-person]").length - a.querySelectorAll("[data-person]").length).forEach(wrapper => {
+        const visible = [...wrapper.querySelectorAll("[data-person]")].some(button => !button.classList.contains("search-hidden"));
+        wrapper.classList.toggle("search-hidden", Boolean(q) && !visible);
+      });
+      document.querySelectorAll(".teams-titlebar").forEach(titlebar => {
+        const teams = titlebar.nextElementSibling;
+        const visible = teams && [...teams.querySelectorAll("[data-person]")].some(button => !button.classList.contains("search-hidden"));
+        titlebar.classList.toggle("search-hidden", Boolean(q) && !visible);
+      });
+      emptyState.style.display = q && !count ? "block" : "none";
+      status.textContent = !q ? "Select a person to open their profile" : count ? `${count} ${count === 1 ? "match" : "matches"} in the chart` : "No matches found";
+    }
+    buttons.forEach(button => button.addEventListener("click", () => openProfile(button.dataset.person, button)));
+    document.getElementById("closePanel").addEventListener("click", closeProfile);
+    scrim.addEventListener("click", closeProfile);
+    panel.addEventListener("click", event => {
+      const manager = event.target.closest("[data-open-manager]");
+      if (manager) openProfile(manager.dataset.openManager, manager);
+    });
+    search.addEventListener("input", filterPeople);
+    document.querySelector(".clear-search").addEventListener("click", () => { search.value = ""; filterPeople(); search.focus(); });
+    document.getElementById("resetView").addEventListener("click", () => {
+      search.value = "";
+      filterPeople();
+      if (activePerson) closeProfile();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && panel.classList.contains("open")) closeProfile();
+      if (event.key === "Tab" && panel.classList.contains("open")) {
+        const focusable = [...panel.querySelectorAll("button, [href], input, [tabindex]:not([tabindex='-1'])")].filter(el => !el.disabled);
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f2efe9">
+  <title>Product Marketing Networking — Team Map</title>
+  <link rel="stylesheet" href="assets/team-maps.css">
+  <style>
+    .domain-grid { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(230px,.7fr); align-items:start; gap:16px; }
+    .domain { min-width:0; padding:12px; border:1px solid rgba(255,255,255,.96); border-radius:16px; background:rgba(247,244,239,.78); box-shadow:5px 5px 12px rgba(209,205,198,.42),-5px -5px 12px #fffdfa; }
+    .domain > .group-title { justify-content:center; min-height:48px; margin-bottom:10px; text-align:center; }
+    .domain-lead { margin-bottom:10px; }
+    .specialty-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:10px; }
+    .specialty { min-width:0; padding:9px; border:1px solid rgba(255,255,255,.98); border-radius:12px; background:rgba(242,239,233,.75); }
+    .specialty .group-title { min-height:42px; margin-bottom:9px; padding:8px 9px; font-size:10.5pt; }
+    .specialty .group-content { gap:8px; }
+    .specialty .person-card { align-items:flex-start; gap:9px; min-height:64px; padding:9px; }
+    .specialty .avatar { width:36px; height:36px; font-size:10pt; }
+    .specialty .person-card .name { font-size:10.5pt; }
+    .specialty .person-card .title { font-size:9.5pt; }
+    .specialty .person-card .role { margin-top:5px; font-size:8pt; }
+    .reporting-branch { display:flex; flex-direction:column; gap:8px; margin:0 0 0 12px; padding-left:10px; border-left:1px solid #c9c6c0; }
+    .reporting-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .specialty-iiot { grid-column:1 / -1; }
+    .product-vp-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,.7fr); align-items:center; gap:32px; max-width:920px; margin:0 auto 30px; }
+    .product-vp-card { min-height:104px; padding:16px 18px; border:1px solid rgba(255,255,255,.98); border-left:3px solid var(--blue); border-radius:16px; background:#f8f6f2; box-shadow:6px 6px 14px #dedad3,-6px -6px 14px #fffdfa; }
+    .product-support { display:flex; min-width:0; flex-direction:column; gap:10px; padding-left:24px; border-left:1px solid #dfdcd6; }
+    .product-support-label { margin:0 0 1px; color:#858d98; font-size:9pt; font-weight:750; letter-spacing:.13em; text-transform:uppercase; }
+    .product-support .person-card { width:100%; min-height:70px; }
+    .product-support .person-card .avatar { width:42px; height:42px; font-size:10.5pt; }
+    .support-card { width:250px; }
+    .on-leave { color:#727d8d; font-weight:500; }
+    @media(max-width:1120px) {
+      .product-vp-row { max-width:740px; grid-template-columns:minmax(0,1fr) minmax(265px,.8fr); gap:20px; }
+      .domain-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .domain:first-child { grid-row:span 2; }
+      .support-card { width:230px; }
+    }
+    @media(max-width:700px) {
+      .product-vp-row { grid-template-columns:minmax(0,1fr); gap:16px; }
+      .product-support { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:0; border:0; }
+      .product-support-label { grid-column:1 / -1; }
+      .domain-grid { grid-template-columns:minmax(0,1fr); }
+      .domain:first-child { grid-row:auto; }
+      .specialty-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .support-card { width:100%; }
+    }
+    @media(max-width:460px) {
+      .product-support { grid-template-columns:minmax(0,1fr); }
+      .product-support-label { grid-column:1; }
+      .specialty-grid { grid-template-columns:minmax(0,1fr); }
+      .specialty-iiot { grid-column:auto; }
+      .reporting-grid { grid-template-columns:minmax(0,1fr); }
+      .domain { padding:10px; }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/layout-fixes.css">
+</head>
+<body>
+<main class="page">
+  <header class="topbar">
+    <div>
+      <a class="back" href="index.html" aria-label="Back to Marketing City home"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Marketing City</a>
+      
+      <h1>Product Marketing Networking</h1>
+      <p class="subtitle">Explore the teams shaping Networking PINs, Platform, API, Assurance, and Industry product marketing.</p>
+    </div>
+    <div class="header-meta">
+      <div class="count" data-people-count></div>
+      <div class="legend"><span class="legend-item"><i class="legend-mark"></i>FTE</span><span class="legend-item"><i class="legend-mark contractor"></i>Contractor</span></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <label class="search-wrap"><svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility"><button class="clear" type="button" aria-label="Clear search">×</button></label>
+    <button class="reset" type="button">Reset view</button>
+  </div>
+
+  <section class="product-vp-row" aria-label="Team leadership">
+    <div class="lead-person product-vp-card"><span class="avatar"><img src="assets/headshots/bassam-khan.jpg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Bassam Khan</strong><span class="title">VP, Product Marketing Networking</span><span class="role">FTE</span></span></div>
+    <div class="product-support">
+      <p class="product-support-label">Leadership support</p>
+      <article class="person-card contractor support-card"><span class="avatar">VG</span><span class="copy"><strong class="name">Vanessa Garcia</strong><span class="title">Executive Assistant</span><span class="role contractor">Contractor</span></span></article>
+      <article class="person-card support-card"><span class="avatar">JF</span><span class="copy"><strong class="name">Juliet Friedman</strong><span class="title">Chief of Staff</span><span class="role">FTE</span></span></article>
+    </div>
+  </section>
+
+  <h2 class="section-label">Focus areas</h2>
+  <div class="domain-grid">
+    <section class="domain" aria-labelledby="pins-heading">
+      <h3 class="group-title" id="pins-heading">Networking PINs</h3>
+      <article class="person-card domain-lead"><span class="avatar">GS</span><span class="copy"><strong class="name">Grant Shirk (CA)</strong><span class="title">Sr. Director · Product Marketing, Networking PINs</span><span class="role">FTE</span></span></article>
+      <div class="specialty-grid">
+        <section class="specialty"><h4 class="group-title">Wireless and IoT</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">JT</span><span class="copy"><strong class="name">Josh van Tonder</strong><span class="title">Director, Wireless</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch">
+          <article class="person-card"><span class="avatar">AN</span><span class="copy"><strong class="name">Amrit Nijjer</strong><span class="title">Wireless</span><span class="role">FTE</span></span></article>
+          <article class="person-card"><span class="avatar">LA</span><span class="copy"><strong class="name">Lesly Anzo</strong><span class="title">Wireless, Sensors</span><span class="role">FTE</span></span></article>
+          </div>
+        </div></section>
+        <section class="specialty"><h4 class="group-title">Switching</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">TC</span><span class="copy"><strong class="name">Thomas Clavel</strong><span class="title">Director, Switching</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch">
+          <article class="person-card"><span class="avatar">GG</span><span class="copy"><strong class="name">Gabriel Geller</strong><span class="title">Switching <span class="on-leave">· On leave</span></span><span class="role">FTE</span></span></article>
+          <article class="person-card"><span class="avatar">SF</span><span class="copy"><strong class="name">Summer Faruqi</strong><span class="title">Switching</span><span class="role">FTE</span></span></article>
+          <article class="person-card contractor"><span class="avatar">AC</span><span class="copy"><strong class="name">Albert Chiang</strong><span class="title">Switching</span><span class="role contractor">Contractor</span></span></article>
+          <article class="person-card contractor"><span class="avatar">SH</span><span class="copy"><strong class="name">Sophia Hsieh</strong><span class="title">Switching</span><span class="role contractor">Contractor</span></span></article>
+          </div>
+        </div></section>
+        <section class="specialty"><h4 class="group-title">Routing</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">KG</span><span class="copy"><strong class="name">Kiran Ghodgegaonkar</strong><span class="title">Director, Routing</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch">
+          <article class="person-card"><span class="avatar">DC</span><span class="copy"><strong class="name">Devin Creer</strong><span class="title">Routing, Security &amp; PQC</span><span class="role">FTE</span></span></article>
+          <article class="person-card"><span class="avatar">AS</span><span class="copy"><strong class="name">Abdi Saeedabadi</strong><span class="title">Routing, AI Infra &amp; Unified Branch</span><span class="role">FTE</span></span></article>
+          </div>
+        </div></section>
+        <section class="specialty specialty-iiot"><h4 class="group-title">IIoT</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">PP</span><span class="copy"><strong class="name">Preethy Padmanabhan (CA)</strong><span class="title">Director, Industrial</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch reporting-grid">
+            <div class="group-content">
+              <article class="person-card"><span class="avatar">FM</span><span class="copy"><strong class="name">Fabien Maisl</strong><span class="title">Product Marketing Leader</span><span class="role">FTE</span></span></article>
+              <div class="reporting-branch">
+                <article class="person-card"><span class="avatar">EK</span><span class="copy"><strong class="name">Emily Kasman</strong><span class="title">Transportation &amp; Industrial Security</span><span class="role">FTE</span></span></article>
+                <article class="person-card"><span class="avatar">JF</span><span class="copy"><strong class="name">John Filitz</strong><span class="title">Industrial Security</span><span class="role">FTE</span></span></article>
+              </div>
+            </div>
+            <div class="group-content">
+              <article class="person-card"><span class="avatar">HT</span><span class="copy"><strong class="name">Henry Teichert</strong><span class="title">Industrial Routing and Utilities</span><span class="role">FTE</span></span></article>
+              <article class="person-card"><span class="avatar">PC</span><span class="copy"><strong class="name">Patricia Costa</strong><span class="title">Industrial Wireless, Oil &amp; Gas</span><span class="role">FTE</span></span></article>
+              <article class="person-card"><span class="avatar">EK</span><span class="copy"><strong class="name">Eric Kim</strong><span class="title">PMM, Industrial AI</span><span class="role">FTE</span></span></article>
+              <article class="person-card contractor"><span class="avatar">EH</span><span class="copy"><strong class="name">Erin Hatfield</strong><span class="title">PMM, Enablement and Launch Ops</span><span class="role contractor">Contractor</span></span></article>
+            </div>
+          </div>
+        </div></section>
+      </div>
+    </section>
+
+    <section class="domain" aria-labelledby="platform-heading">
+      <h3 class="group-title" id="platform-heading">Platform, API, Assurance</h3>
+      <div class="specialty-grid">
+        <section class="specialty"><h4 class="group-title">Networking Platforms</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">MK</span><span class="copy"><strong class="name">Miriam Kung</strong><span class="title">Networking Platforms</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch">
+          <article class="person-card"><span class="avatar">MA</span><span class="copy"><strong class="name">Monisha Alfaro</strong><span class="title">Licensing &amp; Workflows</span><span class="role">FTE</span></span></article>
+          </div>
+        </div></section>
+        <section class="specialty"><h4 class="group-title">API and Marketplace</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">NN</span><span class="copy"><strong class="name">Ana Nennig</strong><span class="title">Marketplace, Dev &amp; API</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch">
+          <article class="person-card contractor"><span class="avatar">AK</span><span class="copy"><strong class="name">Alex Kim</strong><span class="title">PMM, API</span><span class="role contractor">Contractor</span></span></article>
+          </div>
+        </div></section>
+        <section class="specialty"><h4 class="group-title">Assurance</h4><div class="group-content">
+          <article class="person-card"><span class="avatar">DP</span><span class="copy"><strong class="name">David Puzas</strong><span class="title">ThousandEyes &amp; Assurance</span><span class="role">FTE</span></span></article>
+          <div class="reporting-branch">
+          <article class="person-card"><span class="avatar">JZ</span><span class="copy"><strong class="name">Jonathan Zarkower</strong><span class="title">Employee Digital Experience &amp; Competitive Intelligence</span><span class="role">FTE</span></span></article>
+          </div>
+        </div></section>
+      </div>
+    </section>
+
+    <section class="domain" aria-labelledby="industry-heading">
+      <h3 class="group-title" id="industry-heading">Industry</h3>
+      <div class="group-content"><article class="person-card contractor"><span class="avatar">AL</span><span class="copy"><strong class="name">Ana Leung</strong><span class="title">Verticals, Industry, Competitive Marketing</span><span class="role contractor">Contractor</span></span></article></div>
+    </section>
+  </div>
+
+  <p class="empty-state">No people match that search.</p>
+  <footer class="footer">Team map · <a href="index.html">Return to Marketing City</a></footer>
+</main>
+<script src="assets/team-maps.js"></script>
+</body>
+</html>

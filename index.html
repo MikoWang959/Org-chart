@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2efe9">
+  <title>WTG Marketing City</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --canvas: #f2efe9;
+      --panel: #f8f6f2;
+      --ink: #202938;
+      --muted: #687386;
+      --muted-soft: #838b98;
+      --blue: #1559d6;
+      --line: #e0ddd7;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background: radial-gradient(ellipse at 50% -20%, #fffdfa 0, transparent 58%), var(--canvas);
+    }
+    .page { width: min(100% - 48px, 1800px); margin: 0 auto; padding: 34px 0 48px; }
+    .masthead { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; margin-bottom: 24px; }
+    .eyebrow { margin: 0 0 12px; color: var(--blue); font-size: 12pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(34pt, 5vw, 48pt); line-height: .98; letter-spacing: -.055em; font-weight: 690; }
+    .intro { max-width: 700px; margin: 14px 0 0; color: var(--muted); font-size: 14pt; line-height: 1.42; }
+    .map-summary { display: flex; align-items: center; gap: 10px; padding: 11px 15px; border: 1px solid rgba(255,255,255,.96); border-radius: 999px; color: #4d596b; background: #f6f3ee; box-shadow: 5px 5px 12px #ddd9d2, -5px -5px 12px #fffdfa; font-size: 12pt; white-space: nowrap; }
+    .map-summary::before { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); content: ""; box-shadow: 0 0 9px rgba(21,89,214,.28); }
+    .explore-hint { display: flex; align-items: center; gap: 9px; margin: 0 0 12px 4px; color: var(--muted); font-size: 12pt; line-height: 1.35; }
+    .hint-dot { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: var(--blue); }
+    .explore-hint strong { color: #4d596b; font-weight: 650; }
+    .city-shell { padding: clamp(12px, 1.5vw, 22px); border: 1px solid rgba(255,255,255,.96); border-radius: 26px; background: rgba(246,243,238,.78); box-shadow: 8px 8px 20px rgba(204,200,193,.55), -7px -7px 20px rgba(255,255,255,.92); }
+    .city-map { position: relative; min-height: 850px; height: min(1100px, 82vw); overflow: hidden; border: 1px solid rgba(255,255,255,.88); border-radius: 19px; isolation: isolate; background: linear-gradient(180deg, #f7ece1 0%, #f9f0e8 52%, #faf0e7 100%); }
+    .city-art { position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+    .city-map::before { position: absolute; z-index: 1; inset: 0; background: transparent; pointer-events: none; content: ""; }
+    .city-map::after { position: absolute; z-index: 4; inset: 0; border: 1px solid rgba(255,255,255,.62); border-radius: inherit; pointer-events: none; content: ""; }
+    .district-card { --sign-accent: #a9b8cb; position: absolute; z-index: 2; top: var(--top); left: var(--left); display: flex; width: clamp(140px, 15%, 190px); min-height: 50px; align-items: center; justify-content: center; padding: 8px 10px; transform: translate(-50%, -50%); text-align: center; border: 1px solid rgba(255,255,255,.96); border-top: 2px solid var(--sign-accent); border-radius: 13px; color: var(--ink); background: rgba(250,248,245,.88); box-shadow: 5px 6px 13px rgba(53,67,91,.12), -3px -3px 8px rgba(255,255,255,.72); backdrop-filter: blur(6px); text-decoration: none; transition: transform .24s cubic-bezier(.2,.75,.25,1), box-shadow .24s ease, border-color .24s ease, background .24s ease; }
+    .district-card.is-ready { --sign-accent: var(--blue); cursor: pointer; }
+    .district-card:hover, .district-card:focus-visible, .district-card.is-active { z-index: 3; transform: translate(-50%, calc(-50% - 5px)); outline: none; border-color: #c6d6f4; background: rgba(255,254,252,.98); box-shadow: 9px 13px 24px rgba(46,66,103,.2), 0 0 0 3px rgba(21,89,214,.12); }
+    .district-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .district-card::after { position: absolute; top: calc(100% + 1px); left: 50%; width: 2px; height: 17px; transform: translateX(-50%); background: linear-gradient(var(--sign-accent), rgba(119,139,170,.18)); content: ""; }
+    .district-card[data-arrow="up"]::after { top: auto; bottom: calc(100% + 1px); background: linear-gradient(to top, var(--sign-accent), rgba(119,139,170,.18)); }
+    .district-name { display: block; min-width: 0; font-size: 10.5pt; font-weight: 680; line-height: 1.1; letter-spacing: -.025em; }
+    .district-card[data-area="01"] { --left: 24%; --top: 19%; }
+    .district-card[data-area="02"] { --left: 50%; --top: 16.5%; }
+    .district-card[data-area="03"] { --left: 78%; --top: 20%; }
+    .district-card[data-area="04"] { --left: 12%; --top: 57%; }
+    .district-card[data-area="05"] { --left: 57%; --top: 58%; width: clamp(250px, 26%, 330px); }
+    .district-card[data-area="06"] { --left: 88%; --top: 59%; }
+    .district-card[data-area="07"] { --left: 19%; --top: 81%; width: clamp(250px, 25%, 320px); }
+    .district-card[data-area="08"] { --left: 79%; --top: 83%; width: clamp(270px, 27%, 330px); }
+    .district-card.is-active { --sign-accent: var(--blue); }
+    @media (max-width: 1000px) {
+      .page { width: min(100% - 36px, 1800px); }
+      .city-map { min-height: 760px; height: min(1000px, 86vw); }
+      .district-card { width: clamp(128px, 15%, 170px); min-height: 48px; padding: 7px 9px; }
+      .district-card[data-area="05"] { width: clamp(220px, 26%, 300px); }
+      .district-card[data-area="07"] { width: clamp(220px, 25%, 280px); }
+      .district-card[data-area="08"] { width: clamp(230px, 27%, 290px); }
+      .district-name { font-size: 10pt; }
+    }
+    @media (max-width: 760px) {
+      .masthead { flex-direction: column; gap: 16px; }
+      .city-map { display: grid; height: auto; min-height: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow: visible; padding: 10px; background: linear-gradient(180deg, #f7ece1 0%, #f9f0e8 52%, #faf0e7 100%); }
+      .city-art { position: relative; z-index: 0; grid-column: 1 / -1; width: calc(100% + 20px); height: auto; margin: -10px -10px 4px; object-fit: contain; border-radius: 12px; }
+      .district-card { position: relative; top: auto !important; left: auto !important; width: auto; min-height: 60px; padding: 8px 10px; transform: none; }
+      .district-card[data-area="05"], .district-card[data-area="07"] { width: auto; }
+      .district-card:hover, .district-card:focus-visible, .district-card.is-active { transform: translateY(-3px); }
+      .district-card::after { display: none; }
+      .city-map::before { display: none; }
+      .city-map::after { z-index: 1; }
+    }
+    @media (max-width: 560px) {
+      .page { width: min(100% - 28px, 1800px); padding-top: 25px; }
+      .masthead { margin-bottom: 20px; }
+      h1 { font-size: clamp(32pt, 10vw, 39pt); }
+      .intro { font-size: 12pt; }
+      .map-summary { font-size: 12pt; }
+      .city-map { grid-template-columns: minmax(0, 1fr); }
+      .city-art { grid-column: 1; }
+      .district-card { min-height: 56px; padding: 8px 10px; }
+      .city-shell { padding: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .city-art { transform: none !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/layout-fixes.css">
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">WTG Marketing · Organization Map</p>
+        <h1>Marketing City</h1>
+        <p class="intro">One connected organization, eight focus areas. Choose a district to explore its people, responsibilities, and reporting paths.</p>
+      </div>
+      <div class="map-summary">8 focus areas</div>
+    </header>
+
+    <p class="explore-hint"><span class="hint-dot" aria-hidden="true"></span><strong>Explore the city</strong><span>Hover over a sign to locate its district; select an available area to open its page.</span></p>
+    <section class="city-shell" aria-label="Marketing organization city map">
+      <div class="city-map" id="cityMap">
+        <img class="city-art" src="assets/marketing-city-ivory.png" alt="A warm ivory and cobalt isometric city map with eight districts linked by winding roads">
+        <a class="district-card is-ready" data-area="01" href="apjc-wtg-marketing.html"><strong class="district-name">APJC WTG Marketing</strong></a>
+        <a class="district-card is-ready" data-area="02" href="amer-gtm-field-global-events.html"><strong class="district-name">AMER GTM Field &amp; Global Events</strong></a>
+        <a class="district-card is-ready" data-area="03" href="emea-field-marketing.html"><strong class="district-name">EMEA Field Marketing</strong></a>
+        <a class="district-card is-ready" data-area="04" data-arrow="up" href="iiot-revenue-marketing.html"><strong class="district-name">IIoT Revenue Marketing</strong></a>
+        <a class="district-card is-ready" data-area="05" data-arrow="up" href="integrated-marketing-gtm-strategy.html"><strong class="district-name">Integrated Marketing &amp; GTM Strategy</strong></a>
+        <a class="district-card is-ready" data-area="06" data-arrow="up" href="web-digital-ops-team.html"><strong class="district-name">Web, Digital, &amp; Ops Team</strong></a>
+        <a class="district-card is-ready" data-area="07" data-arrow="up" href="product-marketing-networking.html"><strong class="district-name">Product Marketing<br>Networking</strong></a>
+        <a class="district-card is-ready" data-area="08" data-arrow="up" href="collaboration-networking-product-solutions-marketing.html"><strong class="district-name">Collaboration Networking +<br>Product &amp; Solutions Marketing</strong></a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const signs = [...document.querySelectorAll(".district-card[data-area]")];
+
+    function highlightArea(area) {
+      signs.forEach(sign => sign.classList.toggle("is-active", Boolean(area) && sign.dataset.area === area));
+    }
+    signs.forEach(sign => {
+      sign.addEventListener("pointerenter", () => highlightArea(sign.dataset.area));
+      sign.addEventListener("pointerleave", () => highlightArea(null));
+      sign.addEventListener("focus", () => highlightArea(sign.dataset.area));
+      sign.addEventListener("blur", () => highlightArea(null));
+    });
+  </script>
+</body>
+</html>

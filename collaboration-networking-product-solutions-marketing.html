@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f2efe9">
+  <title>Collaboration Networking + Product &amp; Solutions Marketing — Team Map</title>
+  <link rel="stylesheet" href="assets/team-maps.css">
+  <link rel="stylesheet" href="assets/layout-fixes.css">
+  <style>
+    .collab-grid { grid-template-columns:repeat(4,minmax(0,1fr)); align-items:start; gap:16px; }
+    .collab-grid > .group { min-width:0; }
+    .collab-grid .subgroup { margin-left:9px; padding-left:10px; }
+    .collab-grid .subgroup .subgroup { margin-left:7px; padding-left:9px; }
+    .collab-grid .group-content { gap:11px; }
+    .collab-grid .subgroup { display:flex; flex-direction:column; gap:10px; }
+    .collab-grid .subgroup-label { margin:0 0 1px; }
+    .lead-panel.executive-row { margin-bottom:20px; }
+    @media(max-width:1180px) { .collab-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:640px) { .collab-grid { grid-template-columns:minmax(0,1fr); } }
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="topbar">
+    <div>
+      <a class="back" href="index.html" aria-label="Back to Marketing City home"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Marketing City</a>
+      
+      <h1>Collaboration Networking + Product &amp; Solutions Marketing</h1>
+      <p class="subtitle">Explore the teams supporting customer and employee experiences, training, collaboration, networking, and future-proof workplace solutions.</p>
+    </div>
+    <div class="header-meta">
+      <div class="count" data-people-count></div>
+      <div class="legend">
+        <span class="legend-item"><i class="legend-mark"></i>FTE</span>
+        <span class="legend-item"><i class="legend-mark contractor"></i>Contractor</span>
+        <span class="legend-item"><i class="legend-mark open"></i>Open headcount</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <label class="search-wrap"><svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility"><button class="clear" type="button" aria-label="Clear search">×</button></label>
+    <button class="reset" type="button">Reset view</button>
+  </div>
+
+  <section class="executive-row" aria-label="Focus area leadership">
+    <article class="executive-card"><span class="avatar"><img src="assets/headshots/craig-burnham.jpg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Craig Burnham</strong><span class="title">VP · Product Marketing, Collaboration Solutions Marketing, FPW</span><span class="role">FTE</span></span></article>
+    <div class="executive-support"><p class="executive-support-label">Leadership support</p>
+      <article class="person-card"><span class="avatar"><img src="assets/headshots/kendys-carrizo.jpg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Kendys Carrizo</strong><span class="title">Executive Assistant</span><span class="role">FTE</span></span></article>
+      <article class="person-card"><span class="avatar">AC</span><span class="copy"><strong class="name">Amanda Crain</strong><span class="title">Chief of Staff</span><span class="role">FTE</span></span></article>
+    </div>
+  </section>
+
+  <h2 class="section-label">Focus areas</h2>
+  <div class="group-grid collab-grid">
+    <section class="group" aria-labelledby="customer-experience">
+      <h3 class="group-title" id="customer-experience">Customer Experience</h3>
+      <div class="group-content">
+        <article class="person-card"><span class="avatar">MP</span><span class="copy"><strong class="name">Manu Parhar</strong><span class="title">Director, Product Marketing</span><span class="role">FTE</span></span></article>
+        <div class="subgroup"><p class="subgroup-label">Team</p>
+          <article class="person-card"><span class="avatar">JS</span><span class="copy"><strong class="name">Jessica Smith</strong><span class="title">Director, Product Marketing (CCaaS)</span><span class="role">FTE</span></span></article>
+          <article class="person-card"><span class="avatar">PG</span><span class="copy"><strong class="name">Paula Goldrich</strong><span class="title">Leader, Marketing (CPaaS)</span><span class="role">FTE</span></span></article>
+          <article class="person-card"><span class="avatar">SW</span><span class="copy"><strong class="name">Sam Watson</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="employee-experience">
+      <h3 class="group-title" id="employee-experience">Employee Experience</h3>
+      <div class="group-content">
+        <article class="person-card"><span class="avatar">CL</span><span class="copy"><strong class="name">Caitlin Lacey</strong><span class="title">Director, Product Marketing</span><span class="role">FTE</span></span></article>
+        <div class="subgroup"><p class="subgroup-label">Suite</p>
+          <article class="person-card"><span class="avatar">TT</span><span class="copy"><strong class="name">Tenev Takahashi</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+          <article class="person-card"><span class="avatar">MS</span><span class="copy"><strong class="name">Molita Sorishochamaki</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+        </div>
+        <div class="subgroup"><p class="subgroup-label">Devices</p>
+          <article class="person-card" data-manager="Caitlin Lacey"><span class="avatar">AJ</span><span class="copy"><strong class="name">Andy Johnston</strong><span class="title">Leader, Product Marketing</span><span class="role">FTE</span></span></article>
+          <article class="person-card" data-manager="Caitlin Lacey"><span class="avatar">MS</span><span class="copy"><strong class="name">Marte Sannesmoen</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+          <article class="person-card" data-manager="Caitlin Lacey"><span class="avatar">GG</span><span class="copy"><strong class="name">György Gyarmati</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+          <article class="person-card" data-manager="Caitlin Lacey"><span class="avatar">MR</span><span class="copy"><strong class="name">Marisa Rutti</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="customer-training">
+      <h3 class="group-title" id="customer-training">Customer Training (Webex Academy)</h3>
+      <div class="group-content">
+        <article class="person-card"><span class="avatar">CW</span><span class="copy"><strong class="name">Caroline Wright</strong><span class="title">Director, Learning &amp; Development</span><span class="role">FTE</span></span></article>
+        <div class="subgroup"><p class="subgroup-label">Webex Training</p>
+          <article class="person-card"><span class="avatar">LH</span><span class="copy"><strong class="name">Laura Hamill</strong><span class="title">Leader, Webex Training</span><span class="role">FTE</span></span></article>
+          <div class="subgroup"><p class="subgroup-label">Team</p>
+            <article class="person-card"><span class="avatar">CD</span><span class="copy"><strong class="name">Clare Davis</strong><span class="title">Webex Trainer</span><span class="role">FTE</span></span></article>
+            <article class="person-card"><span class="avatar">SP</span><span class="copy"><strong class="name">Susan Parrish</strong><span class="title">Webex Trainer</span><span class="role">FTE</span></span></article>
+            <article class="person-card contractor"><span class="avatar">VM</span><span class="copy"><strong class="name">Vanesa Melendez</strong><span class="title">Webex Trainer</span><span class="role contractor">Contractor</span></span></article>
+          </div>
+        </div>
+        <div class="subgroup"><p class="subgroup-label">Learning Content</p>
+          <article class="person-card" data-manager="Caroline Wright"><span class="avatar">AM</span><span class="copy"><strong class="name">Arnold Murray</strong><span class="title">Leader, Learning Content</span><span class="role">FTE</span></span></article>
+          <div class="subgroup"><p class="subgroup-label">Team</p>
+            <article class="person-card contractor"><span class="avatar">CR</span><span class="copy"><strong class="name">Caroline Reilly</strong><span class="title">Instructional Designer</span><span class="role contractor">Contractor</span></span></article>
+            <article class="person-card"><span class="avatar">JB</span><span class="copy"><strong class="name">Jamie Bissonnette</strong><span class="title">Instructional Designer</span><span class="role">FTE</span></span></article>
+            <article class="person-card"><span class="avatar">DG</span><span class="copy"><strong class="name">Dan Gallant</strong><span class="title">Instructional Designer</span><span class="role">FTE</span></span></article>
+            <article class="person-card contractor"><span class="avatar">JJ</span><span class="copy"><strong class="name">Joseph Jenkins</strong><span class="title">Instructional Designer</span><span class="role contractor">Contractor</span></span></article>
+            <article class="person-card contractor"><span class="avatar">AP</span><span class="copy"><strong class="name">Aadila Patel</strong><span class="title">Instructional Designer</span><span class="role contractor">Contractor</span></span></article>
+            <article class="person-card contractor"><span class="avatar">AS</span><span class="copy"><strong class="name">Alexandra Scarpello</strong><span class="title">Instructional Designer</span><span class="role contractor">Contractor</span></span></article>
+          </div>
+        </div>
+        <div class="subgroup"><p class="subgroup-label">Learning Experience</p>
+          <article class="person-card" data-manager="Caroline Wright"><span class="avatar">JH</span><span class="copy"><strong class="name">Jeff Hubbard</strong><span class="title">Leader, Learning Experience</span><span class="role">FTE</span></span></article>
+          <div class="subgroup"><p class="subgroup-label">Team</p>
+            <article class="person-card contractor"><span class="avatar">DW</span><span class="copy"><strong class="name">Donna Wyvill</strong><span class="title">Experience Admin</span><span class="role contractor">Contractor</span></span></article>
+            <article class="person-card contractor"><span class="avatar">EN</span><span class="copy"><strong class="name">Emanuel Nascimento</strong><span class="title">Instructional Designer</span><span class="role contractor">Contractor</span></span></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="solutions-marketing">
+      <h3 class="group-title" id="solutions-marketing">Solutions Marketing, Future Proof Workplace</h3>
+      <div class="group-content">
+        <article class="person-card"><span class="avatar">SE</span><span class="copy"><strong class="name">Scott Edwards</strong><span class="title">Director, Solutions &amp; Customer Advocacy</span><span class="role">FTE</span></span></article>
+        <div class="subgroup"><p class="subgroup-label">Launches</p>
+          <article class="person-card"><span class="avatar">CT</span><span class="copy"><strong class="name">Christina Torok (WA)</strong><span class="title">Director, Product Marketing</span><span class="role">FTE</span></span></article>
+          <div class="subgroup"><p class="subgroup-label">Team</p>
+            <article class="person-card"><span class="avatar">JP</span><span class="copy"><strong class="name">Jill Purse</strong><span class="title">Product Marketing Manager (Networking)</span><span class="role">FTE</span></span></article>
+            <article class="person-card"><span class="avatar">SS</span><span class="copy"><strong class="name">Shilpi Sneha</strong><span class="title">Product Marketing Manager (Networking)</span><span class="role">FTE</span></span></article>
+            <article class="person-card contractor"><span class="avatar">LR</span><span class="copy"><strong class="name">Lindsey Rein</strong><span class="title">Launches Marketing (Collab)</span><span class="role contractor">Contractor</span></span></article>
+            <article class="person-card open"><span class="avatar">TB</span><span class="copy"><strong class="name">TBH — Leader</strong><span class="title">Solutions Marketing · Req 2015383</span><span class="role open">Open headcount</span></span></article>
+          </div>
+        </div>
+        <div class="subgroup"><p class="subgroup-label">Customer Advocacy</p>
+          <article class="person-card" data-manager="Scott Edwards"><span class="avatar">CG</span><span class="copy"><strong class="name">Courtenay Godshall</strong><span class="title">Director, Product Marketing</span><span class="role">FTE</span></span></article>
+          <div class="subgroup"><p class="subgroup-label">Team</p>
+            <article class="person-card"><span class="avatar">DW</span><span class="copy"><strong class="name">Dik Whitten</strong><span class="title">Marketing Manager</span><span class="role">FTE</span></span></article>
+            <article class="person-card"><span class="avatar">ML</span><span class="copy"><strong class="name">Melody Leatherbury</strong><span class="title">Marketing Manager</span><span class="role">FTE</span></span></article>
+            <article class="person-card open"><span class="avatar">TB</span><span class="copy"><strong class="name">TBH — Customer Advocacy</strong><span class="title">Customer Advocacy Marketing Manager · Req 2016128</span><span class="role open">Open headcount</span></span></article>
+          </div>
+        </div>
+        <div class="subgroup"><p class="subgroup-label">AgenticOps</p>
+          <article class="person-card" data-manager="Scott Edwards"><span class="avatar">KR</span><span class="copy"><strong class="name">Kris Rangarajan</strong><span class="title">AgenticOps &amp; Thought Leadership</span><span class="role">FTE</span></span></article>
+          <div class="subgroup"><p class="subgroup-label">Team</p>
+            <article class="person-card"><span class="avatar">GM</span><span class="copy"><strong class="name">George Mokdessi</strong><span class="title">Product Marketing Manager</span><span class="role">FTE</span></span></article>
+            <article class="person-card contractor"><span class="avatar">KH</span><span class="copy"><strong class="name">Karen Hobert</strong><span class="title">Program Manager</span><span class="role contractor">Contractor</span></span></article>
+            <article class="person-card open"><span class="avatar">TB</span><span class="copy"><strong class="name">TBH — Senior Solutions Marketing</strong><span class="title">AI for EN · Req 2015081</span><span class="role open">Open headcount</span></span></article>
+            <article class="person-card open"><span class="avatar">TB</span><span class="copy"><strong class="name">TBH — Content Marketing</strong><span class="title">Marketing Manager, AI for EN · Req 2015080</span><span class="role open">Open headcount</span></span></article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <p class="empty-state">No people match that search.</p>
+  <footer class="footer">Team map · <a href="index.html">Return to Marketing City</a></footer>
+</main>
+<script src="assets/team-maps.js"></script>
+</body>
+</html>
