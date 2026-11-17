@@ -9,7 +9,7 @@
   <style>
     .domain-grid { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(230px,.7fr); align-items:start; gap:16px; }
     .domain { min-width:0; padding:12px; border:1px solid rgba(255,255,255,.96); border-radius:16px; background:rgba(247,244,239,.78); box-shadow:5px 5px 12px rgba(209,205,198,.42),-5px -5px 12px #fffdfa; }
-    .domain > .group-title { justify-content:center; min-height:48px; margin-bottom:10px; text-align:center; }
+    .domain > .group-title { justify-content:flex-start; min-height:48px; margin-bottom:10px; text-align:left; }
     .domain-lead { margin-bottom:10px; }
     .specialty-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:10px; }
     .specialty { min-width:0; padding:9px; border:1px solid rgba(255,255,255,.98); border-radius:12px; background:rgba(242,239,233,.75); }
@@ -54,11 +54,19 @@
       .reporting-grid { grid-template-columns:minmax(0,1fr); }
       .domain { padding:10px; }
     }
+    @media(max-width:1280px) {
+      .product-page .domain-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+      .product-page .domain:first-child { grid-column:1 / -1; grid-row:auto !important; }
+    }
+    @media(max-width:700px) {
+      .product-page .domain-grid { grid-template-columns:minmax(0,1fr) !important; }
+      .product-page .domain:first-child { grid-column:auto; }
+    }
   </style>
   <link rel="stylesheet" href="assets/layout-fixes.css">
 </head>
 <body>
-<main class="page">
+<main class="page product-page">
   <header class="topbar">
     <div>
       <a class="back" href="index.html" aria-label="Back to Marketing City home"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Marketing City</a>
@@ -78,11 +86,11 @@
   </div>
 
   <section class="product-vp-row" aria-label="Team leadership">
-    <div class="lead-person product-vp-card"><span class="avatar"><img src="assets/headshots/bassam-khan.jpg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Bassam Khan</strong><span class="title">VP, Product Marketing Networking</span><span class="role">FTE</span></span></div>
+    <div class="lead-person product-vp-card tier-c1" data-location="SAN FRANCISCO 12, 2nd floor, San Francisco, CA; United States Of America" data-webex-contact="baskhan@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/bassam-khan.jpg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Bassam Khan</strong><span class="title">VP, Product Marketing Networking</span><span class="role">FTE</span></span></div>
     <div class="product-support">
       <p class="product-support-label">Leadership support</p>
-      <article class="person-card contractor support-card"><span class="avatar">VG</span><span class="copy"><strong class="name">Vanessa Garcia</strong><span class="title">Executive Assistant</span><span class="role contractor">Contractor</span></span></article>
-      <article class="person-card support-card"><span class="avatar">JF</span><span class="copy"><strong class="name">Juliet Friedman</strong><span class="title">Chief of Staff</span><span class="role">FTE</span></span></article>
+      <article class="person-card contractor support-card tier-c2" data-location="SJ-21, Milpitas, CA, United States Of America" data-webex-contact="vanesgar@cisco.com" data-organization="WTG Networking Marketing Admin- US"><span class="avatar"><img src="assets/headshots/vanessa-garcia.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Vanessa Garcia</strong><span class="title">Executive Assistant</span><span class="role contractor">Contractor</span></span></article>
+      <article class="person-card support-card tier-c2" data-location="Irvine, California; United States Of America" data-webex-contact="jufriedm@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/juliet-friedman.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Juliet Friedman</strong><span class="title">Chief of Staff</span><span class="role">FTE</span></span></article>
     </div>
   </section>
 
@@ -90,46 +98,46 @@
   <div class="domain-grid">
     <section class="domain" aria-labelledby="pins-heading">
       <h3 class="group-title" id="pins-heading">Networking PINs</h3>
-      <article class="person-card domain-lead"><span class="avatar">GS</span><span class="copy"><strong class="name">Grant Shirk (CA)</strong><span class="title">Sr. Director · Product Marketing, Networking PINs</span><span class="role">FTE</span></span></article>
+      <article class="person-card domain-lead tier-c3" data-location="SAN FRANCISCO 12, 2nd floor, San Francisco, CA; United States Of America" data-webex-contact="gshirk@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/grant-shirk-ca.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Grant Shirk (CA)</strong><span class="title">Sr. Director · Product Marketing, Networking PINs</span><span class="role">FTE</span></span></article>
       <div class="specialty-grid">
         <section class="specialty"><h4 class="group-title">Wireless and IoT</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">JT</span><span class="copy"><strong class="name">Josh van Tonder</strong><span class="title">Director, Wireless</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="San Francisco, California; United States Of America" data-webex-contact="jvantond@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/josh-van-tonder.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Josh van Tonder</strong><span class="title">Director, Wireless</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch">
-          <article class="person-card"><span class="avatar">AN</span><span class="copy"><strong class="name">Amrit Nijjer</strong><span class="title">Wireless</span><span class="role">FTE</span></span></article>
-          <article class="person-card"><span class="avatar">LA</span><span class="copy"><strong class="name">Lesly Anzo</strong><span class="title">Wireless, Sensors</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="Fulton, Maryland; United States Of America" data-webex-contact="anijjer@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/amrit-nijjer.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Amrit Nijjer</strong><span class="title">Wireless</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="San Francisco, California; United States Of America" data-webex-contact="leanzo@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/lesly-anzo.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Lesly Anzo</strong><span class="title">Wireless, Sensors</span><span class="role">FTE</span></span></article>
           </div>
         </div></section>
         <section class="specialty"><h4 class="group-title">Switching</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">TC</span><span class="copy"><strong class="name">Thomas Clavel</strong><span class="title">Director, Switching</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="San Jose, California; United States Of America" data-webex-contact="tclavel@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/thomas-clavel.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Thomas Clavel</strong><span class="title">Director, Switching</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch">
-          <article class="person-card"><span class="avatar">GG</span><span class="copy"><strong class="name">Gabriel Geller</strong><span class="title">Switching <span class="on-leave">· On leave</span></span><span class="role">FTE</span></span></article>
-          <article class="person-card"><span class="avatar">SF</span><span class="copy"><strong class="name">Summer Faruqi</strong><span class="title">Switching</span><span class="role">FTE</span></span></article>
-          <article class="person-card contractor"><span class="avatar">AC</span><span class="copy"><strong class="name">Albert Chiang</strong><span class="title">Switching</span><span class="role contractor">Contractor</span></span></article>
-          <article class="person-card contractor"><span class="avatar">SH</span><span class="copy"><strong class="name">Sophia Hsieh</strong><span class="title">Switching</span><span class="role contractor">Contractor</span></span></article>
+          <article class="person-card tier-c4" data-location="Houston, Texas; United States Of America" data-webex-contact="ggeller@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/gabriel-geller.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Gabriel Geller</strong><span class="title">Switching <span class="on-leave">· On leave</span></span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="Irvine, California; United States Of America" data-webex-contact="sufaruqi@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/summer-faruqi.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Summer Faruqi</strong><span class="title">Switching</span><span class="role">FTE</span></span></article>
+          <article class="person-card contractor tier-c4" data-location="SJ-SANTANA ROW - 3098 OLSEN, San Jose, CA, United States Of America" data-webex-contact="albchian@cisco.com" data-organization="WTG Networking Marketing Admin- US"><span class="avatar"><img src="assets/headshots/albert-chiang.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Albert Chiang</strong><span class="title">Switching</span><span class="role contractor">Contractor</span></span></article>
+          <article class="person-card contractor tier-c4" data-location="SJ-01, San Jose, CA; United States Of America" data-webex-contact="sohsieh@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/sophia-hsieh.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Sophia Hsieh</strong><span class="title">Switching</span><span class="role contractor">Contractor</span></span></article>
           </div>
         </div></section>
         <section class="specialty"><h4 class="group-title">Routing</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">KG</span><span class="copy"><strong class="name">Kiran Ghodgegaonkar</strong><span class="title">Director, Routing</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="San Mateo, California; United States Of America" data-webex-contact="kghodgao@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/kiran-ghodgegaonkar.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Kiran Ghodgegaonkar</strong><span class="title">Director, Routing</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch">
-          <article class="person-card"><span class="avatar">DC</span><span class="copy"><strong class="name">Devin Creer</strong><span class="title">Routing, Security &amp; PQC</span><span class="role">FTE</span></span></article>
-          <article class="person-card"><span class="avatar">AS</span><span class="copy"><strong class="name">Abdi Saeedabadi</strong><span class="title">Routing, AI Infra &amp; Unified Branch</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="Phoenix, Arizona; United States Of America" data-webex-contact="dcreer@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/devin-creer.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Devin Creer</strong><span class="title">Routing, Security &amp; PQC</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="San Jose, California; United States Of America" data-webex-contact="asaeedab@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/abdi-saeedabadi.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Abdi Saeedabadi</strong><span class="title">Routing, AI Infra &amp; Unified Branch</span><span class="role">FTE</span></span></article>
           </div>
         </div></section>
         <section class="specialty specialty-iiot"><h4 class="group-title">IIoT</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">PP</span><span class="copy"><strong class="name">Preethy Padmanabhan (CA)</strong><span class="title">Director, Industrial</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="SJ-21, 3rd floor, Milpitas, CA; United States Of America" data-webex-contact="preepadu@cisco.com" data-organization="IIoT Marketing -- US"><span class="avatar"><img src="assets/headshots/preethy-padmanabhan-ca.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Preethy Padmanabhan (CA)</strong><span class="title">Director, Industrial</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch reporting-grid">
             <div class="group-content">
-              <article class="person-card"><span class="avatar">FM</span><span class="copy"><strong class="name">Fabien Maisl</strong><span class="title">Product Marketing Leader</span><span class="role">FTE</span></span></article>
+              <article class="person-card tier-c4" data-location="Paris, Ile-de-france; France" data-webex-contact="fabm@cisco.com" data-organization="Sentryo - Product Marketing - France"><span class="avatar"><img src="assets/headshots/fabien-maisl.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Fabien Maisl</strong><span class="title">Product Marketing Leader</span><span class="role">FTE</span></span></article>
               <div class="reporting-branch">
-                <article class="person-card"><span class="avatar">EK</span><span class="copy"><strong class="name">Emily Kasman</strong><span class="title">Transportation &amp; Industrial Security</span><span class="role">FTE</span></span></article>
-                <article class="person-card"><span class="avatar">JF</span><span class="copy"><strong class="name">John Filitz</strong><span class="title">Industrial Security</span><span class="role">FTE</span></span></article>
+                <article class="person-card tier-c4" data-location="Glendale, California; United States Of America" data-webex-contact="ekasman@cisco.com" data-organization="IIoT Marketing -- US"><span class="avatar"><img src="assets/headshots/emily-kasman.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Emily Kasman</strong><span class="title">Transportation &amp; Industrial Security</span><span class="role">FTE</span></span></article>
+                <article class="person-card tier-c4" data-location="Herndon, Virginia; United States Of America" data-webex-contact="jfilitz@cisco.com" data-organization="IIoT Marketing -- US"><span class="avatar"><img src="assets/headshots/john-filitz.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">John Filitz</strong><span class="title">Industrial Security</span><span class="role">FTE</span></span></article>
               </div>
             </div>
             <div class="group-content">
-              <article class="person-card"><span class="avatar">HT</span><span class="copy"><strong class="name">Henry Teichert</strong><span class="title">Industrial Routing and Utilities</span><span class="role">FTE</span></span></article>
-              <article class="person-card"><span class="avatar">PC</span><span class="copy"><strong class="name">Patricia Costa</strong><span class="title">Industrial Wireless, Oil &amp; Gas</span><span class="role">FTE</span></span></article>
-              <article class="person-card"><span class="avatar">EK</span><span class="copy"><strong class="name">Eric Kim</strong><span class="title">PMM, Industrial AI</span><span class="role">FTE</span></span></article>
-              <article class="person-card contractor"><span class="avatar">EH</span><span class="copy"><strong class="name">Erin Hatfield</strong><span class="title">PMM, Enablement and Launch Ops</span><span class="role contractor">Contractor</span></span></article>
+              <article class="person-card tier-c4" data-location="Glendale, California; United States Of America" data-webex-contact="hteicher@cisco.com" data-organization="IIoT Marketing -- US"><span class="avatar"><img src="assets/headshots/henry-teichert.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Henry Teichert</strong><span class="title">Industrial Routing and Utilities</span><span class="role">FTE</span></span></article>
+              <article class="person-card tier-c4" data-location="SJ-23, 2nd floor, Milpitas, CA; United States Of America" data-webex-contact="patcosta@cisco.com" data-organization="IIoT Marketing -- US"><span class="avatar"><img src="assets/headshots/patricia-costa.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Patricia Costa</strong><span class="title">Industrial Wireless, Oil &amp; Gas</span><span class="role">FTE</span></span></article>
+              <article class="person-card tier-c4" data-location="San Jose, California; United States Of America" data-webex-contact="erickim@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/eric-kim.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Eric Kim</strong><span class="title">PMM, Industrial AI</span><span class="role">FTE</span></span></article>
+              <article class="person-card contractor tier-c4" data-location="SJ-21, Milpitas, CA; United States Of America" data-webex-contact="ehatfiel@cisco.com" data-organization="IIoT Marketing -- US"><span class="avatar"><img src="assets/headshots/erin-hatfield.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Erin Hatfield</strong><span class="title">PMM, Enablement and Launch Ops</span><span class="role contractor">Contractor</span></span></article>
             </div>
           </div>
         </div></section>
@@ -140,21 +148,21 @@
       <h3 class="group-title" id="platform-heading">Platform, API, Assurance</h3>
       <div class="specialty-grid">
         <section class="specialty"><h4 class="group-title">Networking Platforms</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">MK</span><span class="copy"><strong class="name">Miriam Kung</strong><span class="title">Networking Platforms</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="Seattle, Washington; United States Of America" data-webex-contact="mkung@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/miriam-kung.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Miriam Kung</strong><span class="title">Networking Platforms</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch">
-          <article class="person-card"><span class="avatar">MA</span><span class="copy"><strong class="name">Monisha Alfaro</strong><span class="title">Licensing &amp; Workflows</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="Milpitas, California; United States Of America" data-webex-contact="morajase@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/monisha-alfaro.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Monisha Alfaro</strong><span class="title">Licensing &amp; Workflows</span><span class="role">FTE</span></span></article>
           </div>
         </div></section>
         <section class="specialty"><h4 class="group-title">API and Marketplace</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">NN</span><span class="copy"><strong class="name">Ana Nennig</strong><span class="title">Marketplace, Dev &amp; API</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="Appleton, Wisconsin; United States Of America" data-webex-contact="anennig@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/ana-nennig.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Ana Nennig</strong><span class="title">Marketplace, Dev &amp; API</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch">
-          <article class="person-card contractor"><span class="avatar">AK</span><span class="copy"><strong class="name">Alex Kim</strong><span class="title">PMM, API</span><span class="role contractor">Contractor</span></span></article>
+          <article class="person-card contractor tier-c4" data-location="Seattle, Washington, United States Of America" data-webex-contact="alexanki@cisco.com" data-organization="Product BD, Strategy &amp; Platforms - US"><span class="avatar"><img src="assets/headshots/alex-kim.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Alex Kim</strong><span class="title">PMM, API</span><span class="role contractor">Contractor</span></span></article>
           </div>
         </div></section>
         <section class="specialty"><h4 class="group-title">Assurance</h4><div class="group-content">
-          <article class="person-card"><span class="avatar">DP</span><span class="copy"><strong class="name">David Puzas</strong><span class="title">ThousandEyes &amp; Assurance</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="ATLANTA 11, 18th floor, Atlanta, GA; United States Of America" data-webex-contact="dpuzas@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/david-puzas.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">David Puzas</strong><span class="title">ThousandEyes &amp; Assurance</span><span class="role">FTE</span></span></article>
           <div class="reporting-branch">
-          <article class="person-card"><span class="avatar">JZ</span><span class="copy"><strong class="name">Jonathan Zarkower</strong><span class="title">Employee Digital Experience &amp; Competitive Intelligence</span><span class="role">FTE</span></span></article>
+          <article class="person-card tier-c4" data-location="BOSTON 2, 17th Floor, Boston, MA, United States Of America" data-webex-contact="jzarkowe@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/jonathan-zarkower.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Jonathan Zarkower</strong><span class="title">Employee Digital Experience &amp; Competitive Intelligence</span><span class="role">FTE</span></span></article>
           </div>
         </div></section>
       </div>
@@ -162,13 +170,14 @@
 
     <section class="domain" aria-labelledby="industry-heading">
       <h3 class="group-title" id="industry-heading">Industry</h3>
-      <div class="group-content"><article class="person-card contractor"><span class="avatar">AL</span><span class="copy"><strong class="name">Ana Leung</strong><span class="title">Verticals, Industry, Competitive Marketing</span><span class="role contractor">Contractor</span></span></article></div>
+      <div class="group-content"><article class="person-card contractor tier-c4" data-location="SJ-21, Milpitas, CA, United States Of America" data-webex-contact="analeung@cisco.com" data-organization="WTG Networking Marketing Admin- US"><span class="avatar"><img src="assets/headshots/ana-leung.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Ana Leung</strong><span class="title">Verticals, Industry, Competitive Marketing</span><span class="role contractor">Contractor</span></span></article></div>
     </section>
   </div>
 
   <p class="empty-state">No people match that search.</p>
   <footer class="footer">Team map · <a href="index.html">Return to Marketing City</a></footer>
 </main>
+<script src="assets/location-time.js"></script>
 <script src="assets/team-maps.js"></script>
 </body>
 </html>

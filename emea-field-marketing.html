@@ -113,8 +113,6 @@
     .contributor-note { display: flex; align-items: center; gap: 7px; margin: 4px 2px 0; color: var(--muted-2); font-size: 10px; line-height: 1.4; }
     .contributor-note::before { content: ""; width: 13px; height: 1px; background: #526a84; }
     .empty-state { display: none; max-width: 1150px; margin: 24px auto; padding: 45px; color: var(--muted); text-align: center; border: 1px dashed var(--line-strong); border-radius: 14px; }
-    .footer { display: flex; justify-content: space-between; gap: 18px; margin-top: 33px; padding-top: 17px; color: var(--muted-2); border-top: 1px solid rgba(123, 151, 184, .14); font-size: 11px; }
-    .footer strong { color: #bac8d7; font-weight: 650; }
     .scrim { position: fixed; z-index: 9; inset: 0; visibility: hidden; background: rgba(2, 10, 21, .55); opacity: 0; transition: opacity .2s, visibility .2s; }
     .scrim.open { visibility: visible; opacity: 1; }
     .detail-panel { position: fixed; z-index: 10; top: 0; right: 0; display: flex; width: min(430px, 100%); height: 100dvh; flex-direction: column; padding: 28px; overflow-y: auto; border-left: 1px solid rgba(128, 158, 188, .2); background: linear-gradient(160deg, #0c213c, #07172d 64%); box-shadow: var(--shadow); transform: translateX(103%); transition: transform .24s cubic-bezier(.2,.8,.2,1); }
@@ -159,7 +157,6 @@
       .teams-grid { grid-template-columns: repeat(4, 190px); }
       .teams-grid::before { left: 95px; right: 95px; }
       .team-column::before { left: 95px; }
-      .footer { flex-direction: column; }
       .detail-panel { top: auto; bottom: 0; width: 100%; height: min(86dvh, 720px); padding: 22px; border-top: 1px solid rgba(128,158,188,.2); border-left: 0; border-radius: 20px 20px 0 0; transform: translateY(103%); }
       .detail-panel.open { transform: translateY(0); }
       .profile-head { margin-top: 22px; }
@@ -178,6 +175,7 @@
       --muted: #687386;
       --muted-2: #828b98;
       --cyan: #1559d6;
+      --blue-soft: #e8effc;
       --orange: #c86c18;
       --mint: #1559d6;
       --shadow: 0 24px 70px rgba(48, 49, 52, .18);
@@ -281,8 +279,6 @@
     .contributor-note { color: #828b98; }
     .contributor-note::before { background: #b8b8b5; }
     .empty-state { color: #687386; border-color: #c9c6c0; }
-    .footer { color: #828b98; border-color: #dfdcd6; }
-    .footer strong { color: #4d596b; }
     .scrim { background: rgba(30, 38, 50, .3); }
     .detail-panel {
       color: #202938;
@@ -349,7 +345,6 @@
     .search-wrap { max-width: none; }
     .leader-section { max-width: none; width: 100%; }
     .teams-titlebar span { display: none; }
-    .footer { display: none; }
     .person-node { min-height: 96px; }
     .support-group .person-node { min-height: 94px; }
     .team-column .person-node { min-height: 122px; align-items: flex-start; }
@@ -478,7 +473,7 @@
     .org-canvas { overflow: visible; }
     .org-inner { min-width: 0; width: 100%; }
     .person-node, .team-heading, .node-copy, .team-heading span { min-width: 0; }
-    .node-name, .node-title, .team-heading span:last-child { overflow-wrap: anywhere; }
+    .node-name, .node-title, .team-heading span:last-child { overflow-wrap: normal; word-break: normal; hyphens: none; }
     .team-heading { height: 82px; min-height: 82px; align-items: center; }
     @media (max-width: 900px) {
       .shell { padding: 32px 24px 44px; }
@@ -561,7 +556,7 @@
       <div>
         <a class="back-button" id="backButton" href="index.html" aria-label="Back to Marketing City home">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Back
+          Back to Marketing City
         </a>
         <h1>EMEA Field Marketing</h1>
         <p class="subtitle">Meet the people behind EMEA Field Marketing, explore the focus areas, and find the right person for a question.</p>
@@ -593,21 +588,21 @@
     <section class="org-canvas" aria-label="Interactive organization chart">
       <div class="org-inner">
         <div class="vp-row">
-          <button class="person-node primary vp-card" data-person="saleema" type="button" aria-label="Open Saleema Syed profile">
+          <button class="person-node primary vp-card tier-c1" data-person="saleema" type="button" aria-label="Open Saleema Syed profile" data-organization="Collaboration Mktg Admin - US" data-location="Allen, Texas, United States of America" data-webex-contact="saleemas@cisco.com">
             <span class="avatar"><img src="assets/headshots/saleema-syed.jpg" alt="" loading="lazy"></span>
-            <span class="node-copy"><span class="node-name">Saleema Syed</span><span class="node-title">VP, GTM &amp; Growth Marketing</span><span class="node-title">Collab · Networking · Infra · IIoT</span></span>
+            <span class="node-copy"><span class="node-name">Saleema Syed</span><span class="node-title">VP, GTM &amp; Growth Marketing</span><span class="node-title">Collab · Networking · Infra · IIoT</span><span class="role-pill">FTE</span></span>
             <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="support-group" aria-label="Leadership support">
             <p class="support-label">Leadership support</p>
-            <button class="person-node" data-person="kendys" type="button" aria-label="Open Kendys Carrizo profile"><span class="avatar"><img src="assets/headshots/kendys-carrizo.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Kendys Carrizo</span><span class="node-title">Executive Assistant</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <button class="person-node" data-person="savannah" type="button" aria-label="Open Savannah Ober profile"><span class="avatar"><img src="assets/headshots/savannah-ober.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Savannah Ober</span><span class="node-title">Chief of Staff</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="person-node tier-c2" data-person="kendys" type="button" aria-label="Open Kendys Carrizo profile" data-location="Richardson, Texas; United States Of America" data-webex-contact="kcarrizo@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/kendys-carrizo.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Kendys Carrizo</span><span class="node-title">Executive Assistant</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="person-node tier-c2" data-person="savannah" type="button" aria-label="Open Savannah Ober profile" data-location="Houston, Texas; United States Of America" data-webex-contact="sobermaw@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/savannah-ober.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Savannah Ober</span><span class="node-title">Chief of Staff</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           </div>
         </div>
         <div class="leader-section">
-          <div class="reporting-link"><span>EMEA Field Marketing</span></div>
-          <button class="person-node primary leader-card" data-person="blossom" type="button" aria-label="Open Blossom Furtado profile">
-            <span class="avatar"><img src="assets/headshots/blossom-furtado.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Blossom Furtado</span><span class="node-title">Director Marketing, WTG</span></span>
+          <div class="focus-banner tier-t1" role="heading" aria-level="2">EMEA Field Marketing</div>
+          <button class="person-node primary leader-card tier-c3" data-person="blossom" type="button" aria-label="Open Blossom Furtado profile" data-location="DUBAI 3, 1st floor; Dubai, DU; United Arab Emirates" data-webex-contact="blfurtad@cisco.com" data-organization="Collaboration Marketing - UNITED ARAB EMIRATES">
+            <span class="avatar"><img src="assets/headshots/blossom-furtado.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Blossom Furtado</span><span class="node-title">Director Marketing, WTG</span><span class="role-pill">FTE</span></span>
             <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="teams-titlebar"><h2>Focus areas</h2><span>Click a person to view responsibilities and reporting path</span></div>
@@ -615,40 +610,40 @@
             <section class="team-column" aria-label="Collab Field and Partner Marketing team">
               <div class="team-heading"><span>Collab Field &amp; Partner Marketing</span></div>
               <div class="team-people">
-                <button class="person-node" data-person="natasha" type="button" aria-label="Open Natasha Patel profile"><span class="avatar"><img src="assets/headshots/natasha-patel.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Natasha Patel</span><span class="node-title">MEA WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node" data-person="magali" type="button" aria-label="Open Magali Mitaux profile"><span class="avatar">MM</span><span class="node-copy"><span class="node-name">Magali Mitaux</span><span class="node-title">South WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node indented" data-person="nicholo" type="button" aria-label="Open Nicholo Jallores profile"><span class="avatar">NJ</span><span class="node-copy"><span class="node-name">Nicholo Jallores</span><span class="node-title">Collaboration Marketing Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node" data-person="tash" type="button" aria-label="Open Tash Gardner profile"><span class="avatar">TG</span><span class="node-copy"><span class="node-name">Tash Gardner</span><span class="node-title">UK&amp;I WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node" data-person="natalia" type="button" aria-label="Open Natalia Lysenko profile"><span class="avatar">NL</span><span class="node-copy"><span class="node-name">Natalia Lysenko</span><span class="node-title">Germany &amp; North WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node contractor indented" data-person="tijana" type="button" aria-label="Open Tijana Marjanovic profile"><span class="avatar">TM</span><span class="node-copy"><span class="node-name">Tijana Marjanovic</span><span class="node-title">WTG Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node tier-c4" data-person="natasha" type="button" aria-label="Open Natasha Patel profile" data-location="DUBAI 3, 1st floor; Dubai, DU; United Arab Emirates" data-webex-contact="natapate@cisco.com" data-organization="Collaboration Marketing - UNITED ARAB EMIRATES"><span class="avatar"><img src="assets/headshots/natasha-patel.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Natasha Patel</span><span class="node-title">MEA WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node tier-c4" data-person="magali" type="button" aria-label="Open Magali Mitaux profile" data-location="Paris, Ile-De-France; France" data-webex-contact="mmitauxm@cisco.com" data-organization="Collaboration Content Marketing-France"><span class="avatar"><img src="assets/headshots/magali-mitaux.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Magali Mitaux</span><span class="node-title">South WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node indented tier-c4" data-person="nicholo" type="button" aria-label="Open Nicholo Jallores profile" data-location="DUBAI 3, 2nd floor; Dubai, DU; United Arab Emirates" data-webex-contact="njallore@cisco.com" data-organization="Collaboration Marketing - UNITED ARAB EMIRATES"><span class="avatar"><img src="assets/headshots/nicholo-jallores.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Nicholo Jallores</span><span class="node-title">Collaboration Marketing Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node tier-c4" data-person="tash" type="button" aria-label="Open Tash Gardner profile" data-location="LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom" data-webex-contact="tasgardn@cisco.com" data-organization="Collaboration Mktg Admin - UK"><span class="avatar"><img src="assets/headshots/tash-gardner.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Tash Gardner</span><span class="node-title">UK&amp;I WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node tier-c4" data-person="natalia" type="button" aria-label="Open Natalia Lysenko profile" data-location="ESCHBORN 3, 1st floor; Eschborn, HE; Germany" data-webex-contact="nalysenk@cisco.com" data-organization="Collaboration Content Marketing-Germany"><span class="avatar"><img src="assets/headshots/natalia-lysenko.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Natalia Lysenko</span><span class="node-title">Germany &amp; North WTG Marketing Lead</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented tier-c4" data-person="tijana" type="button" aria-label="Open Tijana Marjanovic profile" data-location="BELGRADE 2; Belgrade, UNK; Serbia" data-webex-contact="tmarjano@cisco.com" data-organization="Collaboration Marketing - Serbia"><span class="avatar"><img src="assets/headshots/tijana-marjanovic.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Tijana Marjanovic</span><span class="node-title">WTG Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               </div>
             </section>
             <section class="team-column" aria-label="EN Product Events Team">
               <div class="team-heading"><span>EN Product Events Team</span></div>
               <div class="team-people">
-                <button class="person-node leave" data-person="amy" type="button" aria-label="Open Amy Newton profile"><span class="avatar"><img src="assets/headshots/amy-newton.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Amy Newton</span><span class="node-title">Devices, CX, MSFT &amp; Networking Marketing Lead</span><span class="role-pill leave">Maternity Leave</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node indented" data-person="katie" type="button" aria-label="Open Katie Sneddon profile"><span class="avatar">KS</span><span class="node-copy"><span class="node-name">Katie Sneddon</span><span class="node-title">WTG Events Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node contractor indented" data-person="gillian" type="button" aria-label="Open Gillian Harris profile"><span class="avatar">GH</span><span class="node-copy"><span class="node-name">Gillian Harris</span><span class="node-title">(Mat Cover) Senior Marketing Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node contractor indented" data-person="marie" type="button" aria-label="Open Marie Morkeh-Yamson profile"><span class="avatar">MM</span><span class="node-copy"><span class="node-name">Marie Morkeh-Yamson</span><span class="node-title">Networking Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                <button class="person-node contractor indented" data-person="joanna" type="button" aria-label="Open Joanna Cappalonga profile"><span class="avatar">JC</span><span class="node-copy"><span class="node-name">Joanna Cappalonga</span><span class="node-title">Networking Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node leave tier-c4" data-person="amy" type="button" aria-label="Open Amy Newton profile" data-location="LONDON - FINSBURY CIRCUS, 7th floor; London, UNK; United Kingdom" data-webex-contact="amnewton@cisco.com" data-organization="Collaboration Mktg Admin - UK"><span class="avatar"><img src="assets/headshots/amy-newton.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Amy Newton</span><span class="node-title">Devices, CX, MSFT &amp; Networking Marketing Lead</span><span class="role-pill leave">Maternity Leave</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node indented tier-c4" data-person="katie" type="button" aria-label="Open Katie Sneddon profile" data-location="Belfast; County Antrim; United Kingdom" data-webex-contact="ksneddon@cisco.com" data-organization="Collaboration Mktg Admin - UK"><span class="avatar"><img src="assets/headshots/katie-sneddon.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Katie Sneddon</span><span class="node-title">WTG Events Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented tier-c4" data-person="gillian" type="button" aria-label="Open Gillian Harris profile" data-location="LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom" data-webex-contact="gilharri@cisco.com" data-organization="WTG Networking Marketing - UK"><span class="avatar"><img src="assets/headshots/gillian-harris.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Gillian Harris</span><span class="node-title">(Mat Cover) Senior Marketing Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented tier-c4" data-person="marie" type="button" aria-label="Open Marie Morkeh-Yamson profile" data-location="LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom" data-webex-contact="mmorkehy@cisco.com" data-organization="WTG Networking Marketing - UK"><span class="avatar"><img src="assets/headshots/marie-morkeh-yamson.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Marie Morkeh-Yamson</span><span class="node-title">Networking Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor indented tier-c4" data-person="joanna" type="button" aria-label="Open Joanna Cappalonga profile" data-location="LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom" data-webex-contact="jcappalo@cisco.com" data-organization="WTG Networking Marketing - UK"><span class="avatar"><img src="assets/headshots/joanna-cappalonga.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Joanna Cappalonga</span><span class="node-title">Networking Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               </div>
             </section>
             <section class="team-column" aria-label="IWE Field Marketing team">
               <div class="team-heading"><span>IWE Field Marketing</span></div>
               <div class="team-people">
-                <button class="person-node contractor" data-person="yeshima" type="button" aria-label="Open Yeshima Singh profile"><span class="avatar">YS</span><span class="node-copy"><span class="node-name">Yeshima Singh</span><span class="node-title">IWE Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node contractor tier-c4" data-person="yeshima" type="button" aria-label="Open Yeshima Singh profile"><span class="avatar">YS</span><span class="node-copy"><span class="node-name">Yeshima Singh</span><span class="node-title">IWE Events Manager</span><span class="role-pill contractor">Contractor</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               </div>
             </section>
             <section class="team-column" aria-label="Demand Generation team">
               <div class="team-heading"><span>Demand Generation</span></div>
               <div class="team-people">
-                <button class="person-node leave" data-person="rachel" type="button" aria-label="Open Rachel Parkins profile"><span class="avatar"><img src="assets/headshots/rachel-parkins.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Rachel Parkins</span><span class="node-title">Collaboration Marketing Manager</span><span class="role-pill leave">Maternity Leave</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node leave tier-c4" data-person="rachel" type="button" aria-label="Open Rachel Parkins profile" data-location="Pulford; Cheshire; United Kingdom" data-webex-contact="rachw@cisco.com" data-organization="imimobile Marketing-UK"><span class="avatar"><img src="assets/headshots/rachel-parkins.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Rachel Parkins</span><span class="node-title">Collaboration Marketing Manager</span><span class="role-pill leave">Maternity Leave</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               </div>
             </section>
             <section class="team-column" aria-label="PMO team">
               <div class="team-heading"><span>PMO</span></div>
               <div class="team-people">
-                <button class="person-node" data-person="alisha" type="button" aria-label="Open Alisha Pinto profile"><span class="avatar">AP</span><span class="node-copy"><span class="node-name">Alisha Pinto</span><span class="node-title">WTG Marketing Operations Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="person-node tier-c4" data-person="alisha" type="button" aria-label="Open Alisha Pinto profile" data-location="BEDFONT LAKES 9, 2nd floor; Feltham, UNK; United Kingdom" data-webex-contact="alipinto@cisco.com" data-organization="WTG Networking Marketing - UK"><span class="avatar">AP</span><span class="node-copy"><span class="node-name">Alisha Pinto</span><span class="node-title">WTG Marketing Operations Manager</span><span class="role-pill">FTE</span></span><svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               </div>
             </section>
           </div>
@@ -656,6 +651,7 @@
       </div>
     </section>
     <div class="empty-state" id="emptyState">No matches. Try a person, team, or responsibility.</div>
+    <footer class="footer">Team map · <a href="index.html">Return to Marketing City</a></footer>
   </main>
 
   <div class="scrim" id="scrim" aria-hidden="true"></div>
@@ -667,31 +663,33 @@
       <p class="profile-title" id="profileTitle"></p>
       <div class="profile-badges" id="profileBadges"></div>
     </div>
+    <section class="detail-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd id="profileLocation">Not provided yet</dd></div><div><dt>Local time</dt><dd id="profileLocalTime">Not provided yet</dd></div><div><dt>Webex contact</dt><dd id="profileWebexContact">Not provided yet</dd></div><div><dt>Organization</dt><dd id="profileOrganization">Not provided yet</dd></div></dl></section>
     <section class="detail-section"><h3>Responsibilities</h3><div class="responsibility" id="profileResponsibility"></div></section>
     <section class="detail-section"><h3>Reporting path</h3><div id="managerArea"></div></section>
     <div class="contact-box"><strong>Who to contact</strong><p id="contactHint">Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask.</p></div>
   </aside>
 
+  <script src="assets/location-time.js"></script>
   <script>
     const people = {
-      saleema: { name: "Saleema Syed", initials: "SS", photo: "assets/headshots/saleema-syed.jpg", title: "VP, GTM & Growth Marketing", type: "FTE", team: "IIoT leadership", responsibility: "VP, GTM and Growth Marketing across collaboration, networking, infrastructure, and IIoT.", manager: null },
-      kendys: { name: "Kendys Carrizo", initials: "KC", photo: "assets/headshots/kendys-carrizo.jpg", title: "Executive Assistant", type: "FTE", team: "Leadership support", responsibility: "Executive assistance for the leadership team.", manager: "saleema" },
-      savannah: { name: "Savannah Ober", initials: "SO", photo: "assets/headshots/savannah-ober.jpg", title: "Chief of Staff", type: "FTE", team: "Leadership support", responsibility: "Chief of Staff support for the leadership team.", manager: "saleema" },
-      blossom: { name: "Blossom Furtado", initials: "BF", photo: "assets/headshots/blossom-furtado.jpg", title: "Director Marketing, WTG", type: "FTE", team: "EMEA Field Marketing", responsibility: "Leads EMEA Field Marketing for WTG.", manager: "saleema", contact: "For broad EMEA Field Marketing direction, start here." },
-      natasha: { name: "Natasha Patel", initials: "NP", photo: "assets/headshots/natasha-patel.jpg", title: "MEA WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "MEA field marketing for WTG.", manager: "blossom" },
-      magali: { name: "Magali Mitaux", initials: "MM", title: "South WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "South region field marketing for WTG.", manager: "blossom" },
-      nicholo: { name: "Nicholo Jallores", initials: "NJ", title: "Collaboration Marketing Manager", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "Collaboration marketing management.", manager: "magali" },
-      tash: { name: "Tash Gardner", initials: "TG", title: "UK&I WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "UK&I field marketing for WTG.", manager: "blossom" },
-      natalia: { name: "Natalia Lysenko", initials: "NL", title: "Germany & North WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "Germany and North region field marketing for WTG.", manager: "blossom" },
-      tijana: { name: "Tijana Marjanovic", initials: "TM", title: "WTG Events Manager", type: "Contractor", team: "Collab Field & Partner Marketing", responsibility: "WTG event management.", manager: "natalia" },
-      amy: { name: "Amy Newton", initials: "AN", photo: "assets/headshots/amy-newton.jpg", title: "Devices, CX, MSFT & Networking Marketing Lead", type: "Maternity Leave", team: "EN Product Events Team", responsibility: "Marketing leadership across Devices, CX, MSFT, and Networking.", manager: "blossom", contact: "Amy is marked as on maternity leave in the source chart. For current questions, contact Gillian Harris, the mat cover." },
-      katie: { name: "Katie Sneddon", initials: "KS", title: "WTG Events Manager", type: "FTE", team: "EN Product Events Team", responsibility: "WTG event management.", manager: "amy" },
-      gillian: { name: "Gillian Harris", initials: "GH", title: "(Mat Cover) Senior Marketing Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Senior marketing management cover.", manager: "amy" },
-      marie: { name: "Marie Morkeh-Yamson", initials: "MM", title: "Networking Events Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Networking event management.", manager: "amy" },
-      joanna: { name: "Joanna Cappalonga", initials: "JC", title: "Networking Events Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Networking event management.", manager: "amy" },
+      saleema: { name: "Saleema Syed", initials: "SS", photo: "assets/headshots/saleema-syed.jpg", title: "VP, GTM & Growth Marketing", type: "FTE", team: "IIoT leadership", responsibility: "VP, GTM and Growth Marketing across collaboration, networking, infrastructure, and IIoT.", manager: null , organization: "Collaboration Mktg Admin - US", location: "Allen, Texas, United States of America", webexContact: "saleemas@cisco.com"},
+      kendys: { name: "Kendys Carrizo", initials: "KC", photo: "assets/headshots/kendys-carrizo.jpg", title: "Executive Assistant", type: "FTE", team: "Leadership support", responsibility: "Executive assistance for the leadership team.", manager: "saleema" , location: "Richardson, Texas; United States Of America", organization: "Collaboration Mktg Admin - US", webexContact: "kcarrizo@cisco.com"},
+      savannah: { name: "Savannah Ober", initials: "SO", photo: "assets/headshots/savannah-ober.jpg", title: "Chief of Staff", type: "FTE", team: "Leadership support", responsibility: "Chief of Staff support for the leadership team.", manager: "saleema" , location: "Houston, Texas; United States Of America", organization: "Collaboration Mktg Admin - US", webexContact: "sobermaw@cisco.com"},
+      blossom: { name: "Blossom Furtado", initials: "BF", photo: "assets/headshots/blossom-furtado.jpg", title: "Director Marketing, WTG", type: "FTE", team: "EMEA Field Marketing", responsibility: "Leads EMEA Field Marketing for WTG.", manager: "saleema", contact: "For broad EMEA Field Marketing direction, start here." , location: "DUBAI 3, 1st floor; Dubai, DU; United Arab Emirates", organization: "Collaboration Marketing - UNITED ARAB EMIRATES", webexContact: "blfurtad@cisco.com"},
+      natasha: { name: "Natasha Patel", initials: "NP", photo: "assets/headshots/natasha-patel.jpeg", title: "MEA WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "MEA field marketing for WTG.", manager: "blossom" , location: "DUBAI 3, 1st floor; Dubai, DU; United Arab Emirates", organization: "Collaboration Marketing - UNITED ARAB EMIRATES", webexContact: "natapate@cisco.com"},
+      magali: { name: "Magali Mitaux", initials: "MM", title: "South WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "South region field marketing for WTG.", manager: "blossom" , location: "Paris, Ile-De-France; France", organization: "Collaboration Content Marketing-France", webexContact: "mmitauxm@cisco.com"},
+      nicholo: { name: "Nicholo Jallores", initials: "NJ", title: "Collaboration Marketing Manager", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "Collaboration marketing management.", manager: "magali" , location: "DUBAI 3, 2nd floor; Dubai, DU; United Arab Emirates", organization: "Collaboration Marketing - UNITED ARAB EMIRATES", webexContact: "njallore@cisco.com"},
+      tash: { name: "Tash Gardner", initials: "TG", title: "UK&I WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "UK&I field marketing for WTG.", manager: "blossom" , location: "LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom", organization: "Collaboration Mktg Admin - UK", webexContact: "tasgardn@cisco.com"},
+      natalia: { name: "Natalia Lysenko", initials: "NL", title: "Germany & North WTG Marketing Lead", type: "FTE", team: "Collab Field & Partner Marketing", responsibility: "Germany and North region field marketing for WTG.", manager: "blossom" , location: "ESCHBORN 3, 1st floor; Eschborn, HE; Germany", organization: "Collaboration Content Marketing-Germany", webexContact: "nalysenk@cisco.com"},
+      tijana: { name: "Tijana Marjanovic", initials: "TM", title: "WTG Events Manager", type: "Contractor", team: "Collab Field & Partner Marketing", responsibility: "WTG event management.", manager: "natalia" , location: "BELGRADE 2; Belgrade, UNK; Serbia", organization: "Collaboration Marketing - Serbia", webexContact: "tmarjano@cisco.com"},
+      amy: { name: "Amy Newton", initials: "AN", photo: "assets/headshots/amy-newton.jpeg", title: "Devices, CX, MSFT & Networking Marketing Lead", type: "Maternity Leave", team: "EN Product Events Team", responsibility: "Marketing leadership across Devices, CX, MSFT, and Networking.", manager: "blossom", contact: "Amy is marked as on maternity leave in the source chart. For current questions, contact Gillian Harris, the mat cover." , location: "LONDON - FINSBURY CIRCUS, 7th floor; London, UNK; United Kingdom", organization: "Collaboration Mktg Admin - UK", webexContact: "amnewton@cisco.com"},
+      katie: { name: "Katie Sneddon", initials: "KS", title: "WTG Events Manager", type: "FTE", team: "EN Product Events Team", responsibility: "WTG event management.", manager: "amy" , location: "Belfast; County Antrim; United Kingdom", organization: "Collaboration Mktg Admin - UK", webexContact: "ksneddon@cisco.com"},
+      gillian: { name: "Gillian Harris", initials: "GH", title: "(Mat Cover) Senior Marketing Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Senior marketing management cover.", manager: "amy" , location: "LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom", organization: "WTG Networking Marketing - UK", webexContact: "gilharri@cisco.com"},
+      marie: { name: "Marie Morkeh-Yamson", initials: "MM", title: "Networking Events Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Networking event management.", manager: "amy" , location: "LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom", organization: "WTG Networking Marketing - UK", webexContact: "mmorkehy@cisco.com"},
+      joanna: { name: "Joanna Cappalonga", initials: "JC", title: "Networking Events Manager", type: "Contractor", team: "EN Product Events Team", responsibility: "Networking event management.", manager: "amy" , location: "LONDON - FINSBURY CIRCUS; London, UNK; United Kingdom", organization: "WTG Networking Marketing - UK", webexContact: "jcappalo@cisco.com"},
       yeshima: { name: "Yeshima Singh", initials: "YS", title: "IWE Events Manager", type: "Contractor", team: "IWE Field Marketing", responsibility: "IWE event management.", manager: "blossom" },
-      rachel: { name: "Rachel Parkins", initials: "RP", photo: "assets/headshots/rachel-parkins.jpg", title: "Collaboration Marketing Manager", type: "Maternity Leave", team: "Demand Generation", responsibility: "Collaboration marketing management within Demand Generation.", manager: "blossom", contact: "Rachel is marked as on maternity leave in the source chart. For current questions, contact the team or Blossom Furtado." },
-      alisha: { name: "Alisha Pinto", initials: "AP", title: "WTG Marketing Operations Manager", type: "FTE", team: "PMO", responsibility: "WTG marketing operations.", manager: "blossom" }
+      rachel: { name: "Rachel Parkins", initials: "RP", photo: "assets/headshots/rachel-parkins.jpeg", title: "Collaboration Marketing Manager", type: "Maternity Leave", team: "Demand Generation", responsibility: "Collaboration marketing management within Demand Generation.", manager: "blossom", contact: "Rachel is marked as on maternity leave in the source chart. For current questions, contact the team or Blossom Furtado." , location: "Pulford; Cheshire; United Kingdom", organization: "imimobile Marketing-UK", webexContact: "rachw@cisco.com"},
+      alisha: { name: "Alisha Pinto", initials: "AP", title: "WTG Marketing Operations Manager", type: "FTE", team: "PMO", responsibility: "WTG marketing operations.", manager: "blossom" , location: "BEDFONT LAKES 9, 2nd floor; Feltham, UNK; United Kingdom", organization: "WTG Networking Marketing - UK", webexContact: "alipinto@cisco.com"}
     };
     const buttons = [...document.querySelectorAll("[data-person]")];
     const search = document.getElementById("search");
@@ -707,6 +705,11 @@
       const p = people[id];
       return `<button class="manager-link" type="button" data-open-manager="${id}" aria-label="Open ${p.name} profile"><span class="manager-avatar">${p.photo ? `<img src="${p.photo}" alt="">` : p.initials}</span><span class="manager-copy"><span class="manager-name">${p.name}</span><span class="manager-role">${p.title}</span></span>${svgArrow}</button>`;
     }
+    function setProfileDetail(id, value) {
+      const field = document.getElementById(id);
+      field.textContent = value || "Not provided yet";
+      field.classList.toggle("is-missing", !value);
+    }
     function openProfile(id, sourceButton) {
       const person = people[id];
       if (!person) return;
@@ -718,9 +721,13 @@
       document.getElementById("profileName").textContent = person.name;
       document.getElementById("profileTitle").textContent = person.title;
       document.getElementById("profileResponsibility").textContent = person.responsibility;
+      setProfileDetail("profileLocation", person.location);
+      setProfileDetail("profileLocalTime", window.resolveProfileLocalTime(person.location, person.timeZone));
+      setProfileDetail("profileWebexContact", person.webexContact);
+      setProfileDetail("profileOrganization", person.organization);
       const statusClass = person.type === "Contractor" ? "contractor" : person.type === "Maternity Leave" ? "leave" : "";
       const statusBadge = person.type ? `<span class="profile-badge ${statusClass}">${person.type}</span>` : "";
-      document.getElementById("profileBadges").innerHTML = `${statusBadge}<span class="profile-badge">${person.team}</span>`;
+      document.getElementById("profileBadges").innerHTML = statusBadge;
       const managerArea = document.getElementById("managerArea");
       if (person.manager) {
         const manager = people[person.manager];

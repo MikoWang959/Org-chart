@@ -113,8 +113,6 @@
     .contributor-note { display: flex; align-items: center; gap: 7px; margin: 4px 2px 0; color: var(--muted-2); font-size: 10px; line-height: 1.4; }
     .contributor-note::before { content: ""; width: 13px; height: 1px; background: #526a84; }
     .empty-state { display: none; max-width: 1150px; margin: 24px auto; padding: 45px; color: var(--muted); text-align: center; border: 1px dashed var(--line-strong); border-radius: 14px; }
-    .footer { display: flex; justify-content: space-between; gap: 18px; margin-top: 33px; padding-top: 17px; color: var(--muted-2); border-top: 1px solid rgba(123, 151, 184, .14); font-size: 11px; }
-    .footer strong { color: #bac8d7; font-weight: 650; }
     .scrim { position: fixed; z-index: 9; inset: 0; visibility: hidden; background: rgba(2, 10, 21, .55); opacity: 0; transition: opacity .2s, visibility .2s; }
     .scrim.open { visibility: visible; opacity: 1; }
     .detail-panel { position: fixed; z-index: 10; top: 0; right: 0; display: flex; width: min(430px, 100%); height: 100dvh; flex-direction: column; padding: 28px; overflow-y: auto; border-left: 1px solid rgba(128, 158, 188, .2); background: linear-gradient(160deg, #0c213c, #07172d 64%); box-shadow: var(--shadow); transform: translateX(103%); transition: transform .24s cubic-bezier(.2,.8,.2,1); }
@@ -159,7 +157,6 @@
       .teams-grid { grid-template-columns: repeat(4, 190px); }
       .teams-grid::before { left: 95px; right: 95px; }
       .team-column::before { left: 95px; }
-      .footer { flex-direction: column; }
       .detail-panel { top: auto; bottom: 0; width: 100%; height: min(86dvh, 720px); padding: 22px; border-top: 1px solid rgba(128,158,188,.2); border-left: 0; border-radius: 20px 20px 0 0; transform: translateY(103%); }
       .detail-panel.open { transform: translateY(0); }
       .profile-head { margin-top: 22px; }
@@ -178,6 +175,7 @@
       --muted: #687386;
       --muted-2: #828b98;
       --cyan: #1559d6;
+      --blue-soft: #e8effc;
       --orange: #c86c18;
       --mint: #1559d6;
       --shadow: 0 24px 70px rgba(48, 49, 52, .18);
@@ -282,8 +280,6 @@
     .contributor-note { color: #828b98; }
     .contributor-note::before { background: #b8b8b5; }
     .empty-state { color: #687386; border-color: #c9c6c0; }
-    .footer { color: #828b98; border-color: #dfdcd6; }
-    .footer strong { color: #4d596b; }
     .scrim { background: rgba(30, 38, 50, .3); }
     .detail-panel {
       color: #202938;
@@ -350,7 +346,6 @@
     .search-wrap { max-width: none; }
     .leader-section { max-width: none; width: 100%; }
     .teams-titlebar span { display: none; }
-    .footer { display: none; }
     .person-node { min-height: 96px; }
     .support-group .person-node { min-height: 94px; }
     .team-column .person-node { min-height: 122px; align-items: flex-start; }
@@ -479,7 +474,7 @@
     .org-canvas { overflow: visible; }
     .org-inner { min-width: 0; width: 100%; }
     .person-node, .team-heading, .node-copy, .team-heading span { min-width: 0; }
-    .node-name, .node-title, .team-heading span:last-child { overflow-wrap: anywhere; }
+    .node-name, .node-title, .team-heading span:last-child { overflow-wrap: normal; word-break: normal; hyphens: none; }
     .team-heading { height: 82px; min-height: 82px; align-items: center; }
     @media (max-width: 900px) {
       .shell { padding: 32px 24px 44px; }
@@ -541,7 +536,7 @@
     #app .team-column .role-pill { margin-top: 2px; line-height: 1.15; }
     #app .team-heading { line-height: 1.18; }
     #app .support-group { gap: 10px; }
-    .leader-section .focus-banner { position: relative; z-index: 1; width: 100%; min-height: 82px; margin: 0 0 12px; padding: 12px 18px; border: 1px solid rgba(255,255,255,.98); border-radius: 16px; color: #303b4d; background: #f7f4ef; box-shadow: 4px 4px 10px rgba(209,205,198,.56), -4px -4px 10px rgba(255,255,255,.96); font-size: 13pt; font-weight: 680; line-height: 1.2; }
+    .leader-section .focus-banner { position: relative; z-index: 1; width: 100%; min-height: 82px; margin: 0 0 12px; padding: 12px 18px; border: 1px solid rgba(255,255,255,.98); border-radius: 16px; color: #303b4d; background: linear-gradient(90deg, var(--blue-soft, #e8effc), #f7f4ef 78%); box-shadow: 4px 4px 10px rgba(209,205,198,.56), -4px -4px 10px rgba(255,255,255,.96); font-size: 13pt; font-weight: 680; line-height: 1.2; }
     @media (max-width: 560px) { .leader-section .focus-banner { min-height: 68px; margin-bottom: 10px; padding: 10px 14px; } }
     @media (max-width: 560px) {
       #app .person-node,
@@ -558,10 +553,10 @@
       <div>
         <a class="back-button" id="backButton" href="index.html" aria-label="Back to marketing city home">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Back
+          Back to Marketing City
         </a>
         <h1>IIoT Revenue Marketing</h1>
-        <p class="subtitle">A clear view of the people, teams, and responsibilities behind Revenue Marketing. Select anyone to see what they do and where to go with a question.</p>
+        <p class="subtitle">A clear view of the people, teams, and responsibilities behind Revenue Marketing.</p>
       </div>
       <div class="header-meta">
         <div class="team-count"><span class="dot"></span><span>10 people · 4 focus areas</span></div>
@@ -589,27 +584,27 @@
     <section class="org-canvas" aria-label="Interactive organization chart">
       <div class="org-inner">
         <div class="vp-row">
-          <button class="person-node primary vp-card" data-person="saleema" type="button" aria-label="Open Saleema Syed profile">
+          <button class="person-node primary vp-card tier-c1" data-person="saleema" type="button" aria-label="Open Saleema Syed profile" data-organization="Collaboration Mktg Admin - US" data-location="Allen, Texas, United States of America" data-webex-contact="saleemas@cisco.com">
             <span class="avatar"><img src="assets/headshots/saleema-syed.jpg" alt="" loading="lazy"></span>
-            <span class="node-copy"><span class="node-name">Saleema Syed</span><span class="node-title">VP, GTM &amp; Growth Marketing</span><span class="node-title">Collab · Networking · Infra · IIoT</span></span>
+            <span class="node-copy"><span class="node-name">Saleema Syed</span><span class="node-title">VP, GTM &amp; Growth Marketing</span><span class="node-title">Collab · Networking · Infra · IIoT</span><span class="role-pill">FTE</span></span>
             <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="support-group" aria-label="Leadership support">
             <p class="support-label">Leadership support</p>
-            <button class="person-node" data-person="kendys" type="button" aria-label="Open Kendys Carrizo profile">
-              <span class="avatar"><img src="assets/headshots/kendys-carrizo.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Kendys Carrizo</span><span class="node-title">Executive Assistant</span></span>
+            <button class="person-node tier-c2" data-person="kendys" type="button" aria-label="Open Kendys Carrizo profile" data-location="Richardson, Texas; United States Of America" data-webex-contact="kcarrizo@cisco.com" data-organization="Collaboration Mktg Admin - US">
+              <span class="avatar"><img src="assets/headshots/kendys-carrizo.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Kendys Carrizo</span><span class="node-title">Executive Assistant</span><span class="role-pill">FTE</span></span>
               <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <button class="person-node" data-person="savannah" type="button" aria-label="Open Savannah Ober profile">
-              <span class="avatar"><img src="assets/headshots/savannah-ober.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Savannah Ober</span><span class="node-title">Chief of Staff</span></span>
+            <button class="person-node tier-c2" data-person="savannah" type="button" aria-label="Open Savannah Ober profile" data-location="Houston, Texas; United States Of America" data-webex-contact="sobermaw@cisco.com" data-organization="Collaboration Mktg Admin - US">
+              <span class="avatar"><img src="assets/headshots/savannah-ober.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Savannah Ober</span><span class="node-title">Chief of Staff</span><span class="role-pill">FTE</span></span>
               <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
         </div>
 
         <div class="leader-section">
-          <div class="focus-banner">IIoT Revenue Marketing</div>
-          <button class="person-node leader-card" data-person="olivia" type="button" aria-label="Open Olivia Vickers profile">
+          <div class="focus-banner tier-t1" role="heading" aria-level="2">IIoT Revenue Marketing</div>
+          <button class="person-node leader-card tier-c3" data-person="olivia" type="button" aria-label="Open Olivia Vickers profile" data-location="Spring, Texas; United States Of America" data-webex-contact="olvicker@cisco.com" data-organization="IIoT Marketing -- US">
             <span class="avatar"><img src="assets/headshots/olivia-vickers.jpg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Olivia Vickers</span><span class="node-title">Revenue Marketing Leader, IIoT · Leads four focus areas</span><span class="role-pill">FTE</span></span>
             <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -618,7 +613,7 @@
             <section class="team-column" aria-label="Digital and Physical Events team">
               <div class="team-heading"><span>Digital &amp; Physical Events</span></div>
               <div class="team-people">
-                <button class="person-node contractor" data-person="christina" type="button" aria-label="Open Christina Gonzalez profile">
+                <button class="person-node contractor tier-c4" data-person="christina" type="button" aria-label="Open Christina Gonzalez profile" data-location="SJ-01, San Jose, CA; United States Of America" data-webex-contact="chgonza2@cisco.com" data-organization="IIoT Marketing -- US">
                   <span class="avatar">CG</span><span class="node-copy"><span class="node-name">Christina Gonzalez</span><span class="node-title">Event Marketing</span><span class="role-pill contractor">Contractor</span></span>
                   <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
@@ -627,8 +622,8 @@
             <section class="team-column" aria-label="SEO and AEO team">
               <div class="team-heading"><span>SEO / AEO</span></div>
               <div class="team-people">
-                <button class="person-node" data-person="jennifer" type="button" aria-label="Open Jennifer McHugh profile">
-                  <span class="avatar">JM</span><span class="node-copy"><span class="node-name">Jennifer McHugh</span><span class="node-title">Customer Marketing</span><span class="role-pill">FTE</span></span>
+                <button class="person-node tier-c4" data-person="jennifer" type="button" aria-label="Open Jennifer McHugh profile" data-location="Denver, Colorado; United States Of America" data-webex-contact="jebills@cisco.com" data-organization="IIoT Marketing -- US">
+                  <span class="avatar"><img src="assets/headshots/jennifer-mchugh.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Jennifer McHugh</span><span class="node-title">Customer Marketing</span><span class="role-pill">FTE</span></span>
                   <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
@@ -636,8 +631,8 @@
             <section class="team-column" aria-label="Social, Creative, and Brand team">
               <div class="team-heading"><span>Social, Creative, Brand</span></div>
               <div class="team-people">
-                <button class="person-node" data-person="savanna" type="button" aria-label="Open Savanna Simmank profile">
-                  <span class="avatar">SS</span><span class="node-copy"><span class="node-name">Savanna Simmank</span><span class="node-title">Brand Marketing</span><span class="role-pill">FTE</span></span>
+                <button class="person-node tier-c4" data-person="savanna" type="button" aria-label="Open Savanna Simmank profile" data-location="Denver, Colorado; United States Of America" data-webex-contact="ssimmank@cisco.com" data-organization="IIoT Marketing -- US">
+                  <span class="avatar"><img src="assets/headshots/savanna-simmank.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Savanna Simmank</span><span class="node-title">Brand Marketing</span><span class="role-pill">FTE</span></span>
                   <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
@@ -645,16 +640,16 @@
             <section class="team-column" aria-label="Email Campaigns, ABM, and SalesConnect team">
               <div class="team-heading"><span>Email Campaigns, ABM, SalesConnect</span></div>
               <div class="team-people">
-                <button class="person-node" data-person="tory" type="button" aria-label="Open Tory Elliot profile">
-                  <span class="avatar">TE</span><span class="node-copy"><span class="node-name">Tory Elliot</span><span class="node-title">Lifecycle Marketing</span><span class="role-pill">FTE</span></span>
+                <button class="person-node tier-c4" data-person="tory" type="button" aria-label="Open Tory Elliot profile" data-location="Tampa, Florida; United States Of America" data-webex-contact="torellio@cisco.com" data-organization="IIoT Marketing -- US">
+                  <span class="avatar"><img src="assets/headshots/tory-elliott.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Tory Elliot</span><span class="node-title">Lifecycle Marketing</span><span class="role-pill">FTE</span></span>
                   <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <button class="person-node contractor" data-person="sunil" type="button" aria-label="Open Sunilkumar Nejakar profile">
-                  <span class="avatar">SN</span><span class="node-copy"><span class="node-name">Sunilkumar Nejakar</span><span class="node-title">Digital Marketing Manager</span><span class="role-pill contractor">Contractor</span></span>
+                <button class="person-node contractor tier-c4" data-person="sunil" type="button" aria-label="Open Sunilkumar Nejakar profile" data-location="BANGALORE 12, Bangalore, KA; India" data-webex-contact="snejakar@cisco.com" data-organization="Digital Marketing-MOPs IN 123">
+                  <span class="avatar"><img src="assets/headshots/sunilkumar-nejakar.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Sunilkumar Nejakar</span><span class="node-title">Digital Marketing Manager</span><span class="role-pill contractor">Contractor</span></span>
                   <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <button class="person-node contractor" data-person="bridget" type="button" aria-label="Open Bridget Wald profile">
-                  <span class="avatar">BW</span><span class="node-copy"><span class="node-name">Bridget Wald</span><span class="node-title">Digital Marketing Manager</span><span class="role-pill contractor">Contractor</span></span>
+                <button class="person-node contractor tier-c4" data-person="bridget" type="button" aria-label="Open Bridget Wald profile" data-location="Salt Lake City, Utah; United States Of America" data-webex-contact="brwald@cisco.com" data-organization="Demand Marketing Admin - US">
+                  <span class="avatar"><img src="assets/headshots/bridget-wald.jpeg" alt="" loading="lazy"></span><span class="node-copy"><span class="node-name">Bridget Wald</span><span class="node-title">Digital Marketing Manager</span><span class="role-pill contractor">Contractor</span></span>
                   <svg class="node-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
@@ -664,6 +659,7 @@
       </div>
     </section>
     <div class="empty-state" id="emptyState">No matches. Try a person, team, or responsibility.</div>
+    <footer class="footer">Team map · <a href="index.html">Return to Marketing City</a></footer>
   </main>
 
   <div class="scrim" id="scrim" aria-hidden="true"></div>
@@ -675,23 +671,25 @@
       <p class="profile-title" id="profileTitle"></p>
       <div class="profile-badges" id="profileBadges"></div>
     </div>
+    <section class="detail-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd id="profileLocation">Not provided yet</dd></div><div><dt>Local time</dt><dd id="profileLocalTime">Not provided yet</dd></div><div><dt>Webex contact</dt><dd id="profileWebexContact">Not provided yet</dd></div><div><dt>Organization</dt><dd id="profileOrganization">Not provided yet</dd></div></dl></section>
     <section class="detail-section"><h3>Responsibilities</h3><div class="responsibility" id="profileResponsibility"></div></section>
     <section class="detail-section"><h3>Reporting path</h3><div id="managerArea"></div></section>
     <div class="contact-box"><strong>Who to contact</strong><p id="contactHint">Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask.</p></div>
   </aside>
 
+  <script src="assets/location-time.js"></script>
   <script>
     const people = {
-      saleema: { name: "Saleema Syed", initials: "SS", photo: "assets/headshots/saleema-syed.jpg", title: "VP, GTM & Growth Marketing", type: "FTE", team: "IIoT leadership", responsibility: "Leadership across GTM and Growth Marketing, including collaboration, networking, infrastructure, and IIoT.", manager: null, contact: "For broad IIoT Revenue Marketing direction, start here." },
-      kendys: { name: "Kendys Carrizo", initials: "KC", photo: "assets/headshots/kendys-carrizo.jpg", title: "Executive Assistant", type: "FTE", team: "Leadership support", responsibility: "Executive assistance for the leadership team.", manager: "saleema", contact: "For executive scheduling and coordination, start here." },
-      savannah: { name: "Savannah Ober", initials: "SO", photo: "assets/headshots/savannah-ober.jpg", title: "Chief of Staff", type: "FTE", team: "Leadership support", responsibility: "Chief of Staff support for the leadership team.", manager: "saleema", contact: "For leadership coordination and team operating questions, start here." },
-      olivia: { name: "Olivia Vickers", initials: "OV", photo: "assets/headshots/olivia-vickers.jpg", title: "Revenue Marketing Leader, IIoT", type: "FTE", team: "Revenue Marketing", responsibility: "Leads the Revenue Marketing organization across events, SEO/AEO, social/creative/brand, and email campaigns/ABM/SalesConnect.", manager: "saleema", contact: "For a Revenue Marketing question, start with Olivia or the focus-area owner below." },
-      christina: { name: "Christina Gonzalez", initials: "CG", title: "Event Marketing", type: "Contractor", team: "Digital & Physical Events", responsibility: "Digital and physical events marketing.", manager: "olivia" },
-      jennifer: { name: "Jennifer McHugh", initials: "JM", title: "Customer Marketing", type: "FTE", team: "SEO / AEO", responsibility: "Customer marketing within the SEO/AEO focus area, as listed in the source chart.", manager: "olivia" },
-      savanna: { name: "Savanna Simmank", initials: "SS", title: "Brand Marketing", type: "FTE", team: "Social, Creative, Brand", responsibility: "Brand marketing within the Social, Creative, and Brand focus area.", manager: "olivia" },
-      tory: { name: "Tory Elliot", initials: "TE", title: "Lifecycle Marketing", type: "FTE", team: "Email Campaigns, ABM, SalesConnect", responsibility: "Lifecycle marketing across email campaigns, ABM, and SalesConnect.", manager: "olivia" },
-      sunil: { name: "Sunilkumar Nejakar", initials: "SN", title: "Digital Marketing Manager", type: "Contractor", team: "Email Campaigns, ABM, SalesConnect", responsibility: "Digital marketing management; the source chart places this role with the email campaigns / ABM / SalesConnect group.", manager: "tory" },
-      bridget: { name: "Bridget Wald", initials: "BW", title: "Digital Marketing Manager", type: "Contractor", team: "Email Campaigns, ABM, SalesConnect", responsibility: "Digital marketing management; the source chart places this role with the email campaigns / ABM / SalesConnect group.", manager: "tory" }
+      saleema: { name: "Saleema Syed", initials: "SS", photo: "assets/headshots/saleema-syed.jpg", title: "VP, GTM & Growth Marketing", type: "FTE", team: "IIoT leadership", responsibility: "Leadership across GTM and Growth Marketing, including collaboration, networking, infrastructure, and IIoT.", manager: null, contact: "For broad IIoT Revenue Marketing direction, start here." , organization: "Collaboration Mktg Admin - US", location: "Allen, Texas, United States of America", webexContact: "saleemas@cisco.com"},
+      kendys: { name: "Kendys Carrizo", initials: "KC", photo: "assets/headshots/kendys-carrizo.jpg", title: "Executive Assistant", type: "FTE", team: "Leadership support", responsibility: "Executive assistance for the leadership team.", manager: "saleema", contact: "For executive scheduling and coordination, start here." , location: "Richardson, Texas; United States Of America", organization: "Collaboration Mktg Admin - US", webexContact: "kcarrizo@cisco.com"},
+      savannah: { name: "Savannah Ober", initials: "SO", photo: "assets/headshots/savannah-ober.jpg", title: "Chief of Staff", type: "FTE", team: "Leadership support", responsibility: "Chief of Staff support for the leadership team.", manager: "saleema", contact: "For leadership coordination and team operating questions, start here." , location: "Houston, Texas; United States Of America", organization: "Collaboration Mktg Admin - US", webexContact: "sobermaw@cisco.com"},
+      olivia: { name: "Olivia Vickers", initials: "OV", photo: "assets/headshots/olivia-vickers.jpg", title: "Revenue Marketing Leader, IIoT", type: "FTE", team: "Revenue Marketing", responsibility: "Leads the Revenue Marketing organization across events, SEO/AEO, social/creative/brand, and email campaigns/ABM/SalesConnect.", manager: "saleema", contact: "For a Revenue Marketing question, start with Olivia or the focus-area owner below." , location: "Spring, Texas; United States Of America", organization: "IIoT Marketing -- US", webexContact: "olvicker@cisco.com"},
+      christina: { name: "Christina Gonzalez", initials: "CG", title: "Event Marketing", type: "Contractor", team: "Digital & Physical Events", responsibility: "Digital and physical events marketing.", manager: "olivia" , location: "SJ-01, San Jose, CA; United States Of America", organization: "IIoT Marketing -- US", webexContact: "chgonza2@cisco.com"},
+      jennifer: { name: "Jennifer McHugh", initials: "JM", photo: "assets/headshots/jennifer-mchugh.jpeg", title: "Customer Marketing", type: "FTE", team: "SEO / AEO", responsibility: "Customer marketing within the SEO/AEO focus area, as listed in the source chart.", manager: "olivia" , location: "Denver, Colorado; United States Of America", organization: "IIoT Marketing -- US", webexContact: "jebills@cisco.com"},
+      savanna: { name: "Savanna Simmank", initials: "SS", photo: "assets/headshots/savanna-simmank.jpeg", title: "Brand Marketing", type: "FTE", team: "Social, Creative, Brand", responsibility: "Brand marketing within the Social, Creative, and Brand focus area.", manager: "olivia" , location: "Denver, Colorado; United States Of America", organization: "IIoT Marketing -- US", webexContact: "ssimmank@cisco.com"},
+      tory: { name: "Tory Elliot", initials: "TE", photo: "assets/headshots/tory-elliott.jpeg", title: "Lifecycle Marketing", type: "FTE", team: "Email Campaigns, ABM, SalesConnect", responsibility: "Lifecycle marketing across email campaigns, ABM, and SalesConnect.", manager: "olivia" , location: "Tampa, Florida; United States Of America", organization: "IIoT Marketing -- US", webexContact: "torellio@cisco.com"},
+      sunil: { name: "Sunilkumar Nejakar", initials: "SN", photo: "assets/headshots/sunilkumar-nejakar.jpeg", title: "Digital Marketing Manager", type: "Contractor", team: "Email Campaigns, ABM, SalesConnect", responsibility: "Digital marketing management; the source chart places this role with the email campaigns / ABM / SalesConnect group.", manager: "tory" , location: "BANGALORE 12, Bangalore, KA; India", organization: "Digital Marketing-MOPs IN 123", webexContact: "snejakar@cisco.com"},
+      bridget: { name: "Bridget Wald", initials: "BW", photo: "assets/headshots/bridget-wald.jpeg", title: "Digital Marketing Manager", type: "Contractor", team: "Email Campaigns, ABM, SalesConnect", responsibility: "Digital marketing management; the source chart places this role with the email campaigns / ABM / SalesConnect group.", manager: "tory" , location: "Salt Lake City, Utah; United States Of America", organization: "Demand Marketing Admin - US", webexContact: "brwald@cisco.com"}
     };
     const buttons = [...document.querySelectorAll("[data-person]")];
     const search = document.getElementById("search");
@@ -707,6 +705,11 @@
       const p = people[id];
       return `<button class="manager-link" type="button" data-open-manager="${id}" aria-label="Open ${p.name} profile"><span class="manager-avatar">${p.photo ? `<img src="${p.photo}" alt="">` : p.initials}</span><span class="manager-copy"><span class="manager-name">${p.name}</span><span class="manager-role">${p.title}</span></span>${svgArrow}</button>`;
     }
+    function setProfileDetail(id, value) {
+      const field = document.getElementById(id);
+      field.textContent = value || "Not provided yet";
+      field.classList.toggle("is-missing", !value);
+    }
     function openProfile(id, sourceButton) {
       const person = people[id];
       if (!person) return;
@@ -718,7 +721,12 @@
       document.getElementById("profileName").textContent = person.name;
       document.getElementById("profileTitle").textContent = person.title;
       document.getElementById("profileResponsibility").textContent = person.responsibility;
-      document.getElementById("profileBadges").innerHTML = `<span class="profile-badge ${person.type === "Contractor" ? "contractor" : ""}">${person.type}</span><span class="profile-badge">${person.team}</span>`;
+      setProfileDetail("profileLocation", person.location);
+      setProfileDetail("profileLocalTime", window.resolveProfileLocalTime(person.location, person.timeZone));
+      setProfileDetail("profileWebexContact", person.webexContact);
+      setProfileDetail("profileOrganization", person.organization);
+      const statusClass = person.type === "Contractor" ? "contractor" : person.type === "Maternity Leave" ? "leave" : "";
+      document.getElementById("profileBadges").innerHTML = person.type ? `<span class="profile-badge ${statusClass}">${person.type}</span>` : "";
       const managerArea = document.getElementById("managerArea");
       if (person.manager) {
         const manager = people[person.manager];
