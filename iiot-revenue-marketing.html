@@ -674,7 +674,6 @@
     <section class="detail-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd id="profileLocation">Not provided yet</dd></div><div><dt>Local time</dt><dd id="profileLocalTime">Not provided yet</dd></div><div><dt>Webex contact</dt><dd id="profileWebexContact">Not provided yet</dd></div><div><dt>Organization</dt><dd id="profileOrganization">Not provided yet</dd></div></dl></section>
     <section class="detail-section"><h3>Responsibilities</h3><div class="responsibility" id="profileResponsibility"></div></section>
     <section class="detail-section"><h3>Reporting path</h3><div id="managerArea"></div></section>
-    <div class="contact-box"><strong>Who to contact</strong><p id="contactHint">Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask.</p></div>
   </aside>
 
   <script src="assets/location-time.js"></script>
@@ -729,12 +728,10 @@
       document.getElementById("profileBadges").innerHTML = person.type ? `<span class="profile-badge ${statusClass}">${person.type}</span>` : "";
       const managerArea = document.getElementById("managerArea");
       if (person.manager) {
-        const manager = people[person.manager];
-        managerArea.innerHTML = `<p style="margin:0 0 8px;color:#71849d;font-size:10px">Reports to</p>${makeManagerLink(person.manager)}`;
+        managerArea.innerHTML = makeManagerLink(person.manager);
       } else {
         managerArea.innerHTML = '<p style="margin:0;color:#a2b0c2;font-size:12px;line-height:1.5">Top-level role in this team chart.</p>';
       }
-      document.getElementById("contactHint").textContent = person.contact || "Contact details aren’t included in this sample. Use the reporting path above to find the next person to ask.";
       panel.classList.add("open");
       scrim.classList.add("open");
       panel.setAttribute("aria-hidden", "false");
