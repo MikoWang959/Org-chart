@@ -12,10 +12,10 @@
     <aside class="directory-panel" id="directoryPanel" role="dialog" aria-modal="true" aria-labelledby="directoryName" aria-hidden="true">
       <div class="directory-top"><p class="directory-kicker">People directory</p><button class="directory-close" type="button" aria-label="Close profile"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
       <div class="directory-profile"><div class="directory-avatar"></div><h2 class="directory-name" id="directoryName"></h2><p class="directory-title"></p><div class="directory-badges"></div></div>
+      <section class="directory-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd class="directory-location"></dd></div><div><dt>Local time</dt><dd class="directory-local-time"></dd></div><div><dt>Webex contact</dt><dd class="directory-webex-contact"></dd></div><div><dt>Organization</dt><dd class="directory-organization"></dd></div></dl></section>
       <section class="directory-section"><h3>Responsibilities</h3><p class="directory-copy directory-responsibility"></p></section>
       <section class="directory-section"><h3>Team placement</h3><p class="directory-copy directory-team"></p></section>
       <section class="directory-section"><h3>Reporting path</h3><div class="directory-reporting"></div></section>
-      <p class="directory-bottom">Contact details aren’t included in this team map. Use the reporting path above to find the right person to ask.</p>
     </aside>`;
   document.body.insertAdjacentHTML('beforeend', directoryMarkup);
   const panel = document.querySelector('#directoryPanel');
@@ -36,7 +36,18 @@
     const focusBanner = document.querySelector('.focus-banner');
     const team = support ? 'Leadership support' : heading?.textContent.trim() || focusBanner?.textContent.trim() || document.querySelector('h1')?.textContent.trim() || 'Marketing';
     const manager = getManager(card);
-    return { name, title, role, avatar, photo, team, manager };
+    const location = card.dataset.location || '';
+    const timeZone = card.dataset.timeZone || '';
+    const webexContact = card.dataset.webexContact || '';
+    const organization = card.dataset.organization || '';
+    return { name, title, role, avatar, photo, team, manager, location, timeZone, webexContact, organization };
+  }
+
+  function setProfileDetail(selector, value) {
+    const field = panel.querySelector(selector);
+    const text = value || 'Not provided yet';
+    field.textContent = text;
+    field.classList.toggle('is-missing', !value);
   }
 
   function lastPersonIn(node) {
@@ -128,6 +139,10 @@
     } else directoryAvatar.textContent = person.avatar;
     panel.querySelector('.directory-name').textContent = person.name;
     panel.querySelector('.directory-title').textContent = person.title;
+    setProfileDetail('.directory-location', person.location);
+    setProfileDetail('.directory-local-time', window.resolveProfileLocalTime(person.location, person.timeZone));
+    setProfileDetail('.directory-webex-contact', person.webexContact);
+    setProfileDetail('.directory-organization', person.organization);
     panel.querySelector('.directory-responsibility').textContent = person.title || 'Responsibilities are not listed in this team map.';
     panel.querySelector('.directory-team').textContent = person.team;
     const badges = panel.querySelector('.directory-badges');

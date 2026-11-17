@@ -51,14 +51,18 @@ body {
 .group-title,
 .team-heading {
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .role,
 .role-pill {
   max-width: 100%;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .group-content,
@@ -67,6 +71,75 @@ body {
 .support-group,
 .reporting-branch {
   gap: 12px !important;
+}
+
+.page > .footer,
+.shell > .footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  width: auto;
+  margin: 26px 0 0;
+  padding: 14px 0 0;
+  border: 0;
+  border-top: 1px solid #dfdcd6;
+  border-radius: 0;
+  color: #828b98;
+  font-size: 10pt;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  background: transparent;
+  box-shadow: none;
+}
+
+.page > .footer a,
+.shell > .footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page > .footer a:hover,
+.shell > .footer a:hover {
+  text-decoration: underline;
+}
+
+.profile-details {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.profile-details > div {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, .95);
+  border-radius: 11px;
+  background: #f7f5f0;
+  box-shadow: 4px 4px 10px rgba(208, 204, 197, .4), -4px -4px 10px rgba(255, 255, 255, .88);
+}
+
+.profile-details dt {
+  color: #828b98;
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.profile-details dd {
+  min-width: 0;
+  margin: 0;
+  color: #3d495c;
+  font-size: 11pt;
+  font-weight: 400;
+  line-height: 1.4;
+  overflow-wrap: break-word;
 }
 
 @media (max-width: 1120px) {
@@ -97,6 +170,252 @@ main.shell {
   padding: 42px clamp(20px, 4vw, 64px) 58px;
 }
 
+/* Carry the team-title banner treatment across pages with the same hierarchy. */
+.page .focus-banner,
+#app .focus-banner {
+  background: linear-gradient(90deg, var(--blue-soft, #e8effc), #f7f4ef 78%);
+}
+
+/* Apply the same color treatment to focus-area headings without a side stripe. */
+.page h3.group-title,
+#app .team-heading {
+  background: linear-gradient(90deg, var(--blue-soft, #e8effc), #f7f4ef 72%);
+}
+
+/* EMEA's reporting label uses the same full-width T1 banner as the other pages. */
+.page .leader-section > .reporting-link {
+  width: 100%;
+  height: auto;
+  justify-content: stretch;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.page .leader-section > .reporting-link > span {
+  display: flex;
+  width: 100%;
+  min-height: 82px;
+  align-items: center;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, .98);
+  border-radius: 16px;
+  color: #303b4d;
+  background: linear-gradient(90deg, var(--blue-soft, #e8effc), #f7f4ef 78%);
+  box-shadow: 4px 4px 10px rgba(209, 205, 198, .56), -4px -4px 10px rgba(255, 255, 255, .96);
+  font-size: 13pt;
+  font-weight: 680;
+  letter-spacing: normal;
+}
+
+/* Keep each T2 heading and its C4 people inside one focus-area card. */
+#app .teams-grid > .team-column {
+  min-height: 0;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, .96);
+  border-radius: 16px;
+  background: rgba(247, 244, 239, .78);
+  box-shadow: 5px 5px 12px rgba(209, 205, 198, .42), -5px -5px 12px #fffdfa;
+}
+
+#app .teams-grid > .team-column > .team-heading {
+  min-height: 48px;
+  height: auto;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, .98);
+  border-radius: 11px;
+  color: #303b4d;
+  background: linear-gradient(90deg, var(--blue-soft, #e8effc), #f7f4ef 72%);
+  box-shadow: 4px 4px 10px rgba(209, 205, 198, .56), -4px -4px 10px rgba(255, 255, 255, .96);
+}
+
+#app .teams-grid > .team-column > .team-people {
+  gap: 9px;
+}
+
+/* C4: compact standard person cards, with status color kept on the left edge. */
+#app .teams-grid .team-column .person-node {
+  min-height: 74px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+#app .teams-grid .team-column .node-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+  padding: 0;
+}
+
+#app .teams-grid .team-column .node-name {
+  font-size: 12pt !important;
+  line-height: 1.15;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+#app .teams-grid .team-column .node-title {
+  margin-top: 4px;
+  font-size: 10.5pt !important;
+  line-height: 1.25;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+#app .teams-grid .team-column .role-pill {
+  position: static;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 4px 8px;
+  font-size: 9pt !important;
+  line-height: 1.1;
+}
+
+@media (max-width: 560px) {
+  .page .leader-section > .reporting-link > span {
+    min-height: 68px;
+    padding: 10px 14px;
+  }
+
+  #app .teams-grid > .team-column {
+    padding: 10px;
+  }
+}
+
+/* Keep focus-area section labels consistent, including the interactive chart pages. */
+.page .section-label {
+  margin: 0 0 11px 3px;
+  padding: 0;
+}
+
+#app .teams-titlebar {
+  margin: 27px 0 12px 3px;
+  padding: 0;
+  justify-content: flex-start;
+}
+
+.page .section-label,
+#app .teams-titlebar h2:not(svg):not(path) {
+  color: #4a5566;
+  font-size: 11pt !important;
+  font-weight: 750;
+  letter-spacing: .12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Align each C1 and C2 leadership pair on the same full-width row. */
+.executive-row,
+.product-page .product-vp-row,
+#app .vp-row {
+  width: min(100%, 1000px);
+  max-width: 1000px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .74fr);
+  gap: 24px;
+  margin: 0 auto 20px;
+}
+
+.executive-row .executive-support,
+.product-page .product-support,
+#app .vp-row .support-group {
+  min-height: 100%;
+  align-self: stretch;
+  justify-content: center;
+  padding-left: 20px;
+  border-left: 1px solid #d4d1cb;
+}
+
+#app .vp-row .support-label {
+  font-size: 9pt !important;
+}
+
+.executive-row .executive-card,
+.product-page .product-vp-card,
+#app .vp-row > .vp-card {
+  min-height: 104px;
+  border: 1px solid rgba(255, 255, 255, .98);
+  border-left: 3px solid var(--blue, #1559d6);
+  border-radius: 16px;
+  background: #f8f6f2;
+  box-shadow: 6px 6px 14px #dedad3, -6px -6px 14px #fffdfa;
+}
+
+/* EMEA and IIoT use this link for the same Back control as the standard pages. */
+.back-button {
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 255, 255, .96);
+  border-radius: 10px;
+  color: #1559d6;
+  background: #f6f3ee;
+  box-shadow: 3px 3px 8px rgba(203, 199, 192, .4), -3px -3px 8px #fffdfa;
+  font-size: 12pt;
+  font-weight: 620;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background: #fbfaf7;
+  border-color: #c8d6f0;
+}
+
+/* Status colors stay distinct across cards, badges, and legends. */
+.legend-mark.sow { background: #7650b8; }
+.person-card.sow,
+:is(.executive-card, .person-card, .person-node).sow,
+:is(.executive-card, .person-card, .person-node):has(.role.sow, .role-pill.sow),
+.lead-panel:has(> .lead-person .role.sow, > .lead-person .role-pill.sow) {
+  border-left-color: #7650b8;
+}
+:is(.role, .role-pill, .directory-badge).sow {
+  color: #6841a8;
+  border-color: #d9c9ed;
+  background: #f0eafa;
+}
+.role.contractor { text-transform: uppercase; }
+.role-pill.contractor { font-weight: 600; text-transform: uppercase; }
+#app .role-pill.contractor { font-weight: 600 !important; text-transform: uppercase; }
+#app .person-node.sow .role-pill { color: #6841a8; background: #f0eafa; }
+
+@media (max-width: 900px) {
+  .executive-row,
+  .product-page .product-vp-row,
+  #app .vp-row {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, .78fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  .executive-row,
+  .product-page .product-vp-row,
+  #app .vp-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .executive-row .executive-support,
+  .product-page .product-support,
+  #app .vp-row .support-group {
+    padding: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  #app .teams-titlebar { margin: 22px 0 12px 3px; }
+}
+
+/* Use the EMEA FTE badge weight consistently for every employment status. */
+:is(.role, .role-pill, .directory-badge) {
+  font-weight: 700 !important;
+}
+#app .role-pill.contractor { font-weight: 700 !important; }
+
 @media (max-width: 900px) {
   main.page,
   main.shell {
@@ -116,4 +435,543 @@ main.shell {
   main.shell {
     padding: 25px 16px 36px;
   }
+}
+
+/* C1–C4: keep the card stripe and status badge on the same status palette. */
+:is(.executive-card, .person-card, .person-node).contractor,
+:is(.executive-card, .person-card, .person-node):has(.role.contractor, .role-pill.contractor),
+.lead-panel:has(> .lead-person .role.contractor, > .lead-person .role-pill.contractor) {
+  border-left-color: #c86c18;
+}
+:is(.executive-card, .person-card, .person-node).sow,
+:is(.executive-card, .person-card, .person-node):has(.role.sow, .role-pill.sow),
+.lead-panel:has(> .lead-person .role.sow, > .lead-person .role-pill.sow) {
+  border-left-color: #7650b8;
+}
+:is(.executive-card, .person-card, .person-node).open,
+:is(.executive-card, .person-card, .person-node):has(.role.open, .role-pill.open),
+.lead-panel:has(> .lead-person .role.open, > .lead-person .role-pill.open) {
+  border-left-color: #a2a9b3;
+}
+:is(.executive-card, .person-card, .person-node).leave,
+:is(.executive-card, .person-card, .person-node):has(.role.leave, .role-pill.leave),
+.lead-panel:has(> .lead-person .role.leave, > .lead-person .role-pill.leave) {
+  border-left-color: #d63384;
+}
+
+:is(.role, .role-pill).contractor { color: #a95e19; background: #f7eadb; }
+:is(.role, .role-pill).sow { color: #6841a8; border-color: #d9c9ed; background: #f0eafa; }
+:is(.role, .role-pill).open { color: #626c79; background: #eceef1; }
+:is(.role, .role-pill).leave { color: #ae2868; background: #fde7f1; }
+
+:is(.executive-card, .person-card, .person-node).contractor:hover,
+:is(.executive-card, .person-card, .person-node).contractor:focus-visible,
+:is(.executive-card, .person-card, .person-node):has(.role.contractor, .role-pill.contractor):hover,
+:is(.executive-card, .person-card, .person-node):has(.role.contractor, .role-pill.contractor):focus-visible,
+.lead-panel:has(> .lead-person .role.contractor, > .lead-person .role-pill.contractor):hover,
+.lead-panel:has(> .lead-person .role.contractor, > .lead-person .role-pill.contractor):focus-visible { border-left-color: #c86c18; }
+:is(.executive-card, .person-card, .person-node).sow:hover,
+:is(.executive-card, .person-card, .person-node).sow:focus-visible,
+:is(.executive-card, .person-card, .person-node):has(.role.sow, .role-pill.sow):hover,
+:is(.executive-card, .person-card, .person-node):has(.role.sow, .role-pill.sow):focus-visible,
+.lead-panel:has(> .lead-person .role.sow, > .lead-person .role-pill.sow):hover,
+.lead-panel:has(> .lead-person .role.sow, > .lead-person .role-pill.sow):focus-visible { border-left-color: #7650b8; }
+:is(.executive-card, .person-card, .person-node).open:hover,
+:is(.executive-card, .person-card, .person-node).open:focus-visible,
+:is(.executive-card, .person-card, .person-node):has(.role.open, .role-pill.open):hover,
+:is(.executive-card, .person-card, .person-node):has(.role.open, .role-pill.open):focus-visible,
+.lead-panel:has(> .lead-person .role.open, > .lead-person .role-pill.open):hover,
+.lead-panel:has(> .lead-person .role.open, > .lead-person .role-pill.open):focus-visible { border-left-color: #a2a9b3; }
+:is(.executive-card, .person-card, .person-node).leave:hover,
+:is(.executive-card, .person-card, .person-node).leave:focus-visible,
+:is(.executive-card, .person-card, .person-node):has(.role.leave, .role-pill.leave):hover,
+:is(.executive-card, .person-card, .person-node):has(.role.leave, .role-pill.leave):focus-visible,
+.lead-panel:has(> .lead-person .role.leave, > .lead-person .role-pill.leave):hover,
+.lead-panel:has(> .lead-person .role.leave, > .lead-person .role-pill.leave):focus-visible { border-left-color: #d63384; }
+
+/* EMEA C1–C4 person-card scale and hierarchy. */
+#app .vp-row > .person-node.primary.vp-card {
+  min-height: 112px;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 70px 18px 18px;
+}
+
+#app .vp-row > .person-node.primary.vp-card > .avatar {
+  width: 66px;
+  height: 66px;
+  flex: 0 0 66px;
+}
+
+#app .vp-row > .person-node.primary.vp-card > .node-copy,
+#app .leader-section > .person-node.primary.leader-card > .node-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+#app .vp-row > .person-node.primary.vp-card .node-name {
+  color: #202938;
+  font-size: 14pt !important;
+  line-height: 1.16;
+  letter-spacing: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#app .vp-row > .person-node.primary.vp-card .node-title {
+  margin: 0;
+  color: #717c8c;
+  font-size: 12pt !important;
+  line-height: 1.25;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#app .vp-row .support-group > .person-node {
+  min-height: 68px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 38px 9px 10px;
+}
+
+#app .vp-row .support-group > .person-node > .avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+}
+
+#app .vp-row .support-group > .person-node > .node-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+#app .vp-row .support-group > .person-node .node-name {
+  color: #202938;
+  font-size: 11pt !important;
+  line-height: 1.16;
+  letter-spacing: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#app .vp-row .support-group > .person-node .node-title {
+  margin: 0;
+  color: #717c8c;
+  font-size: 10pt !important;
+  line-height: 1.2;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#app .leader-section > .person-node.primary.leader-card {
+  min-height: 96px;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 42px 14px 16px;
+}
+
+#app .leader-section > .person-node.primary.leader-card > .avatar {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+}
+
+#app .leader-section > .person-node.primary.leader-card .node-name {
+  color: #202938;
+  font-size: 16pt !important;
+  line-height: 1.16;
+  letter-spacing: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#app .leader-section > .person-node.primary.leader-card .node-title {
+  margin: 0;
+  color: #717c8c;
+  font-size: 12pt !important;
+  line-height: 1.25;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#app .vp-row .person-node .role-pill,
+#app .leader-section > .person-node .role-pill {
+  position: static;
+  display: inline-flex;
+  width: fit-content;
+  margin: 3px 0 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #1559d6;
+  background: #e5edfc;
+  font-size: 9pt !important;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: .01em;
+  white-space: normal;
+}
+
+#app .person-node.contractor .role-pill { color: #a95e19; background: #f7eadb; }
+#app .person-node.leave .role-pill { color: #ae2868; background: #fde7f1; }
+#app .person-node.sow .role-pill { color: #6841a8; background: #f0eafa; }
+#app .person-node.open .role-pill { color: #626c79; background: #eceef1; }
+
+#app .teams-grid .team-column .person-node > .avatar {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+}
+
+#app .person-node .node-name,
+#app .person-node .node-title {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+@media (max-width: 560px) {
+  #app .vp-row > .person-node.primary.vp-card { padding: 14px 42px 14px 14px; }
+  #app .vp-row > .person-node.primary.vp-card > .avatar { width: 58px; height: 58px; flex-basis: 58px; }
+  #app .vp-row .support-group > .person-node { padding: 10px 34px 10px 10px; }
+  #app .leader-section > .person-node.primary.leader-card { padding: 14px 34px 14px 14px; }
+}
+
+/* Shared C1–C4 scale: identical photo and type proportions on every team page. */
+.tier-c1,
+.tier-c2,
+.tier-c3,
+.tier-c4 {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.tier-c1 .avatar,
+.tier-c1 > .avatar {
+  width: 66px !important;
+  height: 66px !important;
+  flex: 0 0 66px !important;
+}
+
+.tier-c1 .name,
+.tier-c1 .node-name {
+  font-size: 14pt !important;
+  line-height: 1.16;
+}
+
+.tier-c1 .title,
+.tier-c1 .node-title {
+  font-size: 12pt !important;
+  line-height: 1.25;
+}
+
+.tier-c2 .avatar,
+.tier-c2 > .avatar {
+  width: 42px !important;
+  height: 42px !important;
+  flex: 0 0 42px !important;
+}
+
+.tier-c2 .name,
+.tier-c2 .node-name {
+  font-size: 11pt !important;
+  line-height: 1.16;
+}
+
+.tier-c2 .title,
+.tier-c2 .node-title {
+  font-size: 10pt !important;
+  line-height: 1.2;
+}
+
+.tier-c3 .avatar,
+.tier-c3 > .avatar {
+  width: 58px !important;
+  height: 58px !important;
+  flex: 0 0 58px !important;
+}
+
+.tier-c3 .name,
+.tier-c3 .node-name {
+  font-size: 16pt !important;
+  line-height: 1.16;
+}
+
+.tier-c3 .title,
+.tier-c3 .node-title {
+  font-size: 12pt !important;
+  line-height: 1.25;
+}
+
+.tier-c4 .avatar,
+.tier-c4 > .avatar {
+  width: 54px !important;
+  height: 54px !important;
+  flex: 0 0 54px !important;
+}
+
+.tier-c4 .name,
+.tier-c4 .node-name {
+  font-size: 12pt !important;
+  line-height: 1.15;
+}
+
+.tier-c4 .title,
+.tier-c4 .node-title {
+  font-size: 10.5pt !important;
+  line-height: 1.25;
+}
+
+.tier-c1 .name,
+.tier-c2 .name,
+.tier-c3 .name,
+.tier-c4 .name,
+.tier-c1 .node-name,
+.tier-c2 .node-name,
+.tier-c3 .node-name,
+.tier-c4 .node-name,
+.tier-c1 .title,
+.tier-c2 .title,
+.tier-c3 .title,
+.tier-c4 .title,
+.tier-c1 .node-title,
+.tier-c2 .node-title,
+.tier-c3 .node-title,
+.tier-c4 .node-title {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.tier-c1 .role,
+.tier-c2 .role,
+.tier-c3 .role,
+.tier-c4 .role,
+.tier-c1 .role-pill,
+.tier-c2 .role-pill,
+.tier-c3 .role-pill,
+.tier-c4 .role-pill {
+  position: static !important;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 6px;
+  font-size: 9pt !important;
+  line-height: 1.1;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* The EMEA employment legend keeps each status label together. */
+#app .header-meta .legend {
+  display: flex;
+  flex: 0 0 auto;
+  width: max-content;
+  min-width: max-content;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px 12px;
+  white-space: nowrap;
+}
+
+#app .header-meta .legend .legend-item {
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
+}
+
+/* T3: the compact neutral subgroup-heading treatment used below T2. */
+.collab-grid .subgroup-label.tier-t3 {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, .98);
+  border-radius: 11px;
+  color: #303b4d;
+  background: #f7f4ef;
+  box-shadow: 4px 4px 10px rgba(209, 205, 198, .56), -4px -4px 10px rgba(255, 255, 255, .96);
+  font-size: 12pt;
+  font-weight: 680;
+  letter-spacing: normal;
+  line-height: 1.2;
+  text-transform: none;
+}
+
+/* C4 status badges follow one shared size and uppercase treatment. */
+.page :is(.role, .role-pill, .directory-badge),
+#app .person-node :is(.role, .role-pill):not(svg):not(path),
+#app .directory-badge {
+  font-size: 9pt !important;
+  text-transform: uppercase !important;
+}
+
+/* T1 labels share one type scale and sit vertically centered in their banners. */
+.page .focus-banner,
+#app .leader-section > .focus-banner,
+.page .leader-section > .reporting-link > span,
+#app .leader-section > .reporting-link > span {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  min-height: 82px;
+  margin: 0 0 12px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, .98);
+  border-radius: 16px;
+  color: #303b4d;
+  background: linear-gradient(90deg, var(--blue-soft, #e8effc), #f7f4ef 78%);
+  box-shadow: 4px 4px 10px rgba(209, 205, 198, .56), -4px -4px 10px rgba(255, 255, 255, .96);
+  font-size: 13pt !important;
+  font-weight: 680;
+  line-height: 1.2;
+}
+
+.page .leader-section > .focus-banner,
+#app .leader-section > .focus-banner {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .page .focus-banner,
+  #app .leader-section > .focus-banner,
+  .page .leader-section > .reporting-link > span,
+  #app .leader-section > .reporting-link > span {
+    min-height: 68px;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+  }
+}
+
+/* Use the APJC Back button treatment on every team map. */
+.back,
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 255, 255, .96);
+  border-radius: 10px;
+  color: #1559d6;
+  background: #f6f3ee;
+  box-shadow: 3px 3px 8px rgba(203, 199, 192, .4), -3px -3px 8px #fffdfa;
+  font-size: 12pt;
+  font-weight: 620;
+  text-decoration: none;
+}
+
+.back svg,
+.back-button svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.back:hover,
+.back-button:hover {
+  background: #fbfaf7;
+  border-color: #c8d6f0;
+}
+
+/* Drawer badges match the employment pills shown on the person cards. */
+.directory-badge {
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 9pt !important;
+  font-weight: 700 !important;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.legend-single-line {
+  flex-wrap: nowrap;
+  gap: 8px;
+  font-size: 10pt;
+  white-space: nowrap;
+}
+.legend-single-line .legend-item { gap: 5px; }
+
+/* EMEA and IIoT use a larger local legend scale; match APJC's 11pt legend. */
+#app .header-meta .legend {
+  gap: 12px;
+  font-size: 11pt !important;
+}
+#app .header-meta .legend-item { gap: 7px; font-size: 11pt !important; }
+
+/* Match EMEA and IIoT person-node hover feedback to shared team-page cards. */
+#app .person-node:hover,
+#app .person-node:focus-visible {
+  z-index: 2;
+  transform: translateY(-2px);
+  border-top-color: rgba(255, 255, 255, .98);
+  border-right-color: rgba(255, 255, 255, .98);
+  border-bottom-color: rgba(255, 255, 255, .98);
+  box-shadow: 7px 8px 15px rgba(186, 181, 172, .55), -4px -4px 10px #fff;
+}
+#app .person-node:hover { outline: none; }
+#app .person-node:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* Keep the EMEA and IIoT legacy directory panels in step with shared panel sizing. */
+#detailPanel {
+  width: min(430px, 100%);
+  padding: 26px;
+}
+#detailPanel .profile-head {
+  margin: 26px 0 22px;
+  padding-bottom: 20px;
+}
+#detailPanel .profile-avatar {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  font-size: 16pt !important;
+}
+#detailPanel .panel-kicker:not(svg):not(path) { font-size: 9pt !important; }
+#detailPanel .profile-name { font-size: 22pt !important; }
+#detailPanel .profile-title:not(svg):not(path) { margin-top: 7px; font-size: 12pt !important; line-height: 1.4; }
+#detailPanel .profile-badges { gap: 7px; margin-top: 13px; }
+#detailPanel .profile-badge:not(svg):not(path) {
+  padding: 4px 8px;
+  border: 0 !important;
+  border-radius: 999px;
+  font-size: 9pt !important;
+  font-weight: 700 !important;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+#detailPanel .profile-badge.contractor { color: #a95e19; background: #f7eadb; }
+#detailPanel .profile-badge.leave { color: #ae2868; background: #fde7f1; }
+#detailPanel .detail-section { margin-bottom: 20px; }
+#detailPanel .detail-section h3 { margin-bottom: 9px; font-size: 9pt !important; }
+#detailPanel .profile-details dt { font-size: 9pt !important; }
+#detailPanel .profile-details dd { font-size: 11pt !important; }
+#detailPanel .responsibility:not(svg):not(path),
+#detailPanel .manager-link:not(svg):not(path) { font-size: 11pt !important; }
+#detailPanel .manager-name { font-size: 13pt !important; }
+#detailPanel .manager-role:not(svg):not(path),
+#detailPanel .contact-box p:not(svg):not(path) { font-size: 10pt !important; }
+#detailPanel .contact-box strong:not(svg):not(path) { font-size: 10pt !important; }
+@media (max-width: 720px) {
+  #detailPanel { padding: 21px; }
+  #detailPanel .profile-head { margin-top: 20px; }
 }
