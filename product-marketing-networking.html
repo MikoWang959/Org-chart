@@ -7,8 +7,9 @@
   <title>Product Marketing Networking — Team Map</title>
   <link rel="stylesheet" href="assets/team-maps.css">
   <style>
-    .domain-grid { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(230px,.7fr); align-items:start; gap:16px; }
+    .domain-grid { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); align-items:start; gap:16px; }
     .domain { min-width:0; padding:12px; border:1px solid rgba(255,255,255,.96); border-radius:16px; background:rgba(247,244,239,.78); box-shadow:5px 5px 12px rgba(209,205,198,.42),-5px -5px 12px #fffdfa; }
+    .domain:first-child { grid-column:1 / -1; }
     .domain > .group-title { justify-content:flex-start; min-height:48px; margin-bottom:10px; text-align:left; }
     .domain-lead { margin-bottom:10px; }
     .specialty-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:10px; }
@@ -19,7 +20,6 @@
     .specialty .avatar { width:36px; height:36px; font-size:10pt; }
     .specialty .person-card .name { font-size:10.5pt; }
     .specialty .person-card .title { font-size:9.5pt; }
-    .specialty .person-card .role { margin-top:5px; font-size:8pt; }
     .reporting-branch { display:flex; flex-direction:column; gap:8px; margin:0 0 0 12px; padding-left:10px; border-left:1px solid #c9c6c0; }
     .reporting-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .specialty-iiot { grid-column:1 / -1; }
@@ -34,7 +34,7 @@
     @media(max-width:1120px) {
       .product-vp-row { max-width:740px; grid-template-columns:minmax(0,1fr) minmax(265px,.8fr); gap:20px; }
       .domain-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .domain:first-child { grid-row:span 2; }
+      .domain:first-child { grid-column:1 / -1; grid-row:auto; }
       .support-card { width:230px; }
     }
     @media(max-width:700px) {
@@ -42,7 +42,7 @@
       .product-support { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:0; border:0; }
       .product-support-label { grid-column:1 / -1; }
       .domain-grid { grid-template-columns:minmax(0,1fr); }
-      .domain:first-child { grid-row:auto; }
+      .domain:first-child { grid-column:auto; grid-row:auto; }
       .specialty-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .support-card { width:100%; }
     }
@@ -55,7 +55,7 @@
       .domain { padding:10px; }
     }
     @media(max-width:1280px) {
-      .product-page .domain-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+      .product-page .domain-grid { grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) !important; }
       .product-page .domain:first-child { grid-column:1 / -1; grid-row:auto !important; }
     }
     @media(max-width:700px) {
@@ -149,21 +149,15 @@
       <div class="specialty-grid">
         <section class="specialty"><h4 class="group-title">Networking Platforms</h4><div class="group-content">
           <article class="person-card tier-c4" data-location="Seattle, Washington; United States Of America" data-webex-contact="mkung@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/miriam-kung.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Miriam Kung</strong><span class="title">Networking Platforms</span><span class="role">FTE</span></span></article>
-          <div class="reporting-branch">
-          <article class="person-card tier-c4" data-location="Milpitas, California; United States Of America" data-webex-contact="morajase@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/monisha-alfaro.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Monisha Alfaro</strong><span class="title">Licensing &amp; Workflows</span><span class="role">FTE</span></span></article>
-          </div>
+          <div class="reporting-branch"><article class="person-card tier-c4" data-location="Milpitas, California; United States Of America" data-webex-contact="morajase@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/monisha-alfaro.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Monisha Alfaro</strong><span class="title">Licensing &amp; Workflows</span><span class="role">FTE</span></span></article></div>
         </div></section>
         <section class="specialty"><h4 class="group-title">API and Marketplace</h4><div class="group-content">
           <article class="person-card tier-c4" data-location="Appleton, Wisconsin; United States Of America" data-webex-contact="anennig@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/ana-nennig.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Ana Nennig</strong><span class="title">Marketplace, Dev &amp; API</span><span class="role">FTE</span></span></article>
-          <div class="reporting-branch">
-          <article class="person-card contractor tier-c4" data-location="Seattle, Washington, United States Of America" data-webex-contact="alexanki@cisco.com" data-organization="Product BD, Strategy &amp; Platforms - US"><span class="avatar"><img src="assets/headshots/alex-kim.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Alex Kim</strong><span class="title">PMM, API</span><span class="role contractor">Contractor</span></span></article>
-          </div>
+          <div class="reporting-branch"><article class="person-card contractor tier-c4" data-location="Seattle, Washington, United States Of America" data-webex-contact="alexanki@cisco.com" data-organization="Product BD, Strategy &amp; Platforms - US"><span class="avatar"><img src="assets/headshots/alex-kim.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Alex Kim</strong><span class="title">PMM, API</span><span class="role contractor">Contractor</span></span></article></div>
         </div></section>
         <section class="specialty"><h4 class="group-title">Assurance</h4><div class="group-content">
           <article class="person-card tier-c4" data-location="ATLANTA 11, 18th floor, Atlanta, GA; United States Of America" data-webex-contact="dpuzas@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/david-puzas.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">David Puzas</strong><span class="title">ThousandEyes &amp; Assurance</span><span class="role">FTE</span></span></article>
-          <div class="reporting-branch">
-          <article class="person-card tier-c4" data-location="BOSTON 2, 17th Floor, Boston, MA, United States Of America" data-webex-contact="jzarkowe@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/jonathan-zarkower.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Jonathan Zarkower</strong><span class="title">Employee Digital Experience &amp; Competitive Intelligence</span><span class="role">FTE</span></span></article>
-          </div>
+          <div class="reporting-branch"><article class="person-card tier-c4" data-location="BOSTON 2, 17th Floor, Boston, MA, United States Of America" data-webex-contact="jzarkowe@cisco.com" data-organization="WTG Product Marketing - US"><span class="avatar"><img src="assets/headshots/jonathan-zarkower.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Jonathan Zarkower</strong><span class="title">Employee Digital Experience &amp; Competitive Intelligence</span><span class="role">FTE</span></span></article></div>
         </div></section>
       </div>
     </section>
