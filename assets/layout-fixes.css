@@ -535,7 +535,7 @@ main.shell {
   min-height: 68px;
   align-items: center;
   gap: 10px;
-  padding: 9px 38px 9px 10px;
+  padding: 9px 14px 9px 10px;
 }
 
 #app .vp-row .support-group > .person-node > .avatar {
@@ -575,7 +575,7 @@ main.shell {
   min-height: 96px;
   align-items: center;
   gap: 14px;
-  padding: 14px 42px 14px 16px;
+  padding: 14px 14px 14px 16px;
 }
 
 #app .leader-section > .person-node.primary.leader-card > .avatar {
@@ -643,9 +643,12 @@ main.shell {
 @media (max-width: 560px) {
   #app .vp-row > .person-node.primary.vp-card { padding: 14px 42px 14px 14px; }
   #app .vp-row > .person-node.primary.vp-card > .avatar { width: 58px; height: 58px; flex-basis: 58px; }
-  #app .vp-row .support-group > .person-node { padding: 10px 34px 10px 10px; }
-  #app .leader-section > .person-node.primary.leader-card { padding: 14px 34px 14px 14px; }
+  #app .vp-row .support-group > .person-node { padding: 10px 14px 10px 10px; }
+  #app .leader-section > .person-node.primary.leader-card { padding: 14px 14px 14px 14px; }
 }
+
+/* Single-leader panels should use the full row so their arrow sits at the card edge. */
+.lead-panel:has(> .lead-person:only-child) { grid-template-columns: minmax(0, 1fr); }
 
 /* Shared C1–C4 scale: identical photo and type proportions on every team page. */
 .tier-c1,
