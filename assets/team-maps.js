@@ -160,11 +160,22 @@
       const link = document.createElement('button');
       link.className = 'directory-manager';
       link.type = 'button';
+      const managerAvatar = document.createElement('span');
+      managerAvatar.className = 'directory-manager-avatar';
+      if (manager.photo) {
+        const portrait = document.createElement('img');
+        portrait.src = manager.photo;
+        portrait.alt = '';
+        managerAvatar.append(portrait);
+      } else managerAvatar.textContent = manager.avatar;
+      const managerCopy = document.createElement('span');
+      managerCopy.className = 'directory-manager-copy';
       const managerName = document.createElement('strong');
       managerName.textContent = manager.name;
       const managerTitle = document.createElement('span');
       managerTitle.textContent = manager.title;
-      link.append(managerName, managerTitle);
+      managerCopy.append(managerName, managerTitle);
+      link.append(managerAvatar, managerCopy);
       link.addEventListener('click', () => openDirectory(person.manager));
       reporting.append(link);
     } else {

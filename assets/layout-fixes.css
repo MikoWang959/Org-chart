@@ -902,7 +902,7 @@ main.shell {
 .legend-single-line {
   flex-wrap: nowrap;
   gap: 8px;
-  font-size: 10pt;
+  font-size: 11pt;
   white-space: nowrap;
 }
 .legend-single-line .legend-item { gap: 5px; }

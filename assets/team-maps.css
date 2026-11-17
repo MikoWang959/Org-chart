@@ -41,10 +41,13 @@
 .directory-section{margin-bottom:20px}
 .directory-section h3{margin:0 0 9px;color:#828b98;font-size:9pt;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
 .directory-copy{margin:0;padding:12px 13px;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:#3d495c;background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);font-size:11pt;line-height:1.45}
-.directory-manager{display:block;width:100%;padding:12px 13px;text-align:left;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:var(--ink);background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);cursor:pointer}
+.directory-manager{display:flex;width:100%;min-width:0;align-items:center;gap:12px;padding:12px 13px;text-align:left;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:var(--ink);background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);cursor:pointer}
 .directory-manager:hover{border-color:#c8d8f2;background:#f9f8f4}
-.directory-manager strong,.directory-manager span{display:block}
-.directory-manager span{margin-top:3px;color:var(--muted);font-size:10pt}
+.directory-manager-avatar{display:grid;width:42px;height:42px;flex:0 0 42px;place-items:center;overflow:hidden;border-radius:50%;color:#fff;background:linear-gradient(145deg,#78b4f8,#1559d6 75%);font-size:10pt;font-weight:750}
+.directory-manager-avatar img{display:block;width:100%;height:100%;border-radius:inherit;object-fit:cover;object-position:center top;filter:grayscale(1)}
+.directory-manager-copy{display:block;min-width:0;flex:1}
+.directory-manager-copy strong,.directory-manager-copy span{display:block}
+.directory-manager-copy span{margin-top:3px;color:var(--muted);font-size:10pt}
 .directory-panel .directory-bottom{margin-top:auto;padding-top:14px;color:var(--muted);font-size:10pt;line-height:1.45}
 .person-card,.lead-person,.executive-card{cursor:pointer}
 .person-card:focus-visible,.lead-person:focus-visible,.executive-card:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
