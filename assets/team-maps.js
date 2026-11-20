@@ -34,13 +34,20 @@
     const heading = section?.querySelector('.group-title, .team-heading, h3, h4');
     const support = card.closest('.executive-support, .product-support');
     const focusBanner = document.querySelector('.focus-banner');
-    const team = support ? 'Leadership support' : heading?.textContent.trim() || focusBanner?.textContent.trim() || document.querySelector('h1')?.textContent.trim() || 'Marketing';
+    const team = card.dataset.teamPlacement || (support ? 'Leadership support' : heading?.textContent.trim() || focusBanner?.textContent.trim() || document.querySelector('h1')?.textContent.trim() || 'Marketing');
     const manager = getManager(card);
     const location = card.dataset.location || '';
     const timeZone = card.dataset.timeZone || '';
     const webexContact = card.dataset.webexContact || '';
     const organization = card.dataset.organization || '';
-    return { name, title, role, avatar, photo, team, manager, location, timeZone, webexContact, organization };
+    const responsibility = card.dataset.responsibility || title || 'Responsibilities are not listed in this team map.';
+    const reporting = card.dataset.reportingName ? {
+      name: card.dataset.reportingName,
+      title: card.dataset.reportingTitle || '',
+      photo: card.dataset.reportingPhoto || '',
+      avatar: card.dataset.reportingAvatar || card.dataset.reportingName.split(/\s+/).map(part => part[0]).join('').slice(0, 2).toUpperCase()
+    } : null;
+    return { name, title, role, avatar, photo, team, manager, location, timeZone, webexContact, organization, responsibility, reporting };
   }
 
   function setProfileDetail(selector, value) {
@@ -143,7 +150,7 @@
     setProfileDetail('.directory-local-time', window.resolveProfileLocalTime(person.location, person.timeZone));
     setProfileDetail('.directory-webex-contact', person.webexContact);
     setProfileDetail('.directory-organization', person.organization);
-    panel.querySelector('.directory-responsibility').textContent = person.title || 'Responsibilities are not listed in this team map.';
+    panel.querySelector('.directory-responsibility').textContent = person.responsibility;
     panel.querySelector('.directory-team').textContent = person.team;
     const badges = panel.querySelector('.directory-badges');
     badges.replaceChildren();
@@ -178,6 +185,27 @@
       link.append(managerAvatar, managerCopy);
       link.addEventListener('click', () => openDirectory(person.manager));
       reporting.append(link);
+    } else if (person.reporting) {
+      const manager = person.reporting;
+      const managerCard = document.createElement('div');
+      managerCard.className = 'directory-manager';
+      const managerAvatar = document.createElement('span');
+      managerAvatar.className = 'directory-manager-avatar';
+      if (manager.photo) {
+        const portrait = document.createElement('img');
+        portrait.src = manager.photo;
+        portrait.alt = '';
+        managerAvatar.append(portrait);
+      } else managerAvatar.textContent = manager.avatar;
+      const managerCopy = document.createElement('span');
+      managerCopy.className = 'directory-manager-copy';
+      const managerName = document.createElement('strong');
+      managerName.textContent = manager.name;
+      const managerTitle = document.createElement('span');
+      managerTitle.textContent = manager.title;
+      managerCopy.append(managerName, managerTitle);
+      managerCard.append(managerAvatar, managerCopy);
+      reporting.append(managerCard);
     } else {
       const note = document.createElement('p');
       note.className = 'directory-copy';

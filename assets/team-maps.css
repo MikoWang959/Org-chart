@@ -43,7 +43,7 @@
 .directory-copy{margin:0;padding:12px 13px;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:#3d495c;background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);font-size:11pt;line-height:1.45}
 .directory-manager{display:flex;width:100%;min-width:0;align-items:center;gap:12px;padding:12px 13px;text-align:left;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:var(--ink);background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);cursor:pointer}
 .directory-manager:hover{border-color:#c8d8f2;background:#f9f8f4}
-.directory-manager-avatar{display:grid;width:42px;height:42px;flex:0 0 42px;place-items:center;overflow:hidden;border-radius:50%;color:#fff;background:linear-gradient(145deg,#78b4f8,#1559d6 75%);font-size:10pt;font-weight:750}
+.directory-manager-avatar{display:grid;width:42px;height:42px;flex:0 0 42px;place-items:center;overflow:hidden;border:0;border-radius:50%;color:#fff;background:#f8f6f2;box-shadow:none;font-size:10pt;font-weight:750}
 .directory-manager-avatar img{display:block;width:100%;height:100%;border-radius:inherit;object-fit:cover;object-position:center top;filter:grayscale(1)}
 .directory-manager-copy{display:block;min-width:0;flex:1}
 .directory-manager-copy strong,.directory-manager-copy span{display:block}
