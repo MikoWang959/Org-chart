@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f2efe9">
+  <title>Office of Saleema — Team Map</title>
+  <link rel="stylesheet" href="assets/team-maps.css">
+  <link rel="stylesheet" href="assets/layout-fixes.css">
+  <style>
+    .executive-row.solo-executive { grid-template-columns:minmax(0,620px); justify-content:center; }
+    @media(max-width:640px) { .executive-row.solo-executive { grid-template-columns:minmax(0,1fr); } }
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="topbar">
+    <div>
+      <a class="back" href="index.html" aria-label="Back to Marketing City home"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Marketing City</a>
+      <h1>Office of Saleema</h1>
+      <p class="subtitle">Office leadership, communications, creative strategy, and employee engagement.</p>
+    </div>
+    <div class="header-meta">
+      <div class="count" data-people-count></div>
+      <div class="legend"><span class="legend-item"><i class="legend-mark"></i>FTE</span><span class="legend-item"><i class="legend-mark contractor"></i>Contractor</span></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <label class="search-wrap"><svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="search" type="text" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility"><button class="clear" type="button" aria-label="Clear search">×</button></label>
+    <button class="reset" type="button">Reset view</button>
+  </div>
+
+  <section class="executive-row solo-executive" aria-label="Office leadership">
+    <article class="executive-card tier-c1" data-location="Houston, Texas; United States Of America" data-webex-contact="sobermaw@cisco.com" data-organization="Collaboration Mktg Admin - US" data-team-placement="Leadership support" data-responsibility="Chief of Staff" data-reporting-name="Saleema Syed" data-reporting-title="VP, GTM &amp; Growth Marketing · Collab · Networking · Infra · IIoT" data-reporting-photo="assets/headshots/saleema-syed.jpg"><span class="avatar"><img src="assets/headshots/savannah-ober.jpg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Savannah Ober</strong><span class="title">Chief of Staff</span><span class="role">FTE</span></span></article>
+  </section>
+
+  <h2 class="section-label">Focus Areas</h2>
+  <div class="group-grid">
+    <section class="group"><h3 class="group-title">Communications</h3><div class="group-content">
+      <article class="person-card contractor tier-c3" data-manager="Savannah Ober" data-location="SJ-21, Milpitas, CA, United States Of America" data-webex-contact="kirwhite@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar"><img src="assets/headshots/kirsten-white.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Kirsten White</strong><span class="title">Communications lead</span><span class="role contractor">Contractor</span></span></article>
+    </div></section>
+    <section class="group"><h3 class="group-title">Creative strategy &amp; experience</h3><div class="group-content">
+      <article class="person-card contractor tier-c3" data-manager="Savannah Ober" data-location="SJ-21, Milpitas, CA, United States Of America" data-webex-contact="liyinwan@cisco.com" data-organization="WTG Networking Marketing Admin- US"><span class="avatar"><img src="assets/headshots/miko-wang.jpeg" alt="" loading="lazy"></span><span class="copy"><strong class="name">Miko Wang</strong><span class="title">Creative strategy &amp; experience lead</span><span class="role contractor">Contractor</span></span></article>
+    </div></section>
+    <section class="group"><h3 class="group-title">Employee Engagement &amp; Culture</h3><div class="group-content">
+      <article class="person-card contractor tier-c3" data-manager="Savannah Ober" data-location="PLANO - DALLAS PKWY, Plano, TX, United States Of America" data-webex-contact="eliprinc@cisco.com" data-organization="Collaboration Mktg Admin - US"><span class="avatar">EP</span><span class="copy"><strong class="name">Elizabeth Prince</strong><span class="title">Employee engagement &amp; culture program lead (shared resource)</span><span class="role contractor">Contractor</span></span></article>
+    </div></section>
+  </div>
+
+  <p class="empty-state">No people match that search.</p>
+  <footer class="footer">Team map · <a href="index.html">Return to Marketing City</a></footer>
+</main>
+<script src="assets/location-time.js"></script>
+<script src="assets/team-maps.js"></script>
+</body>
+</html>
