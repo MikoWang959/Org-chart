@@ -75,3 +75,6 @@
 /* C2: compact leadership support cards keep a clear profile affordance. */
 .person-card::after,.lead-person::after,.executive-card::after{content:"›";flex:0 0 auto;margin-left:auto;color:#8a929d;font-size:18px;line-height:1;transition:color .16s,transform .16s}
 .person-card:hover::after,.lead-person:hover::after,.executive-card:hover::after{color:var(--blue);transform:translateX(2px)}
+.leadership-focus-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.leadership-focus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.leadership-focus-grid{grid-template-columns:minmax(0,1fr)}}
