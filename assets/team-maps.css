@@ -41,6 +41,13 @@
 .directory-section{margin-bottom:20px}
 .directory-section h3{margin:0 0 9px;color:#828b98;font-size:9pt;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
 .directory-copy{margin:0;padding:12px 13px;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:#3d495c;background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);font-size:11pt;line-height:1.45}
+.directory-copy.directory-responsibility,.directory-copy.directory-team{display:flex;align-items:flex-start;gap:10px}
+.directory-copy.directory-responsibility::before,.directory-copy.directory-team::before{content:"";width:6px;height:6px;flex:0 0 6px;margin-top:.48em;border-radius:50%;background:#1559d6}
+.profile-details dd.webex-contact{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.webex-contact-value{min-width:0;overflow-wrap:anywhere}
+.webex-copy{flex:0 0 auto;padding:5px 9px;border:1px solid #d5e0f5;border-radius:8px;color:#1559d6;background:#e9effb;font-size:9pt;font-weight:650;cursor:pointer}
+.webex-copy:hover,.webex-copy:focus-visible{border-color:#9cb8ee;background:#dfe9fc}
+.webex-copy[hidden]{display:none}
 .directory-manager{display:flex;width:100%;min-width:0;align-items:center;gap:12px;padding:12px 13px;text-align:left;border:1px solid rgba(255,255,255,.95);border-radius:11px;color:var(--ink);background:#f7f5f0;box-shadow:4px 4px 10px rgba(208,204,197,.5),-4px -4px 10px rgba(255,255,255,.94);cursor:pointer}
 .directory-manager:hover{border-color:#c8d8f2;background:#f9f8f4}
 .directory-manager-avatar{display:grid;width:42px;height:42px;flex:0 0 42px;place-items:center;overflow:hidden;border:0;border-radius:50%;color:#fff;background:#f8f6f2;box-shadow:none;font-size:10pt;font-weight:750}
@@ -50,6 +57,9 @@
 .directory-manager-copy span{margin-top:3px;color:var(--muted);font-size:10pt}
 .directory-panel .directory-bottom{margin-top:auto;padding-top:14px;color:var(--muted);font-size:10pt;line-height:1.45}
 .person-card,.lead-person,.executive-card{cursor:pointer}
+.leader-subpage-link{display:inline-flex;align-items:center;gap:6px;align-self:flex-end;padding:3px 4px;color:var(--blue);font-size:9.5pt;font-weight:650;text-decoration:none}
+.leader-subpage-link:hover{text-decoration:underline}
+.leader-subpage-link:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
 .person-card:focus-visible,.lead-person:focus-visible,.executive-card:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .avatar{overflow:hidden}
 .avatar:has(> img){background:transparent}

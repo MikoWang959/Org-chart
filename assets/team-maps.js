@@ -12,9 +12,9 @@
     <aside class="directory-panel" id="directoryPanel" role="dialog" aria-modal="true" aria-labelledby="directoryName" aria-hidden="true">
       <div class="directory-top"><p class="directory-kicker">People directory</p><button class="directory-close" type="button" aria-label="Close profile"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
       <div class="directory-profile"><div class="directory-avatar"></div><h2 class="directory-name" id="directoryName"></h2><p class="directory-title"></p><div class="directory-badges"></div></div>
-      <section class="directory-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd class="directory-location"></dd></div><div><dt>Local time</dt><dd class="directory-local-time"></dd></div><div><dt>Webex contact</dt><dd class="directory-webex-contact"></dd></div><div><dt>Organization</dt><dd class="directory-organization"></dd></div></dl></section>
+      <section class="directory-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd class="directory-location"></dd></div><div><dt>Local time</dt><dd class="directory-local-time"></dd></div><div><dt>Webex contact</dt><dd class="webex-contact"><span class="directory-webex-contact webex-contact-value"></span><button class="webex-copy" type="button" aria-label="Copy Webex contact">Copy</button></dd></div><div><dt>Organization</dt><dd class="directory-organization"></dd></div></dl></section>
       <section class="directory-section"><h3>Responsibilities</h3><p class="directory-copy directory-responsibility"></p></section>
-      <section class="directory-section"><h3>Team placement</h3><p class="directory-copy directory-team"></p></section>
+      <section class="directory-section"><h3>Ask me about</h3><p class="directory-copy directory-team"></p></section>
       <section class="directory-section"><h3>Reporting path</h3><div class="directory-reporting"></div></section>
     </aside>`;
   document.body.insertAdjacentHTML('beforeend', directoryMarkup);
@@ -55,6 +55,31 @@
     const text = value || 'Not provided yet';
     field.textContent = text;
     field.classList.toggle('is-missing', !value);
+  }
+
+  async function copyWebexContact(button) {
+    const contact = button.closest('.webex-contact')?.querySelector('.webex-contact-value')?.textContent.trim();
+    if (!contact || contact === 'Not provided yet') return;
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(contact);
+      else {
+        const temporary = document.createElement('textarea');
+        temporary.value = contact;
+        temporary.setAttribute('readonly', '');
+        temporary.style.position = 'fixed';
+        temporary.style.opacity = '0';
+        document.body.append(temporary);
+        temporary.select();
+        const copied = document.execCommand('copy');
+        temporary.remove();
+        if (!copied) throw new Error('Clipboard copy failed');
+      }
+      button.textContent = 'Copied';
+      window.setTimeout(() => { button.textContent = 'Copy'; }, 1400);
+    } catch {
+      button.textContent = 'Select to copy';
+      window.setTimeout(() => { button.textContent = 'Copy'; }, 1800);
+    }
   }
 
   function lastPersonIn(node) {
@@ -149,6 +174,7 @@
     setProfileDetail('.directory-location', person.location);
     setProfileDetail('.directory-local-time', window.resolveProfileLocalTime(person.location, person.timeZone));
     setProfileDetail('.directory-webex-contact', person.webexContact);
+    panel.querySelector('.webex-copy').hidden = !person.webexContact;
     setProfileDetail('.directory-organization', person.organization);
     panel.querySelector('.directory-responsibility').textContent = person.responsibility;
     panel.querySelector('.directory-team').textContent = person.team;
@@ -243,6 +269,10 @@
     });
   });
   closeButton.addEventListener('click', closeDirectory);
+  panel.addEventListener('click', event => {
+    const button = event.target.closest('.webex-copy');
+    if (button) copyWebexContact(button);
+  });
   scrim.addEventListener('click', closeDirectory);
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && panel.classList.contains('open')) closeDirectory();
