@@ -298,7 +298,7 @@
     };
     cards.forEach(card => card.classList.toggle('hidden-by-search', Boolean(query) && !contextualText(card).includes(query)));
 
-    const wrappers = [...document.querySelectorAll('.executive-support, .executive-row, .product-support, .support-group, .group, .subgroup, .division, .specialty, .domain, .team-column, .teams-grid, .specialty-grid, .domain-grid, .group-content, .reporting-branch')];
+    const wrappers = [...document.querySelectorAll('.lead-panel, .executive-support, .executive-row, .product-support, .support-group, .group, .subgroup, .division, .specialty, .domain, .team-column, .teams-grid, .specialty-grid, .domain-grid, .group-content, .reporting-branch')];
     wrappers.sort((a, b) => {
       const depth = element => { let value = 0; while (element) { value++; element = element.parentElement; } return value; };
       return depth(b) - depth(a);
@@ -307,6 +307,9 @@
       wrapper.classList.toggle('hidden-by-search', Boolean(query) && !visible);
     });
     const anyVisible = cards.some(card => !card.classList.contains('hidden-by-search'));
+    document.querySelectorAll('.focus-banner').forEach(banner => {
+      banner.classList.toggle('hidden-by-search', Boolean(query) && !anyVisible);
+    });
     document.querySelector('.empty-state').style.display = anyVisible ? 'none' : 'block';
   }
 
