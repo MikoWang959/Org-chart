@@ -540,7 +540,23 @@
       #app .support-group .person-node { padding: 14px; }
       #app .person-node.primary { padding: 14px; }
     }
-    .team-column .person-node.indented { width: calc(100% - 24px); align-self: flex-end; }
+    .team-column .person-node.indented {
+      width: calc(100% - 24px);
+      align-self: flex-end;
+      overflow: visible;
+    }
+    .team-column .person-node.indented::before {
+      position: absolute;
+      z-index: 0;
+      content: "";
+      pointer-events: none;
+    }
+    .team-column .person-node.indented::before {
+      top: -8px;
+      bottom: -8px;
+      left: -13px;
+      border-left: 1px solid #c9c6c0;
+    }
     .legend-mark.leave { background: #d63384; }
     .person-node.leave { border-left-color: #d63384; }
     .person-node.leave:hover, .person-node.leave:focus-visible { border-left-color: #d63384; }
@@ -578,6 +594,7 @@
         <input id="search" type="text" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility">
         <button class="clear-search" type="button" aria-label="Clear search" title="Clear search">×</button>
       </label>
+      <div class="site-search-results" id="siteSearchResults" role="listbox" aria-label="People and focus area matches" hidden></div>
       <p class="sr-only" id="searchStatus" aria-live="polite">Select a person to open their profile</p>
       <button class="reset-button" type="button" id="resetView" title="Clear search and selection">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7v5h5M5.2 12a7 7 0 1 0 2-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -663,8 +680,9 @@
       <p class="profile-title" id="profileTitle"></p>
       <div class="profile-badges" id="profileBadges"></div>
     </div>
-    <section class="detail-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd id="profileLocation">Not provided yet</dd></div><div><dt>Local time</dt><dd id="profileLocalTime">Not provided yet</dd></div><div><dt>Webex contact</dt><dd id="profileWebexContact">Not provided yet</dd></div><div><dt>Organization</dt><dd id="profileOrganization">Not provided yet</dd></div></dl></section>
+    <section class="detail-section"><h3>Information</h3><dl class="profile-details"><div><dt>Location</dt><dd id="profileLocation">Not provided yet</dd></div><div><dt>Local time</dt><dd id="profileLocalTime">Not provided yet</dd></div><div><dt>Webex contact</dt><dd class="webex-contact"><span class="webex-contact-value" id="profileWebexContact">Not provided yet</span><button class="webex-copy" type="button" aria-label="Copy Webex contact">Copy</button></dd></div><div><dt>Organization</dt><dd id="profileOrganization">Not provided yet</dd></div></dl></section>
     <section class="detail-section"><h3>Responsibilities</h3><div class="responsibility" id="profileResponsibility"></div></section>
+    <section class="detail-section"><h3>Ask me about</h3><div class="responsibility" id="profileTeam">Not provided yet</div></section>
     <section class="detail-section"><h3>Reporting path</h3><div id="managerArea"></div></section>
   </aside>
 
@@ -709,6 +727,30 @@
       field.textContent = value || "Not provided yet";
       field.classList.toggle("is-missing", !value);
     }
+    async function copyWebexContact(button) {
+      const contact = document.getElementById("profileWebexContact").textContent.trim();
+      if (!contact || contact === "Not provided yet") return;
+      try {
+        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(contact);
+        else {
+          const temporary = document.createElement("textarea");
+          temporary.value = contact;
+          temporary.setAttribute("readonly", "");
+          temporary.style.position = "fixed";
+          temporary.style.opacity = "0";
+          document.body.append(temporary);
+          temporary.select();
+          const copied = document.execCommand("copy");
+          temporary.remove();
+          if (!copied) throw new Error("Clipboard copy failed");
+        }
+        button.textContent = "Copied";
+        window.setTimeout(() => { button.textContent = "Copy"; }, 1400);
+      } catch {
+        button.textContent = "Select to copy";
+        window.setTimeout(() => { button.textContent = "Copy"; }, 1800);
+      }
+    }
     function openProfile(id, sourceButton) {
       const person = people[id];
       if (!person) return;
@@ -720,9 +762,11 @@
       document.getElementById("profileName").textContent = person.name;
       document.getElementById("profileTitle").textContent = person.title;
       document.getElementById("profileResponsibility").textContent = person.responsibility;
+      setProfileDetail("profileTeam", person.team);
       setProfileDetail("profileLocation", person.location);
       setProfileDetail("profileLocalTime", window.resolveProfileLocalTime(person.location, person.timeZone));
       setProfileDetail("profileWebexContact", person.webexContact);
+      panel.querySelector(".webex-copy").hidden = !person.webexContact;
       setProfileDetail("profileOrganization", person.organization);
       const statusClass = person.type === "Contractor" ? "contractor" : person.type === "Maternity Leave" ? "leave" : "";
       const statusBadge = person.type ? `<span class="profile-badge ${statusClass}">${person.type}</span>` : "";
@@ -780,6 +824,10 @@
       status.textContent = !q ? "Select a person to open their profile" : count ? `${count} ${count === 1 ? "match" : "matches"} in the chart` : "No matches found";
     }
     buttons.forEach(button => button.addEventListener("click", () => openProfile(button.dataset.person, button)));
+    panel.addEventListener("click", event => {
+      const copyButton = event.target.closest(".webex-copy");
+      if (copyButton) copyWebexContact(copyButton);
+    });
     document.getElementById("closePanel").addEventListener("click", closeProfile);
     scrim.addEventListener("click", closeProfile);
     panel.addEventListener("click", event => {
@@ -817,5 +865,8 @@
       }
     });
   </script>
+<script src="assets/people-directory.js"></script>
+<script src="assets/site-search.js"></script>
+<script src="assets/page-tools.js"></script>
 </body>
 </html>

@@ -15,9 +15,57 @@
     .collab-grid .group-content { gap:11px; }
     .collab-grid .subgroup { display:flex; flex-direction:column; gap:10px; }
     .collab-grid .subgroup-label { margin:0 0 1px; }
+    .collab-grid > .group[aria-labelledby="customer-training"],
+    .collab-grid > .group[aria-labelledby="solutions-marketing"] { grid-column:1 / -1; }
+    .collab-grid > .group[aria-labelledby="customer-training"] > .group-content,
+    .collab-grid > .group[aria-labelledby="solutions-marketing"] > .group-content {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      align-items:start;
+      gap:14px;
+    }
+    .collab-grid > .group[aria-labelledby="customer-training"] > .group-content > .person-card,
+    .collab-grid > .group[aria-labelledby="solutions-marketing"] > .group-content > .person-card { grid-column:1 / -1; }
+    .collab-grid > .group[aria-labelledby="customer-training"] > .group-content > .subgroup,
+    .collab-grid > .group[aria-labelledby="solutions-marketing"] > .group-content > .subgroup {
+      min-width:0;
+      margin:0;
+      padding:12px;
+      border:1px solid rgba(255,255,255,.96);
+      border-radius:12px;
+      background:rgba(247,244,239,.72);
+    }
+    .collab-grid > .group[aria-labelledby="employee-experience"] > .group-content {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      align-items:start;
+      gap:14px;
+    }
+    .collab-grid > .group[aria-labelledby="employee-experience"] { grid-column:span 2; }
+    .collab-grid > .group[aria-labelledby="employee-experience"] > .group-content > .person-card { grid-column:1 / -1; }
+    .collab-grid > .group[aria-labelledby="employee-experience"] > .group-content > .subgroup {
+      margin:0;
+      padding:0;
+      border-left:0;
+    }
     .lead-panel.executive-row { margin-bottom:20px; }
-    @media(max-width:1180px) { .collab-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-    @media(max-width:640px) { .collab-grid { grid-template-columns:minmax(0,1fr); } }
+    @media(max-width:1180px) {
+      .collab-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media(max-width:900px) {
+      .collab-grid > .group[aria-labelledby="customer-training"] > .group-content,
+      .collab-grid > .group[aria-labelledby="solutions-marketing"] > .group-content { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media(max-width:640px) {
+      .collab-grid { grid-template-columns:minmax(0,1fr); }
+      .collab-grid > .group[aria-labelledby="employee-experience"] { grid-column:auto; }
+      .collab-grid > .group[aria-labelledby="employee-experience"] > .group-content { grid-template-columns:minmax(0,1fr); }
+      .collab-grid > .group[aria-labelledby="employee-experience"] > .group-content > .person-card { grid-column:auto; }
+      .collab-grid > .group[aria-labelledby="customer-training"] > .group-content,
+      .collab-grid > .group[aria-labelledby="solutions-marketing"] > .group-content { grid-template-columns:minmax(0,1fr); }
+      .collab-grid > .group[aria-labelledby="customer-training"] > .group-content > .person-card,
+      .collab-grid > .group[aria-labelledby="solutions-marketing"] > .group-content > .person-card { grid-column:auto; }
+    }
   </style>
 </head>
 <body>
@@ -41,6 +89,7 @@
 
   <div class="toolbar">
     <label class="search-wrap"><svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="search" type="text" placeholder="Search a person, team, or responsibility" autocomplete="off" aria-label="Search a person, team, or responsibility"><button class="clear" type="button" aria-label="Clear search">×</button></label>
+      <div class="site-search-results" id="siteSearchResults" role="listbox" aria-label="People and focus area matches" hidden></div>
     <button class="reset" type="button">Reset view</button>
   </div>
 
@@ -156,5 +205,8 @@
 </main>
 <script src="assets/location-time.js"></script>
 <script src="assets/team-maps.js"></script>
+<script src="assets/people-directory.js"></script>
+<script src="assets/site-search.js"></script>
+<script src="assets/page-tools.js"></script>
 </body>
 </html>

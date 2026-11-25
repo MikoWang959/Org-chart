@@ -243,23 +243,34 @@
       const rawQuery = citySearch.value.trim();
       const query = normalize(rawQuery);
       citySearchWrap.classList.toggle("has-value", Boolean(rawQuery));
-      currentMatches = query ? people.filter(person => normalize(`${person.name} ${person.title} ${person.areas.join(" ")}`).includes(query)) : [];
-      const areaMatches = query ? signs
+      const canSearch = Boolean(query);
+      const rank = person => {
+        const name = normalize(person.name);
+        const title = normalize(person.title || "");
+        const areas = person.areas.map(normalize);
+        if (name === query) return 0;
+        if (name.startsWith(query)) return 1;
+        if (name.split(" ").some(word => word.startsWith(query))) return 2;
+        if (name.includes(query)) return 3;
+        if (title.startsWith(query)) return 4;
+        if (title.split(/[^a-z0-9]+/).some(word => word.startsWith(query))) return 5;
+        if (title.includes(query)) return 6;
+        if (areas.some(area => area === query)) return 7;
+        if (areas.some(area => area.startsWith(query))) return 8;
+        return 9;
+      };
+      currentMatches = canSearch ? people.filter(person => normalize(`${person.name} ${person.title} ${person.areas.join(" ")}`).includes(query)) : [];
+      currentMatches.sort((a, b) => rank(a) - rank(b) || normalize(a.name).localeCompare(normalize(b.name)));
+      const areaMatches = canSearch ? signs
         .filter(sign => normalize(sign.querySelector(".district-name")?.textContent || "").includes(query))
         .map(sign => ({ name: sign.querySelector(".district-name")?.textContent.trim() || "Focus area", title: "", areas: [], href: sign.getAttribute("href"), kind: "area" })) : [];
-      currentMatches.sort((a, b) => {
-        const an = normalize(a.name), bn = normalize(b.name);
-        const ar = an === query ? 0 : an.startsWith(query) ? 1 : 2;
-        const br = bn === query ? 0 : bn.startsWith(query) ? 1 : 2;
-        return ar - br || an.localeCompare(bn);
-      });
       const matchingPages = new Set([...currentMatches, ...areaMatches].map(person => person.href));
       signs.forEach(sign => {
-        const areaMatch = query && normalize(sign.querySelector(".district-name")?.textContent || "").includes(query);
-        sign.classList.toggle("search-hidden", Boolean(query) && !matchingPages.has(sign.getAttribute("href")) && !areaMatch);
+        const areaMatch = canSearch && normalize(sign.querySelector(".district-name")?.textContent || "").includes(query);
+        sign.classList.toggle("search-hidden", canSearch && !matchingPages.has(sign.getAttribute("href")) && !areaMatch);
       });
-      if (cityEmptyState) cityEmptyState.style.display = query && !currentMatches.length && !signs.some(sign => !sign.classList.contains("search-hidden")) ? "block" : "none";
-      renderResults([...areaMatches, ...currentMatches], rawQuery);
+      if (cityEmptyState) cityEmptyState.style.display = canSearch && !currentMatches.length && !signs.some(sign => !sign.classList.contains("search-hidden")) ? "block" : "none";
+      renderResults([...currentMatches, ...areaMatches], rawQuery);
     }
 
     citySearch.addEventListener("input", filterDistricts);
